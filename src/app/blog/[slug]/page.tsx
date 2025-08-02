@@ -72,12 +72,13 @@ const relatedPosts = [
 ]
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
   // 実際の実装では、Sanityからデータを取得
-  if (params.slug !== 'nextjs-15-new-features') {
+  if (slug !== 'nextjs-15-new-features') {
     return {
       title: '記事が見つかりません | Mikity',
     }
@@ -104,9 +105,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params
   // 実際の実装では、Sanityからデータを取得
-  if (params.slug !== 'nextjs-15-new-features') {
+  if (slug !== 'nextjs-15-new-features') {
     notFound()
   }
 
