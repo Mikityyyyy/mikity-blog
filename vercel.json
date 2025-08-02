@@ -1,9 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["nrt1"],
   "headers": [
     {
       "source": "/(.*)",
@@ -17,38 +13,10 @@
           "value": "DENY"
         },
         {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         }
       ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/blog/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "gokitora.com"
-        }
-      ],
-      "destination": "https://mikityyyyy.com/blog/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "gokitora.com"
-        }
-      ],
-      "destination": "https://mikityyyyy.com/$1",
-      "permanent": true
     }
   ]
 }
