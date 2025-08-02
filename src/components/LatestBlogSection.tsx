@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 // モックデータ（後でSanityから取得）
 const mockPosts = [

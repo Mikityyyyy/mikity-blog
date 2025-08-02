@@ -5,7 +5,7 @@ export interface BlogPost {
     current: string
   }
   excerpt?: string
-  content: any[]
+  content: unknown[]
   publishedAt: string
   updatedAt?: string
   mainImage?: {
