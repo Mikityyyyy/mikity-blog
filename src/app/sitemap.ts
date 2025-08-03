@@ -1,10 +1,9 @@
 import { MetadataRoute } from 'next'
-import { getPosts } from '@/lib/sanity-queries'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mikityyyyy.com'
   
-  // 静的ページ
+  // 静的ページのみ（Sanity依存を一時的に削除）
   const staticPages = [
     {
       url: baseUrl,
@@ -20,14 +19,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // ブログ記事
-  const posts = await getPosts()
-  const blogPages = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug.current}`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }))
-
-  return [...staticPages, ...blogPages]
+  return staticPages
 }
