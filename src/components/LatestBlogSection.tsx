@@ -1,7 +1,14 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import { BlogPost } from '@/lib/types'
 
-// モックデータ（後でSanityから取得）
-const mockPosts = [
+interface LatestBlogSectionProps {
+  posts: BlogPost[]
+}
+
+export default function LatestBlogSection({ posts }: LatestBlogSectionProps) {
+  // フォールバック用のモックデータ
+  const fallbackPosts = [
   {
     _id: '1',
     title: 'Next.js 15の新機能とパフォーマンス改善について',
@@ -43,7 +50,9 @@ const mockPosts = [
   }
 ]
 
-export default function LatestBlogSection() {
+  // Sanityから取得した記事がない場合はフォールバックを使用
+  const displayPosts = posts && posts.length > 0 ? posts : fallbackPosts
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,28 +66,38 @@ export default function LatestBlogSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {mockPosts.map((post) => (
+          {displayPosts.map((post) => (
             <article
               key={post._id}
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <Link href={`/blog/${post.slug.current}`}>
                 <div className="aspect-video bg-gray-200 relative overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">
-                      {post.mainImage.alt}
-                    </span>
-                  </div>
+                  {post.mainImage?.asset && 'url' in post.mainImage.asset && typeof post.mainImage.asset.url === 'string' ? (
+                    <Image
+                      src={post.mainImage.asset.url}
+                      alt={post.mainImage.alt || post.title}
+                      width={400}
+                      height={225}
+                      className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                      <span className="text-white font-semibold text-lg">
+                        {post.mainImage?.alt || post.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </Link>
 
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    {post.categories[0].title}
+                    {post.categories && post.categories.length > 0 ? post.categories[0].title : 'Tech'}
                   </span>
                   <span className="text-gray-500 text-sm">
-                    {post.readTime}分で読める
+                    {post.readTime || 5}分で読める
                   </span>
                 </div>
 

@@ -12,12 +12,16 @@ export interface BlogPost {
     asset: {
       _ref: string
       _type: 'reference'
+    } | {
+      _id: string
+      url: string
     }
     alt?: string
   }
   categories?: Category[]
   tags?: Tag[]
   author?: Author
+  readTime?: number
   seo?: {
     metaTitle?: string
     metaDescription?: string
