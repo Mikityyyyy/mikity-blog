@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   keywords: ["Mikity", "テクノロジー", "デザイン", "ブログ", "プログラミング"],
   authors: [{ name: "Mikity" }],
   creator: "Mikity",
+  verification: {
+    google: "-GBhaochz-mgf_lL17pASiaD2YNCGkQe4BLM8dmnu3s",
+  },
   openGraph: {
     type: "website",
     locale: "ja_JP",
