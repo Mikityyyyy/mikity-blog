@@ -41,6 +41,17 @@ export async function getPosts(): Promise<BlogPost[]> {
 
 // 特定のスラッグの記事を取得
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  // 入力値検証
+  if (!slug || typeof slug !== 'string' || slug.length > 200) {
+    return null
+  }
+  
+  // スラッグのサニタイズ（英数字、ハイフン、アンダースコアのみ許可）
+  const sanitizedSlug = slug.replace(/[^a-zA-Z0-9\-_]/g, '')
+  if (!sanitizedSlug) {
+    return null
+  }
+  
   const query = `
     *[_type == "post" && slug.current == $slug][0] {
       _id,
@@ -85,7 +96,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     }
   `
   
-  return await client.fetch(query, { slug })
+  return await client.fetch(query, { slug: sanitizedSlug })
 }
 
 // 最新記事を指定数取得
