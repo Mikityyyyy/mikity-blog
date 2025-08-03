@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
-import { GA_TRACKING_ID } from "@/lib/analytics";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
@@ -37,33 +36,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-PEJLDFPW4N'
+
   return (
     <html lang="ja">
-      <head>
-        {GA_TRACKING_ID && (
-          <>
-            <Script
-              strategy="afterInteractive"
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_TRACKING_ID}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
-      </head>
       <body className={`${notoSansJP.variable} font-sans antialiased`}>
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-grow">
