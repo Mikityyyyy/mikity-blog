@@ -12,9 +12,12 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "Mikity - 公式サイト & ブログ",
-  description: "テクノロジーとデザインについて発信するMikityの公式サイト。最新の技術トレンドや実践的なノウハウを共有しています。",
-  keywords: ["Mikity", "テクノロジー", "デザイン", "ブログ", "プログラミング"],
+  title: {
+    default: "Mikity - Creative Designer & Developer",
+    template: "%s | Mikity"
+  },
+  description: "テクノロジーとデザインの交差点で、意味のある体験を創造するクリエイター。楽天モバイル、阪神タイガース、最新ガジェットについて発信。",
+  keywords: ["Mikity", "Creative Designer", "Developer", "楽天モバイル", "阪神タイガース", "テクノロジー", "ガジェット", "モバイル", "UI/UX"],
   authors: [{ name: "Mikity" }],
   creator: "Mikity",
   verification: {
@@ -25,14 +28,14 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: process.env.NEXT_PUBLIC_SITE_URL || "https://mikityyyyy.com",
     siteName: "Mikity",
-    title: "Mikity - 公式サイト & ブログ",
-    description: "テクノロジーとデザインについて発信するMikityの公式サイト。最新の技術トレンドや実践的なノウハウを共有しています。",
+    title: "Mikity - Creative Designer & Developer",
+    description: "テクノロジーとデザインの交差点で、意味のある体験を創造するクリエイター。",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Mikity Blog",
+        alt: "Mikity - Creative Designer & Developer",
       },
     ],
   },
@@ -52,6 +55,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://mikityyyyy.com"
+  }
 };
 
 export default function RootLayout({

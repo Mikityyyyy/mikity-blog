@@ -56,7 +56,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         '@type': 'Person',
         name: data.name,
         url: data.url,
-        jobTitle: 'Blogger',
+        jobTitle: 'Creative Designer & Developer',
         description: data.description,
         sameAs: data.socialLinks,
       }
