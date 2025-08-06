@@ -27,10 +27,30 @@ export const metadata: Metadata = {
     siteName: "Mikity",
     title: "Mikity - 公式サイト & ブログ",
     description: "テクノロジーとデザインについて発信するMikityの公式サイト。最新の技術トレンドや実践的なノウハウを共有しています。",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mikity Blog",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     creator: "@mikity",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

@@ -32,6 +32,22 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com",
+              "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
+              "img-src 'self' data: blob: cdn.sanity.io *.google-analytics.com *.googletagmanager.com",
+              "font-src 'self' fonts.gstatic.com",
+              "connect-src 'self' *.sanity.io *.google-analytics.com *.analytics.google.com *.googletagmanager.com",
+              "frame-src 'none'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "upgrade-insecure-requests"
+            ].join('; '),
+          },
         ],
       },
     ]
