@@ -2,246 +2,155 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'ブログ | Mikity',
-  description: '最新の技術トレンドや実践的なノウハウを発信するMikityのブログです。',
+  title: 'Blog | Mikity',
+  description: '日々の中で感じたことやノウハウを発信しています',
 }
 
-// モックデータ（後でSanityから取得）
+// モックデータ（新カテゴリに合わせて修正）
 const mockPosts = [
   {
     _id: '1',
-    title: 'Next.js 15の新機能とパフォーマンス改善について',
-    slug: { current: 'nextjs-15-new-features' },
-    excerpt: 'Next.js 15がリリースされ、多くの新機能とパフォーマンス改善が導入されました。主要な変更点を詳しく解説します。',
-    publishedAt: '2024-01-15',
-    mainImage: {
-      asset: { _ref: 'mock-image-1' },
-      alt: 'Next.js 15'
-    },
-    categories: [{ title: 'Tech', slug: { current: 'tech' } }],
-    tags: ['Next.js', 'React', 'Performance'],
+    title: '朝の時間を最適化する3つの習慣',
+    slug: { current: 'morning-routine-habit' },
+    excerpt: '静かな朝の時間が、1日の質を決めます。私が実践している朝のルーティンを紹介します。',
+    publishedAt: '2024-03-15',
+    category: { title: 'Routine', slug: { current: 'routine' } },
     readTime: 5
   },
   {
     _id: '2',
-    title: 'TypeScriptを使ったクリーンアーキテクチャの実装',
-    slug: { current: 'typescript-clean-architecture' },
-    excerpt: 'TypeScriptでクリーンアーキテクチャを実装する際のベストプラクティスとパターンについて解説します。',
-    publishedAt: '2024-01-10',
-    mainImage: {
-      asset: { _ref: 'mock-image-2' },
-      alt: 'TypeScript Clean Architecture'
-    },
-    categories: [{ title: 'Architecture', slug: { current: 'architecture' } }],
-    tags: ['TypeScript', 'Architecture', 'Clean Code'],
+    title: 'ハイブリッド・アスリートとしてのトレーニング計画',
+    slug: { current: 'hybrid-athlete-training' },
+    excerpt: 'ランニングと筋力トレーニングを両立させるための、週間のスケジュール管理について。',
+    publishedAt: '2024-03-10',
+    category: { title: 'Training', slug: { current: 'training' } },
     readTime: 8
   },
   {
     _id: '3',
-    title: 'AIを活用したWebアプリケーション開発の最新トレンド',
-    slug: { current: 'ai-web-development-trends' },
-    excerpt: 'AI技術をWebアプリケーションに統合する際の手法と、最新のツールやライブラリについてまとめました。',
-    publishedAt: '2024-01-05',
-    mainImage: {
-      asset: { _ref: 'mock-image-3' },
-      alt: 'AI Web Development'
-    },
-    categories: [{ title: 'AI', slug: { current: 'ai' } }],
-    tags: ['AI', 'Machine Learning', 'Web Development'],
+    title: 'デジタルデトックスと週末の過ごし方',
+    slug: { current: 'digital-detox-weekend' },
+    excerpt: '情報の洪水から距離を置き、自分自身を取り戻すための週末のリバランス方法。',
+    publishedAt: '2024-03-05',
+    category: { title: 'Rebalance', slug: { current: 'rebalance' } },
     readTime: 6
   },
-  {
+    {
     _id: '4',
-    title: 'React 19の新機能「React Compiler」を試してみた',
-    slug: { current: 'react-19-compiler' },
-    excerpt: 'React 19で導入される新機能「React Compiler」について、実際に試してみた結果と感想をまとめました。',
-    publishedAt: '2024-01-01',
-    mainImage: {
-      asset: { _ref: 'mock-image-4' },
-      alt: 'React 19 Compiler'
-    },
-    categories: [{ title: 'Tech', slug: { current: 'tech' } }],
-    tags: ['React', 'JavaScript', 'Performance'],
+    title: '仕事と生活の境界線を再定義する',
+    slug: { current: 'redefining-work-life' },
+    excerpt: 'リモートワーク時代における、スイッチの切り替えとメンタルヘルスについて。',
+    publishedAt: '2024-02-28',
+    category: { title: 'Rebalance', slug: { current: 'rebalance' } },
     readTime: 7
   },
-  {
-    _id: '5',
-    title: 'Tailwind CSSでコンポーネント設計を効率化する方法',
-    slug: { current: 'tailwind-component-design' },
-    excerpt: 'Tailwind CSSを使って効率的なコンポーネント設計を行う手法と、メンテナンス性を向上させるテクニックを紹介します。',
-    publishedAt: '2023-12-28',
-    mainImage: {
-      asset: { _ref: 'mock-image-5' },
-      alt: 'Tailwind CSS Component Design'
-    },
-    categories: [{ title: 'Design', slug: { current: 'design' } }],
-    tags: ['Tailwind CSS', 'CSS', 'Design System'],
-    readTime: 4
-  },
-  {
-    _id: '6',
-    title: 'Sanity CMSとNext.jsで構築する高速ブログシステム',
-    slug: { current: 'sanity-nextjs-blog-system' },
-    excerpt: 'Sanity CMSとNext.jsを組み合わせて、高速でSEOに強いブログシステムを構築する方法を詳しく説明します。',
-    publishedAt: '2023-12-25',
-    mainImage: {
-      asset: { _ref: 'mock-image-6' },
-      alt: 'Sanity CMS + Next.js'
-    },
-    categories: [{ title: 'Tech', slug: { current: 'tech' } }],
-    tags: ['Sanity', 'Next.js', 'CMS'],
-    readTime: 9
-  }
 ]
 
 const categories = [
-  { title: 'すべて', slug: { current: 'all' }, count: 6 },
-  { title: 'Tech', slug: { current: 'tech' }, count: 3 },
-  { title: 'Architecture', slug: { current: 'architecture' }, count: 1 },
-  { title: 'AI', slug: { current: 'ai' }, count: 1 },
-  { title: 'Design', slug: { current: 'design' }, count: 1 }
+  { title: 'All', slug: { current: 'all' } },
+  { title: 'Rebalance', slug: { current: 'rebalance' } },
+  { title: 'Routine', slug: { current: 'routine' } },
+  { title: 'Training', slug: { current: 'training' } }
 ]
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f23 100%)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto px-6 py-24">
+        
         {/* Header */}
-        <div className="text-center mb-12 animate-slide-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            <span className="gradient-text">Blog</span>
-          </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            最新の技術トレンドや実践的なノウハウを定期的に発信しています
+        <div className="mb-20 text-center">
+          <h1 className="text-4xl md:text-5xl font-serif italic text-gray-900 mb-6">Blog</h1>
+          <p className="text-gray-500 text-sm tracking-widest font-sans uppercase">
+            Thoughts & Know-how
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="mb-8 animate-slide-up" style={{animationDelay: '0.1s'}}>
-          <div className="max-w-md mx-auto">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="記事を検索..."
-                className="w-full px-4 py-3 pl-12 glass rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-white/50"
-              />
-              <svg
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/50"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        {/* Category Filter */}
-        <div className="mb-12 animate-slide-up" style={{animationDelay: '0.2s'}}>
-          <div className="flex flex-wrap justify-center gap-3">
+        {/* Categories (Minimal Tab style) */}
+        <div className="mb-24 flex justify-center">
+          <div className="flex gap-8 border-b border-gray-100 pb-4 px-4">
             {categories.map((category) => (
               <button
                 key={category.slug.current}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+                className={`text-xs uppercase tracking-widest transition-all duration-300 relative py-2 ${
                   category.slug.current === 'all'
-                    ? 'gradient-bg text-white shadow-lg shadow-indigo-500/25'
-                    : 'glass text-white/70 hover:text-white hover:bg-white/20'
+                    ? 'text-gray-900'
+                    : 'text-gray-400 hover:text-gray-900'
                 }`}
               >
-                {category.title} ({category.count})
+                {category.title}
+                {category.slug.current === 'all' && (
+                  <span className="absolute bottom-[-17px] left-0 w-full h-[1px] bg-gray-900"></span>
+                )}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up" style={{animationDelay: '0.3s'}}>
+        {/* Blog Posts Grid - Minimal Card Style */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {mockPosts.map((post, index) => (
-            <article
-              key={post._id}
-              className="glass rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 transform hover:-translate-y-2 group"
-              style={{animationDelay: `${0.4 + index * 0.1}s`}}
+            <article 
+              key={post._id} 
+              className="group flex flex-col bg-white border border-gray-100 rounded-sm overflow-hidden hover:border-gray-300 hover:shadow-sm transition-all duration-500"
             >
-              <Link href={`/blog/${post.slug.current}`}>
-                <div className="aspect-video relative overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <span className="text-white font-semibold text-lg">
-                      {post.mainImage.alt}
+              <Link href={`/blog/${post.slug.current}`} className="flex flex-col h-full">
+                
+                {/* Card Image */}
+                <div className="aspect-[16/10] overflow-hidden bg-gray-50 relative">
+                   <img 
+                      src={`/blog_image_${(index % 4) + 1}.webp`} 
+                      alt={post.title}
+                      className="object-cover w-full h-full grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" 
+                    />
+                    {/* Category Overlay (Minimal) */}
+                    <span className="absolute top-4 left-4 text-[10px] font-bold text-gray-800 bg-white/90 backdrop-blur-sm px-2 py-1 uppercase tracking-widest">
+                      {post.category.title}
                     </span>
+                </div>
+
+                {/* Card Content */}
+                <div className="p-6 flex flex-col flex-grow">
+                  {/* Meta: Date & Read Time */}
+                  <div className="flex items-center justify-between text-xs text-gray-400 font-sans mb-3">
+                    <time>
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
+                    <span>{post.readTime} min read</span>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </Link>
 
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <Link href={`/blog/category/${post.categories[0].slug.current}`}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-indigo-500/20 to-purple-600/20 text-white/90 hover:from-indigo-500/30 hover:to-purple-600/30 transition-all duration-300">
-                      {post.categories[0].title}
-                    </span>
-                  </Link>
-                  <span className="text-white/60 text-sm">
-                    {post.readTime}分で読める
-                  </span>
-                </div>
-
-                <Link href={`/blog/${post.slug.current}`}>
-                  <h2 className="text-xl font-bold text-white mb-3 hover:text-white/80 transition-colors line-clamp-2 group-hover:gradient-text">
+                  {/* Title */}
+                  <h2 className="text-xl font-serif text-gray-900 mb-3 group-hover:text-gray-600 transition-colors leading-snug">
                     {post.title}
                   </h2>
-                </Link>
 
-                <p className="text-white/70 mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <Link
-                      key={tag}
-                      href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                    >
-                      <span className="text-xs text-white/50 hover:text-white/80 transition-colors">
-                        #{tag}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <time className="text-sm text-white/50">
-                    {new Date(post.publishedAt).toLocaleDateString('ja-JP', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
+                  {/* Excerpt */}
+                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 font-jp flex-grow">
+                    {post.excerpt}
+                  </p>
                   
-                  <Link
-                    href={`/blog/${post.slug.current}`}
-                    className="inline-flex items-center text-white/70 hover:text-white font-medium text-sm transition-colors group"
-                  >
-                    続きを読む
-                    <svg className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
+                  {/* Footer: Read More & Tags */}
+                  <div className="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
+                     <span className="text-xs text-gray-900 border-b border-transparent group-hover:border-gray-900 transition-all duration-300 pb-0.5">
+                       Read Story
+                     </span>
+                     {/* Optional: Show first tag if available (mock data doesn't have tags in this simple version, but layout handles it) */}
+                  </div>
                 </div>
-              </div>
+              </Link>
             </article>
           ))}
         </div>
 
-        {/* Load More Button */}
-        <div className="text-center mt-12 animate-slide-up" style={{animationDelay: '0.8s'}}>
-          <button className="inline-flex items-center px-8 py-4 glass text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 group">
-            さらに記事を読み込む
-            <svg className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+        {/* Load More (Quiet) */}
+        <div className="mt-24 text-center">
+            <span className="text-xs text-gray-300 uppercase tracking-widest cursor-not-allowed">
+              End of list
+            </span>
         </div>
       </div>
     </div>
