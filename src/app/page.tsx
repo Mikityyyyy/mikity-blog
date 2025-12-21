@@ -49,7 +49,7 @@ export default function Home() {
         
         <div className="max-w-lg space-y-6">
            <p className="text-lg md:text-xl font-light leading-relaxed text-gray-800 font-serif italic">
-            "A company employee rebuilding life through routine, movement, and reflection."
+            &quot;A company employee rebuilding life through routine, movement, and reflection.&quot;
           </p>
           <div>
             <Link href="/about" className="link-minimal text-sm text-gray-500 tracking-widest uppercase hover:text-black">
