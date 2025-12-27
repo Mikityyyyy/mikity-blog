@@ -3,10 +3,10 @@
 
 :root {
   /* Quiet / Minimal / Sophisticated Palette */
-  --background: #fafafa; /* Slightly warmer white for paper feel */
-  --foreground: #2a2a2a; /* Softer black */
-  --muted: #888888;
-  --border: #e5e5e5;
+  --background: #fcfcfc; /* A touch brighter but still warm */
+  --foreground: #222222; /* High contrast but not pure black */
+  --muted: #999999;
+  --border: #eeeeee;
 
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
@@ -30,11 +30,12 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.8;
+  line-height: 1.9; /* Slightly looser */
+  letter-spacing: 0.02em; /* More breathing room */
   position: relative;
 }
 
-/* Texture Overlay */
+/* Texture Overlay (Grain) */
 body::before {
   content: "";
   position: fixed;
@@ -44,23 +45,23 @@ body::before {
   height: 100%;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* Typography Overrides */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   font-weight: 500;
-  color: #1a1a1a;
+  color: #111;
 }
 
 p {
-  color: #555;
+  color: #4a4a4a;
   font-family: var(--font-jp);
   font-weight: 400;
-  line-height: 2; /* Editorial line height */
+  line-height: 2.1; 
 }
 
 /* Sophisticated Link Animation */

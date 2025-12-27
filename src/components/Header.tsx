@@ -26,9 +26,10 @@ export default function Header() {
             <Link
               key={link.path}
               href={link.path}
-              className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
+              className="text-sm font-medium text-gray-500 hover:text-black transition-colors relative group"
             >
               {link.name}
+              <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
           ))}
           
