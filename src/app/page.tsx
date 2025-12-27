@@ -45,11 +45,11 @@ export default function Home() {
             <div className="absolute inset-0 rounded-full border border-gray-200/60 scale-110"></div>
             {/* Using a placeholder div if image fails, but assume profile.jpg exists */}
             <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 relative grayscale hover:grayscale-0 transition-all duration-700 ease-out">
-               <img 
-                 src="/profile.jpg" 
-                 alt="Mikity" 
-                 className="w-full h-full object-cover opacity-90 hover:opacity-100"
-               />
+                <img 
+                  src="/profile.png" 
+                  alt="Mikity" 
+                  className="w-full h-full object-cover opacity-90 hover:opacity-100"
+                />
             </div>
           </div>
           
