@@ -93,38 +93,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-16 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            こんなご相談をお待ちしています
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-lg">💼</span>
-              </div>
-              <p className="text-sm text-gray-600">お仕事のご依頼</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-lg">🤝</span>
-              </div>
-              <p className="text-sm text-gray-600">コラボレーション</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-lg">💡</span>
-              </div>
-              <p className="text-sm text-gray-600">技術相談</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-lg">📝</span>
-              </div>
-              <p className="text-sm text-gray-600">記事へのご質問</p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   )
