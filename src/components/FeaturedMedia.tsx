@@ -50,6 +50,12 @@ export default function FeaturedMedia() {
           href="https://www.youtube.com/@mikityvlog"
         />
         <MediaItem 
+          title="Instagram"
+          description="日常の風景と、心に残る瞬間"
+          buttonText="View"
+          href="https://www.instagram.com/mikity__97/"
+        />
+        <MediaItem 
           title="Podcast"
           description="すり減らない、心とからだの整え方"
           buttonText="Listen"
