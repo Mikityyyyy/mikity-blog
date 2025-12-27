@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-[85vh] flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
+    <section className="min-h-[90vh] flex flex-col justify-center items-center text-center px-4 relative overflow-hidden bg-gradient-to-b from-gray-50/80 to-white/0">
        {/* Background Accent (Subtle) */}
        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-gray-100/50 rounded-full blur-[120px] mix-blend-multiply opacity-60 animate-pulse-slow"></div>
-          <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] bg-gray-50/50 rounded-full blur-[100px] mix-blend-multiply opacity-60"></div>
+          <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-white rounded-full blur-[120px] mix-blend-overlay opacity-60 animate-pulse-slow"></div>
+          <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] bg-gray-100/40 rounded-full blur-[100px] mix-blend-multiply opacity-60"></div>
        </div>
 
        <div className="max-w-3xl mx-auto space-y-12 z-10">
