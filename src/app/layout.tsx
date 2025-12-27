@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Playfair_Display } from "next/font/google";
+import { Inter, Noto_Sans_JP, Playfair_Display, Italiana } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -14,6 +14,13 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: 'swap',
+});
+
+const italiana = Italiana({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-italiana",
   display: 'swap',
 });
 
@@ -52,7 +59,7 @@ export default function RootLayout({
   const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-PEJLDFPW4N'
 
   return (
-    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable}`}>
+    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable} ${playfair.variable} ${italiana.variable}`}>
        <body className="font-sans antialiased bg-[var(--background)] text-[var(--foreground)] selection:bg-white/20">
         <Script
           strategy="afterInteractive"
