@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -57,10 +58,14 @@ export default function Footer() {
             className="text-gray-400 hover:text-black transition-colors transform hover:-translate-y-1 duration-300"
             aria-label="Note"
           >
-             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-               <path d="M10.157 15.393h2.68v-4.87c0-1.228.846-1.897 1.948-1.897 1.059 0 1.694.71 1.694 1.83v4.937h2.68V9.921c0-2.345-1.503-3.699-3.473-3.699-1.567 0-2.604.762-3.048 1.968h-.106V6.455H10.157v8.938z"/>
-               <path fillRule="evenodd" clipRule="evenodd" d="M1.328 0a1.32 1.32 0 0 0-1.32 1.32v21.36c0 .727.592 1.32 1.32 1.32h21.344a1.32 1.32 0 0 0 1.32-1.32V1.32a1.32 1.32 0 0 0-1.32-1.32H1.328zM21.336 21.344H2.664V2.656h18.672v18.688z"/>
-             </svg>
+             <div className="w-5 h-5 relative hover:opacity-100 opacity-40 transition-opacity duration-300">
+               <Image
+                 src="/note-logo.png"
+                 alt="Note"
+                 fill
+                 className="object-contain"
+               />
+             </div>
           </a>
         </div>
 
