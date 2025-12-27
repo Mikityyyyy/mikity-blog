@@ -22,49 +22,24 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Options */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {/* Email */}
-          <div className="bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-colors duration-300">
-            <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+        <div className="max-w-xl mx-auto mb-16">
+          {/* Social Only */}
+          <div className="bg-gray-50 rounded-3xl p-10 hover:bg-gray-100 transition-colors duration-300 text-center">
+            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-2xl">👋</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Email</h3>
-            <p className="text-gray-600 mb-4">
-              お仕事のご依頼やご質問は
-              メールでお気軽にどうぞ
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Social Media</h3>
+            <p className="text-gray-600 mb-8 leading-loose">
+              DMにてお気軽にご連絡ください。<br/>
+              お仕事のご依頼もこちらから受け付けております。
             </p>
-            <a 
-              href="mailto:contact@mikityyyyy.com" 
-              className="inline-flex items-center text-gray-900 hover:text-red-600 transition-colors duration-200 font-medium"
-            >
-              contact@mikityyyyy.com
-              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </div>
-
-          {/* Social */}
-          <div className="bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-colors duration-300">
-            <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-6a2 2 0 012-2h8z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Social Media</h3>
-            <p className="text-gray-600 mb-4">
-              SNSでも気軽に
-              お声がけください
-            </p>
-            <div className="flex space-x-4">
+            <div className="flex justify-center space-x-6">
               <a 
-                href="https://twitter.com/mikity" 
+                href="https://x.com/mikitydaze1997" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-blue-500 transition-colors duration-200"
-                aria-label="Twitter"
+                className="p-3 bg-white rounded-full text-gray-600 hover:text-black hover:scale-110 transition-all duration-300 shadow-sm"
+                aria-label="X (Twitter)"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -74,7 +49,7 @@ export default function ContactPage() {
                 href="https://instagram.com/mikity" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-pink-500 transition-colors duration-200"
+                className="p-3 bg-white rounded-full text-gray-600 hover:text-pink-500 hover:scale-110 transition-all duration-300 shadow-sm"
                 aria-label="Instagram"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
