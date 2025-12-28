@@ -49,9 +49,6 @@ export const metadata: Metadata = {
     description: "Technology and Design.",
     images: ["/og-image.jpg"],
   },
-  icons: {
-    icon: '/icon.png',
-  },
 };
 
 export default function RootLayout({
