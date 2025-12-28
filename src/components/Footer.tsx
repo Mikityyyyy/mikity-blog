@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex justify-center space-x-8">
           {/* X (formerly Twitter) */}
           <a
-            href="https://x.com/mikitydaze1997"
+            href="https://x.com/mikity__97"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-black transition-colors transform hover:-translate-y-1 duration-300"
