@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import sanitizeHtml from 'sanitize-html';
 
 // モックデータ（後でSanityから取得）
 const mockPost = {
@@ -90,7 +91,17 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Content */}
         <div className="prose prose-gray prose-lg mx-auto prose-headings:font-medium prose-p:text-gray-600 prose-p:leading-8 prose-li:text-gray-600">
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+             {/* 
+               Sanity CMSから入稿されるコンテンツを表示します。
+               将来的にPortable Text (@portabletext/react) を使用する場合は、このdangerouslySetInnerHTMLは不要になります。
+               Portable TextはデフォルトでXSS対策がされています。
+               現在はHTML形式のデータ（またはHTML埋め込み）を想定し、安全のためにDomPurifyでサニタイズを行います。
+             */}
+             <div 
+               dangerouslySetInnerHTML={{ 
+                 __html: sanitizeHtml(post.content) 
+               }} 
+             />
         </div>
 
         {/* Footer / Navigation */}
