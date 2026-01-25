@@ -19,7 +19,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 rounded-full border border-gray-200/60 scale-110"></div>
               <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 relative">
                 <Image
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="Mikity"
                   fill
                   className="object-cover"
