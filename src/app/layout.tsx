@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    url: "https://mikityyyyy.com",
+    url: "https://mikitylife.com",
     siteName: "Mikity",
     title: "Mikity | Creative Designer & Developer",
     description: "Technology and Design.",

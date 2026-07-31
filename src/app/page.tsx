@@ -11,7 +11,7 @@ export default function Home() {
         type="website"
         data={{
           name: "Mikity",
-          url: "https://mikityyyyy.com",
+          url: "https://mikitylife.com",
           description: "日常を整える記録と、心と身体のメンテナンス。"
         }}
       />
