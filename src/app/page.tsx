@@ -29,7 +29,7 @@ export default async function Home() {
               諦めるには、<br />欲しいものが多すぎる。
             </h1>
             <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[#d87852]">Work. Train. Learn. Live.</p>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-white/50">全部を諦めないための、試行錯誤と途中経過。</p>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-white/50">働く、鍛える、学ぶ。どれも諦めないための試行錯誤。</p>
             <div className="mt-9 flex items-center gap-7 text-xs">
               <Link href="/blog" className="border-b border-white/60 pb-1 transition-colors hover:border-[#d87852] hover:text-[#d87852]">Read the stories</Link>
               {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-white/45 transition-colors hover:text-white">Follow the process ↗</a>}
@@ -55,6 +55,7 @@ export default async function Home() {
         <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
           <div>
             <p className="eyebrow text-[var(--accent)]">Latest stories</p>
+            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">最近の記録。</h2>
             <p className="mt-4 text-sm leading-7 text-[var(--muted)]">考えたこと、試したこと、<br />うまくいかなかった日のこと。</p>
           </div>
 
@@ -71,8 +72,7 @@ export default async function Home() {
             </div>
           ) : (
             <div className="border-t border-[var(--border)] py-8">
-              <p className="text-xl font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
-              <p className="mt-3 text-xs text-[var(--muted)]">The first story is on its way.</p>
+              <p className="text-lg font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
             </div>
           )}
         </div>
@@ -84,8 +84,8 @@ export default async function Home() {
       <section className="border-y border-[var(--border)] bg-[#e9e6df]">
         <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:py-24">
           <div>
-            <p className="eyebrow text-[var(--accent)]">Four ways of looking</p>
-            <h2 className="mt-5 font-serif text-3xl leading-[1.15] tracking-[-0.045em] sm:text-4xl">Work.<br />Train.<br />Learn.<br /><span className="italic">Live.</span></h2>
+            <p className="eyebrow text-[var(--accent)]">The four pillars</p>
+            <h2 className="mt-5 max-w-xs text-3xl font-medium leading-[1.4] tracking-[-0.05em]">いま、向き合っていること。</h2>
           </div>
           <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
             {contentPillars.map((pillar) => (
@@ -104,9 +104,8 @@ export default async function Home() {
       <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-24">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="eyebrow text-[var(--accent)]">Now, in motion</p>
-            <h2 className="mt-4 font-serif text-3xl tracking-[-0.04em]">Follow the process.</h2>
-            <p className="mt-3 text-sm text-[var(--muted)]">日々の現在地は、SNSで更新しています。</p>
+            <p className="eyebrow text-[var(--accent)]">Follow along</p>
+            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">日々の現在地は、SNSで。</h2>
           </div>
           <div className="flex flex-wrap gap-x-7 gap-y-3">
             {socialLinks.filter((social) => social.primary).map((social) => (

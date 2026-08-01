@@ -21,7 +21,7 @@ export default function Header() {
   }, [isOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(247,246,242,0.92)] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(243,241,235,0.92)] backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="font-serif text-xl tracking-[-0.03em]">
           mikitylife<span className="text-[var(--accent)]">.</span>
@@ -44,7 +44,7 @@ export default function Header() {
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          aria-label="メニューを開く"
+          aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
           aria-expanded={isOpen}
         >
           <span className={`block h-px w-5 bg-[var(--foreground)] transition-transform ${isOpen ? "translate-y-[3.5px] rotate-45" : ""}`} />
@@ -55,7 +55,7 @@ export default function Header() {
       {isOpen && (
         <nav className="fixed inset-x-0 top-20 flex min-h-[calc(100dvh-5rem)] flex-col bg-[var(--background)] px-6 py-12 md:hidden" aria-label="モバイルナビゲーション">
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 font-serif text-4xl tracking-[-0.04em]">
+            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 font-serif text-3xl tracking-[-0.04em]">
               {item.label}
             </Link>
           ))}

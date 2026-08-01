@@ -32,13 +32,13 @@ export default async function BlogPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
       <header className="max-w-3xl">
-        <p className="eyebrow text-[var(--accent)]">Archive / 2026</p>
-        <h1 className="mt-5 font-serif text-[clamp(2.9rem,7vw,4.5rem)] leading-none tracking-[-0.06em]">Stories &amp; Notes.</h1>
+        <p className="eyebrow text-[var(--accent)]">Stories / Archive</p>
+        <h1 className="mt-5 font-serif text-[clamp(2.8rem,7vw,4rem)] leading-none tracking-[-0.06em]">Stories &amp; Notes.</h1>
         <p className="mt-7 max-w-xl text-sm leading-7 text-[var(--muted)]">仕事、トレーニング、学び、暮らし。答えが出る前の考えと現在地を残します。</p>
       </header>
 
       <div className="mt-14 flex flex-wrap gap-x-7 gap-y-3 border-y border-[var(--border)] py-4">
-        <span className="text-[0.65rem] text-[var(--foreground)]">All</span>
+        <span className="text-[0.65rem] text-[var(--foreground)]">ALL</span>
         {contentPillars.map((pillar) => <span key={pillar.title} className="text-[0.65rem] text-[var(--muted)]">{pillar.title}</span>)}
       </div>
 
@@ -81,7 +81,6 @@ export default async function BlogPage() {
         ) : (
           <div className="border-t border-[var(--border)] py-16">
             <p className="text-xl font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
-            <p className="mt-3 text-xs text-[var(--muted)]">The first story is on its way.</p>
             <Link href="/" className="mt-8 inline-block text-xs underline decoration-[var(--border)]">Back home</Link>
           </div>
         )}

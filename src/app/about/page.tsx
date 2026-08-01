@@ -24,8 +24,8 @@ export default function AboutPage() {
         </div>
 
         <div className="max-w-3xl">
-          <p className="eyebrow text-[var(--accent)]">The person behind the process</p>
-          <h1 className="mt-5 font-serif text-[clamp(2.9rem,7vw,4.5rem)] leading-[1.05] tracking-[-0.06em]">Still<br /><span className="italic">becoming.</span></h1>
+          <p className="eyebrow text-[var(--accent)]">About / Mikity</p>
+          <h1 className="mt-5 font-serif text-[clamp(2.8rem,7vw,4rem)] leading-[1.05] tracking-[-0.06em]">Still<br /><span className="italic">becoming.</span></h1>
           <div className="mt-10 max-w-2xl space-y-6 text-sm leading-8 text-[var(--muted)] sm:text-base">
             <p>走る、挙げる、働く、学ぶ。どれか一つを選ぶのではなく、どうすれば全部続けられるのかを試している会社員です。</p>
             <p>仕事、HYROX、マラソン、筋力トレーニング、英語、AI。成功した結果だけではなく、そこへ向かう途中を記録しています。</p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
       </header>
 
       <section className="mt-24 border-y border-[var(--border)] py-12 lg:mt-32">
-        <p className="eyebrow text-[var(--muted)]">Current numbers</p>
+        <p className="eyebrow text-[var(--accent)]">Current numbers</p>
         <div className="mt-9 grid gap-10 sm:grid-cols-3">
           {currentGoals.map((goal) => (
             <div key={goal.label}>
@@ -47,7 +47,7 @@ export default function AboutPage() {
       </section>
 
       <section className="grid gap-10 py-24 lg:grid-cols-[16rem_1fr] lg:py-32">
-        <p className="eyebrow text-[var(--muted)]">Why I write</p>
+        <p className="eyebrow text-[var(--accent)]">Why I write</p>
         <div className="max-w-2xl">
           <p className="font-serif text-3xl italic leading-[1.45] tracking-[-0.035em] sm:text-4xl">No perfect routine.<br />Just the process.</p>
           <p className="mt-7 text-sm leading-8 text-[var(--muted)]">誰かに正解を教えるためではなく、試し、失敗し、調整して、また動き出す。その過程を正直に残すために書いています。</p>
