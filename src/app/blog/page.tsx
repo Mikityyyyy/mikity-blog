@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getPosts } from "@/lib/sanity-queries";
 import { contentPillars } from "@/lib/site-content";
+import type { BlogPost } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Stories",
@@ -10,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 3600;
+
+function getPostImage(post: BlogPost) {
+  const asset = post.mainImage?.asset;
+  return asset && "url" in asset ? asset.url : null;
+}
 
 async function loadPosts() {
   try {
@@ -37,20 +44,39 @@ export default async function BlogPage() {
 
       <section className="mt-12">
         {posts.length > 0 ? (
-          <div className="border-t border-[var(--border)]">
-            {posts.map((post, index) => (
-              <article key={post._id} className="border-b border-[var(--border)]">
-                <Link href={`/blog/${post.slug.current}`} className="group grid gap-4 py-9 sm:grid-cols-[3rem_8rem_1fr_auto] sm:items-baseline lg:py-11">
-                  <span className="font-serif text-sm italic text-[var(--accent)]">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="text-[0.65rem] tracking-[0.06em] text-[var(--muted)]">{post.categories?.[0]?.title || "Journal"}</span>
-                  <div>
-                    <h2 className="text-xl font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)] sm:text-2xl">{post.title}</h2>
-                    {post.excerpt && <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--muted)]">{post.excerpt}</p>}
-                  </div>
-                  <time dateTime={post.publishedAt} className="text-[0.65rem] text-[var(--muted)]">{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
-                </Link>
-              </article>
-            ))}
+          <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:gap-x-10 lg:gap-y-20">
+            {posts.map((post, index) => {
+              const image = getPostImage(post);
+
+              return (
+                <article key={post._id}>
+                  <Link href={`/blog/${post.slug.current}`} className="group block">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#ebe8e1]">
+                      {image ? (
+                        <Image
+                          src={image}
+                          alt={post.mainImage?.alt || post.title}
+                          fill
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                          className="object-cover transition duration-700 group-hover:scale-[1.015] group-hover:opacity-95"
+                        />
+                      ) : (
+                        <div className="flex h-full items-end justify-between p-6 text-[var(--muted)]">
+                          <span className="font-serif text-5xl italic opacity-25">{String(index + 1).padStart(2, "0")}</span>
+                          <span className="text-[0.62rem] tracking-[0.08em]">mikitylife</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="mt-5 flex items-center justify-between gap-5 text-[0.65rem] text-[var(--muted)]">
+                      <span>{post.categories?.[0]?.title || "Journal"}</span>
+                      <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
+                    </div>
+                    <h2 className="mt-3 text-xl font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)] sm:text-2xl">{post.title}</h2>
+                    {post.excerpt && <p className="mt-3 line-clamp-2 text-sm leading-7 text-[var(--muted)]">{post.excerpt}</p>}
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         ) : (
           <div className="border-t border-[var(--border)] py-16">
