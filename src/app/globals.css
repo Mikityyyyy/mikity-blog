@@ -1,114 +1,60 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
 :root {
-  /* Quiet / Minimal / Sophisticated Palette */
-  --background: #fcfcfc; /* A touch brighter but still warm */
-  --foreground: #222222; /* High contrast but not pure black */
-  --muted: #999999;
-  --border: #eeeeee;
-
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
-  --font-jp: var(--font-noto-sans-jp);
+  --background: #f7f6f2;
+  --foreground: #20201c;
+  --accent: #b75937;
+  --muted: #6f6e67;
+  --border: rgba(32, 32, 28, 0.13);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-  
-  --font-sans: var(--font-sans), system-ui, sans-serif;
-  --font-serif: var(--font-serif), Georgia, serif;
-  --font-jp: var(--font-jp), sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-sans-jp);
+  --font-serif: var(--font-playfair);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-inter), var(--font-noto-sans-jp), sans-serif;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.9; /* Slightly looser */
-  letter-spacing: 0.02em; /* More breathing room */
-  position: relative;
 }
 
-/* Texture Overlay (Grain) */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+a {
+  text-underline-offset: 0.24em;
 }
 
-/* Typography Overrides */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  letter-spacing: -0.02em;
-  font-weight: 500;
-  color: #111;
+::selection {
+  background: #ded5cc;
+  color: var(--foreground);
 }
 
-p {
-  color: #4a4a4a;
-  font-family: var(--font-jp);
-  font-weight: 400;
-  line-height: 2.1; 
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
 }
 
-/* Sophisticated Link Animation */
-.link-minimal {
-  position: relative;
-  text-decoration: none;
-  color: inherit;
-  font-family: var(--font-sans);
-  letter-spacing: 0.05em;
+.eyebrow {
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.link-minimal::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 1px;
-  bottom: -2px;
-  left: 0;
-  background-color: currentColor;
-  transform-origin: bottom right;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); /* Elegant ease */
-}
-
-.link-minimal:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Vertical Line Accent */
-.vertical-line {
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--border), transparent);
-}
-
-/* Custom Scrollbar (Thinner, cleaner) */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

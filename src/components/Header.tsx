@@ -1,87 +1,71 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { socialLinks } from "@/lib/site-content";
+
+const navItems = [
+  { label: "Stories", href: "/blog" },
+  { label: "About", href: "/about" },
+];
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const instagram = socialLinks.find((social) => social.label === "Instagram");
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'About', path: '/about' },
-  ]
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="text-3xl font-[family-name:var(--font-playfair)] italic font-bold tracking-tight text-gray-900 hover:opacity-70 transition-opacity">
-          mikity
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(247,246,242,0.92)] backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <Link href="/" className="font-serif text-xl tracking-[-0.03em]">
+          mikitylife<span className="text-[var(--accent)]">.</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className="text-sm font-medium text-gray-500 hover:text-black transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+        <nav className="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
+              {item.label}
             </Link>
           ))}
-          
-          {/* CTA Button */}
-          <Link 
-            href="/contact" 
-            className="text-sm font-medium bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-colors"
-          >
-            Contact
-          </Link>
+          {instagram && (
+            <a href={instagram.href} target="_blank" rel="noreferrer" className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
+              Instagram ↗
+            </a>
+          )}
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-gray-600 hover:text-black"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
+          aria-expanded={isOpen}
         >
-          <div className="space-y-1.5 ">
-            <span className={`block w-6 h-0.5 bg-current transition-transform ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-current transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-current transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-          </div>
+          <span className={`block h-px w-5 bg-[var(--foreground)] transition-transform ${isOpen ? "translate-y-[3.5px] rotate-45" : ""}`} />
+          <span className={`block h-px w-5 bg-[var(--foreground)] transition-transform ${isOpen ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
         </button>
-
-        {/* Mobile Nav Overlay */}
-        {isMenuOpen && (
-          <div className="absolute top-16 left-0 right-0 bg-white border-b border-gray-100 p-6 md:hidden animate-in shadow-sm">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className="text-lg font-medium text-gray-800 hover:text-black py-2 border-b border-gray-50"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="pt-2">
-                 <Link 
-                  href="/contact" 
-                  className="block text-center text-sm font-medium bg-black text-white px-5 py-3 rounded-full hover:bg-gray-800 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contact
-                </Link>
-              </div>
-            </nav>
-          </div>
-        )}
       </div>
+
+      {isOpen && (
+        <nav className="fixed inset-x-0 top-20 flex min-h-[calc(100dvh-5rem)] flex-col bg-[var(--background)] px-6 py-12 md:hidden" aria-label="モバイルナビゲーション">
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 font-serif text-3xl tracking-[-0.04em]">
+              {item.label}
+            </Link>
+          ))}
+          {instagram && (
+            <a href={instagram.href} target="_blank" rel="noreferrer" className="mt-auto text-sm text-[var(--muted)]">
+              Instagram ↗
+            </a>
+          )}
+        </nav>
+      )}
     </header>
-  )
+  );
 }

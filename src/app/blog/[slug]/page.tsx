@@ -1,118 +1,102 @@
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import sanitizeHtml from 'sanitize-html';
-
-// モックデータ（後でSanityから取得）
-const mockPost = {
-  _id: '1',
-  title: '朝の時間を最適化する3つの習慣',
-  slug: { current: 'morning-routine-habit' },
-  excerpt: '静かな朝の時間が、1日の質を決めます。私が実践している朝のルーティンを紹介します。',
-  content: `
-    <p>なぜ、朝なのか。</p>
-    <p>それは、誰にも邪魔されない唯一の時間だからです。メールも、通知も鳴らない静寂の中で、自分自身と向き合うことができる。</p>
-    
-    <h3>1. コップ一杯の白湯を飲む</h3>
-    <p>寝ている間に失われた水分を補給し、内臓をゆっくりと目覚めさせます。この「熱すぎず、冷たすぎない」温度が、心身のバランスを整えるスイッチになります。</p>
-    
-    <h3>2. 10分間の瞑想</h3>
-    <p>思考を空っぽにするのではなく、ただ流れてくる感情を観察する。今日のタスクを考えるのではなく、「今、ここにいる」感覚を味わう時間。</p>
-    
-    <h3>3. ジャーナリング</h3>
-    <p>頭に浮かんだことを書き出す。不安も、期待も、アイデアも。書くことで思考は客観化され、驚くほど頭がクリアになります。</p>
-    
-    <p>これらの習慣は、劇的な変化をもたらすものではありません。しかし、毎日の積み重ねが、揺るがない自分を作るのです。</p>
-  `,
-  publishedAt: '2024-03-15',
-  category: { title: 'Routine', slug: { current: 'routine' } },
-  readTime: 5
-}
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import PortableText, { type PortableTextValue } from "@/components/PortableText";
+import StructuredData from "@/components/StructuredData";
+import { getPostBySlug } from "@/lib/sanity-queries";
+import { siteUrl } from "@/lib/site-content";
 
 interface Props {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
+}
+
+function postImageUrl(post: Awaited<ReturnType<typeof getPostBySlug>>) {
+  const asset = post?.mainImage?.asset;
+  return asset && "url" in asset ? asset.url : null;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  // Mock check
-  // if (slug !== 'morning-routine-habit') ... 
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) return { title: "記事が見つかりません" };
+
+  const image = postImageUrl(post);
+  const title = post.seo?.metaTitle || post.title;
+  const description = post.seo?.metaDescription || post.excerpt;
 
   return {
-    title: `${mockPost.title} | Mikity`,
-    description: mockPost.excerpt,
-  }
+    title,
+    description,
+    alternates: { canonical: `/blog/${post.slug.current}` },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: `${siteUrl}/blog/${post.slug.current}`,
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      images: image ? [{ url: image, alt: post.mainImage?.alt || post.title }] : undefined,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params
-  // Mock data usage
-  if (slug !== 'morning-routine-habit' && slug !== 'nextjs-15-new-features') {
-     // For demo purposes, we show the mock post for any slug, or strictly 404
-     // notFound()
-  }
-  
-  // Always use mockPost for layout verification
-  const post = mockPost
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) notFound();
+
+  const image = postImageUrl(post);
 
   return (
-    <article className="min-h-screen bg-white">
-      <div className="max-w-3xl mx-auto px-6 py-24">
-        
-        {/* Header */}
-        <header className="mb-16 text-center">
-            <div className="mb-6">
-                <span className="text-xs font-medium text-gray-400 uppercase tracking-widest border border-gray-200 px-3 py-1 rounded-full">
-                    {post.category.title}
-                </span>
-            </div>
-            
-            <h1 className="text-3xl md:text-5xl font-serif italic text-gray-900 mb-6 leading-tight tracking-tight">
-                {post.title}
-            </h1>
+    <article>
+      <StructuredData
+        type="article"
+        data={{
+          title: post.title,
+          description: post.excerpt,
+          image,
+          author: post.author?.name || "Mikity",
+          publishedAt: post.publishedAt,
+          updatedAt: post.updatedAt,
+          url: `${siteUrl}/blog/${post.slug.current}`,
+        }}
+      />
 
-            <time className="text-sm text-gray-400 tracking-wider font-sans uppercase">
-                {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                })}
-            </time>
-        </header>
-
-        {/* Main Image */}
-        <div className="mb-16 aspect-[16/9] w-full bg-gray-100 overflow-hidden rounded-sm relative">
-            <img 
-               src="/blog_image_1.webp" 
-               alt={post.title} 
-               className="object-cover w-full h-full grayscale-[20%]"
-            />
+      <header>
+        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+          <div className="flex items-center justify-center gap-4 text-[0.66rem] text-[var(--muted)]">
+            <span>{post.categories?.[0]?.title || "Journal"}</span>
+            <span aria-hidden="true">/</span>
+            <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" }).format(new Date(post.publishedAt))}</time>
+          </div>
+          <h1 className="mx-auto mt-7 max-w-4xl text-3xl font-medium leading-[1.45] tracking-[-0.05em] sm:text-4xl lg:text-[2.9rem]">{post.title}</h1>
+          {post.excerpt && <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[var(--muted)] sm:text-base">{post.excerpt}</p>}
+          <div className="mt-8 flex items-center justify-center gap-5 text-[0.66rem] text-[var(--muted)]">
+            <span>by {post.author?.name || "Mikity"}</span>
+            {post.readTime ? <span>{post.readTime} min read</span> : null}
+          </div>
         </div>
+      </header>
 
-        {/* Content */}
-        <div className="prose prose-gray prose-lg mx-auto prose-headings:font-medium prose-p:text-gray-600 prose-p:leading-8 prose-li:text-gray-600">
-             {/* 
-               Sanity CMSから入稿されるコンテンツを表示します。
-               将来的にPortable Text (@portabletext/react) を使用する場合は、このdangerouslySetInnerHTMLは不要になります。
-               Portable TextはデフォルトでXSS対策がされています。
-               現在はHTML形式のデータ（またはHTML埋め込み）を想定し、安全のためにDomPurifyでサニタイズを行います。
-             */}
-             <div 
-               dangerouslySetInnerHTML={{ 
-                 __html: sanitizeHtml(post.content) 
-               }} 
-             />
+      {image && (
+        <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden bg-[#e9e6df]">
+          <Image src={image} alt={post.mainImage?.alt || post.title} fill priority sizes="100vw" className="object-cover" />
         </div>
+      )}
 
-        {/* Footer / Navigation */}
-        <div className="mt-24 pt-12 border-t border-gray-100 flex justify-between items-center text-sm">
-            <Link href="/blog" className="text-gray-400 hover:text-black transition-colors tracking-wide">
-                ← Back to Blog
-            </Link>
-            
-            {/* Share could go here */}
+      <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
+        {post.body?.length ? (
+          <PortableText value={post.body as PortableTextValue} />
+        ) : (
+          <p className="text-center text-sm text-[var(--muted)]">本文を準備しています。</p>
+        )}
+        <div className="mt-20 flex items-center justify-between border-t border-[var(--border)] pt-6 text-xs text-[var(--muted)]">
+          <Link href="/blog" className="transition-colors hover:text-[var(--foreground)]">← Stories</Link>
+          <a href={`https://x.com/intent/post?url=${encodeURIComponent(`${siteUrl}/blog/${post.slug.current}`)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noreferrer" className="transition-colors hover:text-[var(--foreground)]">Share on X ↗</a>
         </div>
       </div>
     </article>
-  )
+  );
 }

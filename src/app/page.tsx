@@ -1,85 +1,119 @@
-import Link from 'next/link'
-import HeroSection from '@/components/HeroSection'
-import FeaturedMedia from '@/components/FeaturedMedia'
-import StructuredData from '@/components/StructuredData'
-import FadeIn from '@/components/FadeIn'
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
+import { getLatestPosts } from "@/lib/sanity-queries";
+import { contentPillars, siteDescription, siteUrl, socialLinks } from "@/lib/site-content";
 
-export default function Home() {
+export const revalidate = 3600;
+
+async function loadLatestPosts() {
+  try {
+    return await getLatestPosts(4);
+  } catch {
+    return [];
+  }
+}
+
+export default async function Home() {
+  const posts = await loadLatestPosts();
+  const instagram = socialLinks.find((social) => social.label === "Instagram");
+
   return (
     <>
-      <StructuredData
-        type="website"
-        data={{
-          name: "Mikity",
-          url: "https://mikitylife.com",
-          description: "日常を整える記録と、心と身体のメンテナンス。"
-        }}
-      />
-      
-      {/* 1. Hero */}
-      <HeroSection />
+      <StructuredData type="website" data={{ name: "mikitylife", url: siteUrl, description: siteDescription }} />
 
-      {/* 2. What this site is */}
-      <FadeIn>
-        <section className="py-24 text-center px-6">
-          <div className="max-w-xl mx-auto space-y-4">
-            <p className="text-xl font-light text-gray-900 leading-relaxed">
-              This is a personal record of rebuilding everyday life.
-            </p>
-            <p className="text-sm text-gray-500 text-jp-body leading-loose">
-              無理なく、心と生活を整えていくための記録です。
-            </p>
-          </div>
-        </section>
-      </FadeIn>
-
-      {/* 3. Featured Media */}
-      <FadeIn delay={0.2}>
-        <FeaturedMedia />
-      </FadeIn>
-
-      {/* 4. About (Short) */}
-      <FadeIn>
-        <section className="py-32 bg-gray-50/50 rounded-2xl mx-auto max-w-5xl px-8 flex flex-col md:flex-row items-center justify-center gap-16 text-center md:text-left my-24 border border-gray-100/50">
-          <div className="relative w-32 h-32 md:w-48 md:h-48 flex-shrink-0">
-            <div className="absolute inset-0 rounded-full border border-gray-200/60 scale-110"></div>
-            {/* Using a placeholder div if image fails, but assume profile.jpg exists */}
-            <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 relative transform transition-all duration-500 ease-out hover:scale-105 hover:shadow-lg">
-                <img 
-                  src="/profile.png" 
-                  alt="Mikity" 
-                  className="w-full h-full object-cover"
-                />
+      <section className="border-b border-[var(--border)]">
+        <div className="mx-auto grid min-h-[calc(76svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
+          <div>
+            <p className="eyebrow text-[var(--accent)]">Mikity Life — Field Notes</p>
+            <h1 className="mt-8 max-w-4xl text-[clamp(2.7rem,6vw,4.2rem)] font-medium leading-[1.25] tracking-[-0.065em]">
+              諦めるには、<br />欲しいものが多すぎる。
+            </h1>
+            <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[var(--accent)]">Work. Train. Learn. Live.</p>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-[var(--muted)]">働く、鍛える、学ぶ。どれも諦めないための試行錯誤。</p>
+            <div className="mt-9 flex items-center gap-7 text-xs">
+              <Link href="/blog" className="border-b border-[var(--foreground)] pb-1 transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Read the stories</Link>
+              {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">Follow the process ↗</a>}
             </div>
           </div>
-          
-          <div className="max-w-lg space-y-8">
-             <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-800 font-serif italic">
-              &quot;A company employee rebuilding life through routine, movement, and reflection.&quot;
-            </p>
-            <div>
-              <Link href="/about" className="link-minimal text-xs text-gray-400 tracking-[0.2em] uppercase hover:text-black">
-                More about me
-              </Link>
-            </div>
-          </div>
-        </section>
-      </FadeIn>
 
-      {/* 5. Quiet CTA */}
-      <FadeIn>
-        <section className="py-40 text-center px-6">
-          <p className="text-gray-400 text-sm mb-10 tracking-widest uppercase">
-            If something resonated
-          </p>
-          <Link 
-            href="/contact" 
-            className="inline-block border border-gray-200 text-gray-600 px-10 py-4 rounded-full text-sm hover:border-gray-900 hover:text-black transition-all duration-500 hover:scale-105 bg-white hover:shadow-lg hover:shadow-gray-200/50"
-          >
-            Contact
-          </Link>
-        </section>
-      </FadeIn>
+          <div className="border-t border-[var(--border)] pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <p className="eyebrow text-[var(--muted)]">What this is about</p>
+            <div className="mt-6 space-y-4">
+              {contentPillars.map((pillar) => (
+                <div key={pillar.title} className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
+                  <span className="text-xs text-[var(--muted)]">{pillar.number}</span>
+                  <span className="font-serif text-xl tracking-[-0.03em]">{pillar.title}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-[0.62rem] tracking-[0.14em] text-[var(--muted)]">TOKYO / SINCE 2026</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+        <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
+          <div>
+            <p className="eyebrow text-[var(--accent)]">Latest stories</p>
+            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">最近の記録。</h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">考えたこと、試したこと、<br />うまくいかなかった日のこと。</p>
+          </div>
+
+          {posts.length > 0 ? (
+            <div className="border-t border-[var(--border)]">
+              {posts.map((post, index) => (
+                <Link key={post._id} href={`/blog/${post.slug.current}`} className="group grid gap-3 border-b border-[var(--border)] py-6 sm:grid-cols-[2rem_6rem_1fr_auto] sm:items-baseline">
+                  <span className="font-serif text-xs italic text-[var(--accent)]">0{index + 1}</span>
+                  <span className="text-[0.62rem] tracking-[0.08em] text-[var(--muted)]">{post.categories?.[0]?.title || "LIFE"}</span>
+                  <h2 className="text-lg font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)]">{post.title}</h2>
+                  <time dateTime={post.publishedAt} className="text-[0.62rem] text-[var(--muted)]">{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="border-t border-[var(--border)] py-8">
+              <p className="text-lg font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
+            </div>
+          )}
+        </div>
+        <div className="mt-10 text-right">
+          <Link href="/blog" className="text-xs text-[var(--muted)] underline decoration-[var(--border)] transition-colors hover:text-[var(--foreground)]">View all stories</Link>
+        </div>
+      </section>
+
+      <section className="border-y border-[var(--border)] bg-[#efede7]">
+        <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:py-24">
+          <div>
+            <p className="eyebrow text-[var(--accent)]">The four pillars</p>
+            <h2 className="mt-5 max-w-xs text-3xl font-medium leading-[1.4] tracking-[-0.05em]">いま、向き合っていること。</h2>
+          </div>
+          <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+            {contentPillars.map((pillar) => (
+              <div key={pillar.title} className="border-t border-[var(--border)] pt-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-semibold tracking-[0.12em]">{pillar.title}</h3>
+                  <span className="font-serif text-xs italic text-[var(--accent)]">{pillar.number}</span>
+                </div>
+                <p className="mt-4 max-w-xs text-sm leading-7 text-[var(--muted)]">{pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-24">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="eyebrow text-[var(--accent)]">Follow along</p>
+            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">日々の現在地は、SNSで。</h2>
+          </div>
+          <div className="flex flex-wrap gap-x-7 gap-y-3">
+            {socialLinks.filter((social) => social.primary).map((social) => (
+              <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">{social.label} ↗</a>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }

@@ -1,16 +1,29 @@
+const sanityProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '6kh54bm0'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['cdn.sanity.io'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
         port: '',
-        pathname: '/images/**',
+        pathname: `/images/${sanityProjectId}/**`,
       },
     ],
   },
+  redirects: async () => [
+    {
+      source: '/stories',
+      destination: '/blog',
+      permanent: true,
+    },
+    {
+      source: '/work',
+      destination: '/blog',
+      permanent: true,
+    },
+  ],
   headers: async () => {
     return [
       {
