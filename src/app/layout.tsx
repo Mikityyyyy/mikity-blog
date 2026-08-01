@@ -1,70 +1,66 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Playfair_Display, Italiana } from "next/font/google";
+import { Inter, Noto_Sans_JP, Playfair_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Script from "next/script";
+import { siteDescription, siteUrl } from "@/lib/site-content";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: 'swap',
+  display: "swap",
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
-  display: 'swap',
-});
-
-const italiana = Italiana({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-italiana",
-  display: 'swap',
+  display: "swap",
 });
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: 'swap',
+  weight: ["400", "500", "700", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Mikity | Creative Designer & Developer",
-    template: "%s | Mikity"
+    default: "mikitylife | 全部欲しがる会社員の記録",
+    template: "%s | mikitylife",
   },
-  description: "Official portfolio and blog of Mikity. Creative Designer & Developer based in Japan.",
-  keywords: ["Mikity", "Designer", "Developer", "Rakuten Mobile", "Tigers", "Tech", "Portfolio"],
-  authors: [{ name: "Mikity" }],
+  description: siteDescription,
+  keywords: ["Mikity", "HYROX", "ランニング", "筋トレ", "会社員", "英語学習", "AI活用"],
+  authors: [{ name: "Mikity", url: siteUrl }],
   creator: "Mikity",
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
+    title: "mikitylife | 全部欲しがる会社員の記録",
+    description: siteDescription,
+    url: siteUrl,
+    siteName: "mikitylife",
     locale: "ja_JP",
-    url: "https://mikitylife.com",
-    siteName: "Mikity",
-    title: "Mikity | Creative Designer & Developer",
-    description: "Technology and Design.",
-    images: ["/og-image.jpg"],
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "MIKITY LIFE FIELD NOTES" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "mikitylife | 全部欲しがる会社員の記録",
+    description: siteDescription,
+    creator: "@mikity__97",
+    images: ["/og.png"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-PEJLDFPW4N'
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const gaTrackingId = process.env.NEXT_PUBLIC_GA_ID || "G-PEJLDFPW4N";
 
   return (
-    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable} ${playfair.variable} ${italiana.variable}`}>
-       <body className="font-sans antialiased bg-[var(--background)] text-[var(--foreground)] selection:bg-white/20">
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-        />
+    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable} ${playfair.variable}`}>
+      <body className="font-sans antialiased">
+        <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} />
         <Script
           id="gtag-init"
           strategy="afterInteractive"
@@ -73,17 +69,13 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GA_TRACKING_ID}', {
-                page_path: window.location.pathname,
-              });
+              gtag('config', '${gaTrackingId}', { page_path: window.location.pathname });
             `,
           }}
         />
-        <div className="min-h-screen flex flex-col">
+        <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-grow pt-24 pb-20 px-6 max-w-5xl mx-auto w-full">
-            {children}
-          </main>
+          <main className="flex-grow pt-20">{children}</main>
           <Footer />
         </div>
       </body>

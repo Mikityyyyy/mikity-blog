@@ -10,7 +10,7 @@ export async function getPosts(): Promise<BlogPost[]> {
       slug,
       excerpt,
       publishedAt,
-      _updatedAt,
+      "updatedAt": _updatedAt,
       mainImage {
         asset-> {
           _id,
@@ -59,7 +59,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       slug,
       excerpt,
       publishedAt,
-      _updatedAt,
+      "updatedAt": _updatedAt,
       mainImage {
         asset-> {
           _id,
@@ -92,6 +92,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
         slug
       },
       body,
+      "readTime": round(length(pt::text(body)) / 5 / 60),
       seo
     }
   `

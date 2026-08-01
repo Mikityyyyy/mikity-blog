@@ -10,11 +10,11 @@ Mikityの公式ブログメディアです。
 
 仕事、競技、学びを同時に進める会社員の実体験と思考を記録します。
 
-現在はブログメディアとしてのリニューアル準備中です。既存のブログ画面にはモックデータを含み、Sanity CMSとの接続を段階的に整備しています。
+記事はSanity CMSで管理し、公開済みの実データだけをサイトへ表示します。主なテーマは `Work`、`Workout`、`Study`、`Journal` です。
 
 ## Tech stack
 
-- Next.js 15
+- Next.js 16
 - React 19
 - TypeScript
 - Tailwind CSS 4
@@ -25,7 +25,7 @@ Mikityの公式ブログメディアです。
 
 ### Requirements
 
-- Node.js 20
+- Node.js 20.9以上
 - npm
 
 ### Setup
