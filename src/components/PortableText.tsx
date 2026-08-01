@@ -29,15 +29,15 @@ const components: PortableTextComponents = {
     },
   },
   block: {
-    h1: ({ children }) => <h2 className="mb-6 mt-16 text-3xl font-black leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
-    h2: ({ children }) => <h2 className="mb-6 mt-16 border-t border-[var(--border)] pt-7 text-3xl font-black leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
-    h3: ({ children }) => <h3 className="mb-4 mt-12 text-2xl font-bold leading-snug tracking-[-0.03em]">{children}</h3>,
-    normal: ({ children }) => <p className="mb-7 text-base leading-[2.1] text-[#3f3e38] sm:text-[1.05rem]">{children}</p>,
-    blockquote: ({ children }) => <blockquote className="my-10 border-l-4 border-[var(--accent)] bg-[#e8e3d7] px-6 py-5 text-lg font-medium leading-9">{children}</blockquote>,
+    h1: ({ children }) => <h2 className="mb-6 mt-16 text-3xl font-semibold leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
+    h2: ({ children }) => <h2 className="mb-6 mt-16 text-3xl font-semibold leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
+    h3: ({ children }) => <h3 className="mb-4 mt-12 text-2xl font-semibold leading-snug tracking-[-0.03em]">{children}</h3>,
+    normal: ({ children }) => <p className="mb-7 text-base leading-[2.1] text-[#4b4a44] sm:text-[1.05rem]">{children}</p>,
+    blockquote: ({ children }) => <blockquote className="my-10 border-l border-[var(--accent)] px-6 py-2 text-lg leading-9 text-[#4b4a44]">{children}</blockquote>,
   },
   list: {
-    bullet: ({ children }) => <ul className="mb-8 list-disc space-y-3 pl-6 text-[#3f3e38] marker:text-[var(--accent)]">{children}</ul>,
-    number: ({ children }) => <ol className="mb-8 list-decimal space-y-3 pl-6 text-[#3f3e38] marker:font-semibold marker:text-[var(--accent)]">{children}</ol>,
+    bullet: ({ children }) => <ul className="mb-8 list-disc space-y-3 pl-6 text-[#4b4a44] marker:text-[var(--accent)]">{children}</ul>,
+    number: ({ children }) => <ol className="mb-8 list-decimal space-y-3 pl-6 text-[#4b4a44] marker:text-[var(--accent)]">{children}</ol>,
   },
   marks: {
     strong: ({ children }) => <strong className="font-bold text-[var(--foreground)]">{children}</strong>,

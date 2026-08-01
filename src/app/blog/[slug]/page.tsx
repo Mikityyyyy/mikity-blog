@@ -64,24 +64,24 @@ export default async function BlogPostPage({ params }: Props) {
         }}
       />
 
-      <header className="editorial-grid border-b border-[var(--border)]">
-        <div className="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8 lg:py-24">
-          <div className="flex items-center justify-center gap-4 text-[0.66rem] font-semibold tracking-[0.14em] text-[var(--muted)]">
-            <span className="text-[var(--accent)]">{post.categories?.[0]?.title || "JOURNAL"}</span>
+      <header>
+        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+          <div className="flex items-center justify-center gap-4 text-[0.66rem] text-[var(--muted)]">
+            <span>{post.categories?.[0]?.title || "Journal"}</span>
             <span aria-hidden="true">/</span>
             <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" }).format(new Date(post.publishedAt))}</time>
           </div>
-          <h1 className="mx-auto mt-7 max-w-4xl text-4xl font-black leading-[1.35] tracking-[-0.06em] sm:text-6xl lg:text-7xl">{post.title}</h1>
+          <h1 className="mx-auto mt-7 max-w-4xl text-4xl font-medium leading-[1.4] tracking-[-0.055em] sm:text-5xl lg:text-6xl">{post.title}</h1>
           {post.excerpt && <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[var(--muted)] sm:text-base">{post.excerpt}</p>}
-          <div className="mt-8 flex items-center justify-center gap-5 text-[0.66rem] font-semibold tracking-[0.12em] text-[var(--muted)]">
-            <span>BY {post.author?.name || "MIKITY"}</span>
-            {post.readTime ? <span>{post.readTime} MIN READ</span> : null}
+          <div className="mt-8 flex items-center justify-center gap-5 text-[0.66rem] text-[var(--muted)]">
+            <span>by {post.author?.name || "Mikity"}</span>
+            {post.readTime ? <span>{post.readTime} min read</span> : null}
           </div>
         </div>
       </header>
 
       {image && (
-        <div className="relative mx-auto aspect-[16/8] max-w-[90rem] overflow-hidden border-x border-b border-[var(--border)] bg-[#ded9cd]">
+        <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden bg-[#e9e6df]">
           <Image src={image} alt={post.mainImage?.alt || post.title} fill priority sizes="100vw" className="object-cover" />
         </div>
       )}
@@ -92,9 +92,9 @@ export default async function BlogPostPage({ params }: Props) {
         ) : (
           <p className="text-center text-sm text-[var(--muted)]">本文を準備しています。</p>
         )}
-        <div className="mt-20 flex items-center justify-between border-t border-[var(--foreground)] pt-6 text-xs font-semibold tracking-[0.12em]">
-          <Link href="/blog" className="transition-colors hover:text-[var(--accent)]">← STORIES</Link>
-          <a href={`https://x.com/intent/post?url=${encodeURIComponent(`${siteUrl}/blog/${post.slug.current}`)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noreferrer" className="transition-colors hover:text-[var(--accent)]">SHARE ON X ↗</a>
+        <div className="mt-20 flex items-center justify-between border-t border-[var(--border)] pt-6 text-xs text-[var(--muted)]">
+          <Link href="/blog" className="transition-colors hover:text-[var(--foreground)]">← Stories</Link>
+          <a href={`https://x.com/intent/post?url=${encodeURIComponent(`${siteUrl}/blog/${post.slug.current}`)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noreferrer" className="transition-colors hover:text-[var(--foreground)]">Share on X ↗</a>
         </div>
       </div>
     </article>
