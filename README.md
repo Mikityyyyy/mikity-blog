@@ -1,115 +1,83 @@
-# Mikity Blog - 公式サイト & ブログ
+# mikitylife
 
-Mikityの公式サイト兼ブログです。Next.js、TypeScript、Tailwind CSS、Sanity CMSを使用して構築されています。
+Mikityの公式ブログメディアです。
 
-## 🚀 技術スタック
+- Website: https://mikitylife.com
+- Repository: https://github.com/Mikityyyyy/mikity-blog
+- Hosting: Vercel
 
-- **フロントエンド**: Next.js 15 + React 19 + TypeScript
-- **スタイリング**: Tailwind CSS
-- **CMS**: Sanity
-- **ホスティング**: Vercel
-- **ドメイン**: mikityyyyy.com
+## About
 
-## 📁 プロジェクト構造
+仕事、競技、学びを同時に進める会社員の実体験と思考を記録します。
 
-```
-src/
-├── app/
-│   ├── blog/
-│   │   ├── [slug]/
-│   │   │   └── page.tsx        # 個別記事ページ
-│   │   ├── category/
-│   │   │   └── [category]/
-│   │   │       └── page.tsx    # カテゴリーページ
-│   │   ├── tag/
-│   │   │   └── [tag]/
-│   │   │       └── page.tsx    # タグページ
-│   │   └── page.tsx            # ブログ一覧ページ
-│   ├── globals.css
-│   ├── layout.tsx              # ルートレイアウト
-│   └── page.tsx                # トップページ
-├── components/
-│   ├── AboutSection.tsx        # 自己紹介セクション
-│   ├── Footer.tsx              # フッターコンポーネント
-│   ├── Header.tsx              # ヘッダーコンポーネント
-│   ├── HeroSection.tsx         # ヒーローセクション
-│   └── LatestBlogSection.tsx   # 最新ブログセクション
-└── lib/
-    ├── sanity.ts               # Sanity設定
-    └── types.ts                # TypeScript型定義
-```
+現在はブログメディアとしてのリニューアル準備中です。既存のブログ画面にはモックデータを含み、Sanity CMSとの接続を段階的に整備しています。
 
-## 🛠️ 開発環境のセットアップ
+## Tech stack
 
-### 1. 依存関係のインストール
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Sanity
+- Vercel
+
+## Local development
+
+### Requirements
+
+- Node.js 20
+- npm
+
+### Setup
 
 ```bash
-npm install
-```
-
-### 2. 環境変数の設定
-
-`.env.local.example`を`.env.local`にコピーして、必要な環境変数を設定してください。
-
-```bash
-cp .env.local.example .env.local
-```
-
-### 3. 開発サーバーの起動
-
-```bash
+git clone https://github.com/Mikityyyyy/mikity-blog.git
+cd mikity-blog
+npm ci
+cp .env.example .env.local
 npm run dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いてサイトを確認できます。
+Open http://localhost:3000 after the development server starts.
 
-## 📝 主な機能
+### Environment variables
 
-### ✅ 完成済み
-- レスポンシブ対応のモダンなデザイン
-- トップページ（ヒーロー、自己紹介、実績セクション）
-- ブログ一覧ページ（カテゴリフィルター付き）
-- 個別記事ページ（関連記事、シェアボタン付き）
-- SEO最適化（メタタグ、OGP対応）
+| Name | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | For CMS | Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | For CMS | Sanity dataset |
+| `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics 4 measurement ID |
 
-### 🔄 開発中
-- Sanity CMS統合
-- 検索機能
-- カテゴリー・タグページ
-- Google Analytics 4統合
+Never commit `.env.local` or production credentials.
 
-## 🚀 デプロイ
+## Commands
 
-### Vercelでのデプロイ
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run start
+```
 
-1. Vercelアカウントにログイン
-2. プロジェクトをGitHubにプッシュ
-3. Vercelでプロジェクトを選択してデプロイ
-4. カスタムドメイン（mikityyyyy.com）を設定
+## Repository workflow
 
-### 環境変数の設定
+1. Create an `agent/*` or `feature/*` branch from `main`.
+2. Make and validate changes on that branch.
+3. Open a pull request into `main`.
+4. Review the Vercel preview before merging.
+5. Merging into `main` deploys the production site automatically.
 
-Vercelの環境変数設定で以下を追加：
+## Project structure
 
-- `NEXT_PUBLIC_SANITY_PROJECT_ID`
-- `NEXT_PUBLIC_SANITY_DATASET`
-- `NEXT_PUBLIC_GA_ID`
-- `NEXT_PUBLIC_SITE_URL`
+```text
+src/
+├── app/          # App Router pages and metadata routes
+├── components/   # Shared UI components
+└── lib/          # Sanity, analytics, queries, and types
+public/           # Static assets
+```
 
-## 📊 パフォーマンス目標
+## License
 
-- Lighthouse スコア: 90+
-- ページ読み込み速度: 3秒以内
-- Core Web Vitals: すべて Good
-
-## 🤝 コントリビューション
-
-バグ報告や機能要望がありましたら、Issueを作成してください。
-
-## 📄 ライセンス
-
-MIT License
-
----
-
-© 2024 Mikity. All rights reserved.
+This is a personal project. All rights reserved.
