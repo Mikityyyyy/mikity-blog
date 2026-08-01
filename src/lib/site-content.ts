@@ -16,22 +16,22 @@ export const contentPillars = [
   {
     number: "01",
     title: "WORK",
-    description: "Building, marketing and making decisions inside a company.",
+    description: "会社員として、事業とマーケティングに向き合う日々。",
   },
   {
     number: "02",
     title: "TRAIN",
-    description: "HYROX, running and strength — without picking just one.",
+    description: "HYROX、ランニング、筋力トレーニングの現在地。",
   },
   {
     number: "03",
     title: "STUDY",
-    description: "English, AI and the skills that change how I work.",
+    description: "英語とAIを、仕事の右腕にしていくための学び。",
   },
   {
     number: "04",
     title: "LIFE",
-    description: "The ordinary days behind every number and every goal.",
+    description: "数字や目標には収まらない、生活と感情の記録。",
   },
 ] as const;
 

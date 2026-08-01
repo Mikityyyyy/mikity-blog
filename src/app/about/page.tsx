@@ -27,8 +27,8 @@ export default function AboutPage() {
           <p className="eyebrow text-[var(--accent)]">The person behind the process</p>
           <h1 className="mt-5 font-serif text-[clamp(2.9rem,7vw,4.5rem)] leading-[1.05] tracking-[-0.06em]">Still<br /><span className="italic">becoming.</span></h1>
           <div className="mt-10 max-w-2xl space-y-6 text-sm leading-8 text-[var(--muted)] sm:text-base">
-            <p>Working in business, training for HYROX and the marathon, learning English and AI — all at the same time.</p>
             <p>走る、挙げる、働く、学ぶ。どれか一つを選ぶのではなく、どうすれば全部続けられるのかを試している会社員です。</p>
+            <p>仕事、HYROX、マラソン、筋力トレーニング、英語、AI。成功した結果だけではなく、そこへ向かう途中を記録しています。</p>
           </div>
         </div>
       </header>
@@ -50,7 +50,7 @@ export default function AboutPage() {
         <p className="eyebrow text-[var(--muted)]">Why I write</p>
         <div className="max-w-2xl">
           <p className="font-serif text-3xl italic leading-[1.45] tracking-[-0.035em] sm:text-4xl">No perfect routine.<br />Just the process.</p>
-          <p className="mt-7 text-sm leading-8 text-[var(--muted)]">Not a guide to having it all. Just an honest record of trying, failing, adjusting and moving again.</p>
+          <p className="mt-7 text-sm leading-8 text-[var(--muted)]">誰かに正解を教えるためではなく、試し、失敗し、調整して、また動き出す。その過程を正直に残すために書いています。</p>
           <div className="mt-9 flex gap-7 text-xs">
             <Link href="/blog" className="border-b border-[var(--foreground)] pb-1">Read the stories</Link>
             <Link href="/" className="text-[var(--muted)]">Back home</Link>

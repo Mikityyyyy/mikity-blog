@@ -25,10 +25,11 @@ export default async function Home() {
         <div className="mx-auto grid min-h-[calc(82svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
           <div>
             <p className="eyebrow text-white/45">Mikity Life — Field Notes</p>
-            <h1 className="mt-8 max-w-4xl font-serif text-[clamp(3rem,7vw,4.9rem)] leading-[0.98] tracking-[-0.065em]">
-              Too much life<br />to <span className="italic text-[#d87852]">settle.</span>
+            <h1 className="mt-8 max-w-4xl text-[clamp(2.7rem,6vw,4.2rem)] font-medium leading-[1.25] tracking-[-0.065em]">
+              諦めるには、<br />欲しいものが多すぎる。
             </h1>
-            <p className="mt-8 max-w-lg text-sm leading-7 text-white/55">諦めるには、欲しいものが多すぎる。<br />働く、鍛える、学ぶ。そのすべての途中を記録する。</p>
+            <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[#d87852]">Work. Train. Learn. Live.</p>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-white/50">全部を諦めないための、試行錯誤と途中経過。</p>
             <div className="mt-9 flex items-center gap-7 text-xs">
               <Link href="/blog" className="border-b border-white/60 pb-1 transition-colors hover:border-[#d87852] hover:text-[#d87852]">Read the stories</Link>
               {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-white/45 transition-colors hover:text-white">Follow the process ↗</a>}
@@ -54,7 +55,7 @@ export default async function Home() {
         <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
           <div>
             <p className="eyebrow text-[var(--accent)]">Latest stories</p>
-            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">Thoughts, progress<br />and the days between.</p>
+            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">考えたこと、試したこと、<br />うまくいかなかった日のこと。</p>
           </div>
 
           {posts.length > 0 ? (
@@ -70,8 +71,8 @@ export default async function Home() {
             </div>
           ) : (
             <div className="border-t border-[var(--border)] py-8">
-              <p className="font-serif text-2xl tracking-[-0.03em]">The first story is on its way.</p>
-              <p className="mt-3 text-sm text-[var(--muted)]">最初の記事を準備しています。</p>
+              <p className="text-xl font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
+              <p className="mt-3 text-xs text-[var(--muted)]">The first story is on its way.</p>
             </div>
           )}
         </div>
@@ -105,6 +106,7 @@ export default async function Home() {
           <div>
             <p className="eyebrow text-[var(--accent)]">Now, in motion</p>
             <h2 className="mt-4 font-serif text-3xl tracking-[-0.04em]">Follow the process.</h2>
+            <p className="mt-3 text-sm text-[var(--muted)]">日々の現在地は、SNSで更新しています。</p>
           </div>
           <div className="flex flex-wrap gap-x-7 gap-y-3">
             {socialLinks.filter((social) => social.primary).map((social) => (
