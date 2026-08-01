@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f6f2;
-  --foreground: #252521;
-  --accent: #9b6d57;
-  --muted: #77766f;
-  --border: rgba(37, 37, 33, 0.13);
+  --background: #f3f1eb;
+  --foreground: #1d1d19;
+  --accent: #c15b35;
+  --muted: #706f68;
+  --border: rgba(29, 29, 25, 0.15);
 }
 
 @theme inline {
@@ -47,9 +47,9 @@ a {
 }
 
 .eyebrow {
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 

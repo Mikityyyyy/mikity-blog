@@ -29,9 +29,9 @@ const components: PortableTextComponents = {
     },
   },
   block: {
-    h1: ({ children }) => <h2 className="mb-6 mt-16 text-3xl font-semibold leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
-    h2: ({ children }) => <h2 className="mb-6 mt-16 text-3xl font-semibold leading-snug tracking-[-0.04em] sm:text-4xl">{children}</h2>,
-    h3: ({ children }) => <h3 className="mb-4 mt-12 text-2xl font-semibold leading-snug tracking-[-0.03em]">{children}</h3>,
+    h1: ({ children }) => <h2 className="mb-6 mt-16 text-2xl font-semibold leading-snug tracking-[-0.035em] sm:text-3xl">{children}</h2>,
+    h2: ({ children }) => <h2 className="mb-6 mt-16 text-2xl font-semibold leading-snug tracking-[-0.035em] sm:text-3xl">{children}</h2>,
+    h3: ({ children }) => <h3 className="mb-4 mt-12 text-xl font-semibold leading-snug tracking-[-0.025em]">{children}</h3>,
     normal: ({ children }) => <p className="mb-7 text-base leading-[2.1] text-[#4b4a44] sm:text-[1.05rem]">{children}</p>,
     blockquote: ({ children }) => <blockquote className="my-10 border-l border-[var(--accent)] px-6 py-2 text-lg leading-9 text-[#4b4a44]">{children}</blockquote>,
   },

@@ -71,7 +71,7 @@ export default async function BlogPostPage({ params }: Props) {
             <span aria-hidden="true">/</span>
             <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" }).format(new Date(post.publishedAt))}</time>
           </div>
-          <h1 className="mx-auto mt-7 max-w-4xl text-4xl font-medium leading-[1.4] tracking-[-0.055em] sm:text-5xl lg:text-6xl">{post.title}</h1>
+          <h1 className="mx-auto mt-7 max-w-4xl text-3xl font-medium leading-[1.45] tracking-[-0.05em] sm:text-4xl lg:text-[2.9rem]">{post.title}</h1>
           {post.excerpt && <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[var(--muted)] sm:text-base">{post.excerpt}</p>}
           <div className="mt-8 flex items-center justify-center gap-5 text-[0.66rem] text-[var(--muted)]">
             <span>by {post.author?.name || "Mikity"}</span>

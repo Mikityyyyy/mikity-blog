@@ -16,26 +16,22 @@ export const contentPillars = [
   {
     number: "01",
     title: "WORK",
-    jaTitle: "働く",
-    description: "会社員として、事業とマーケティングに向き合う。考えたこと、試したこと、まだ答えのないこと。",
+    description: "Building, marketing and making decisions inside a company.",
   },
   {
     number: "02",
-    title: "WORKOUT",
-    jaTitle: "鍛える",
-    description: "HYROX、ランニング、筋力トレーニング。結果だけではなく、そこへ向かう日々の記録。",
+    title: "TRAIN",
+    description: "HYROX, running and strength — without picking just one.",
   },
   {
     number: "03",
     title: "STUDY",
-    jaTitle: "学ぶ",
-    description: "英語とAIを、仕事の右腕にする。わかったふりをせず、学ぶ途中をそのまま残す。",
+    description: "English, AI and the skills that change how I work.",
   },
   {
     number: "04",
-    title: "JOURNAL",
-    jaTitle: "暮らす",
-    description: "全部やろうとして、普通に崩れる日もある。数字には収まらない、生活と感情の記録。",
+    title: "LIFE",
+    description: "The ordinary days behind every number and every goal.",
   },
 ] as const;
 

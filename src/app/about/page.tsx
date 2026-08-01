@@ -24,11 +24,11 @@ export default function AboutPage() {
         </div>
 
         <div className="max-w-3xl">
-          <p className="eyebrow text-[var(--muted)]">About</p>
-          <h1 className="mt-5 text-[clamp(3.2rem,8vw,6rem)] font-medium leading-[1.15] tracking-[-0.07em]">全部やりたい。<br />だから、記録する。</h1>
+          <p className="eyebrow text-[var(--accent)]">The person behind the process</p>
+          <h1 className="mt-5 font-serif text-[clamp(2.9rem,7vw,4.5rem)] leading-[1.05] tracking-[-0.06em]">Still<br /><span className="italic">becoming.</span></h1>
           <div className="mt-10 max-w-2xl space-y-6 text-sm leading-8 text-[var(--muted)] sm:text-base">
+            <p>Working in business, training for HYROX and the marathon, learning English and AI — all at the same time.</p>
             <p>走る、挙げる、働く、学ぶ。どれか一つを選ぶのではなく、どうすれば全部続けられるのかを試している会社員です。</p>
-            <p>mikitylifeは、成功談だけをきれいに並べる場所ではありません。予定を守れない日や、仕事で余裕がなくなる日まで含めて、考えたことを残すためのブログです。</p>
           </div>
         </div>
       </header>
@@ -40,7 +40,7 @@ export default function AboutPage() {
             <div key={goal.label}>
               <p className="text-xs text-[var(--muted)]">{goal.label}</p>
               <p className="mt-3 font-serif text-3xl tracking-[-0.04em]">{goal.current}</p>
-              <p className="mt-2 text-[0.65rem] text-[var(--accent)]">次の目標　{goal.target}</p>
+              <p className="mt-2 text-[0.65rem] tracking-[0.08em] text-[var(--accent)]">NEXT / {goal.target}</p>
             </div>
           ))}
         </div>
@@ -50,10 +50,10 @@ export default function AboutPage() {
         <p className="eyebrow text-[var(--muted)]">Why I write</p>
         <div className="max-w-2xl">
           <p className="font-serif text-3xl italic leading-[1.45] tracking-[-0.035em] sm:text-4xl">No perfect routine.<br />Just the process.</p>
-          <p className="mt-7 text-sm leading-8 text-[var(--muted)]">誰かに正解を教えるためではなく、自分が考え、試し、また考え直した過程を置いていきます。</p>
+          <p className="mt-7 text-sm leading-8 text-[var(--muted)]">Not a guide to having it all. Just an honest record of trying, failing, adjusting and moving again.</p>
           <div className="mt-9 flex gap-7 text-xs">
-            <Link href="/blog" className="border-b border-[var(--foreground)] pb-1">記事を読む</Link>
-            <Link href="/" className="text-[var(--muted)]">ホームへ戻る</Link>
+            <Link href="/blog" className="border-b border-[var(--foreground)] pb-1">Read the stories</Link>
+            <Link href="/" className="text-[var(--muted)]">Back home</Link>
           </div>
         </div>
       </section>

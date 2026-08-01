@@ -28,7 +28,7 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "mikitylife | 全部欲しがる会社員の記録",
+    default: "mikitylife | Work. Train. Learn. Live.",
     template: "%s | mikitylife",
   },
   description: siteDescription,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   creator: "Mikity",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "mikitylife | 全部欲しがる会社員の記録",
+    title: "mikitylife | Work. Train. Learn. Live.",
     description: siteDescription,
     url: siteUrl,
     siteName: "mikitylife",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "mikitylife | 全部欲しがる会社員の記録",
+    title: "mikitylife | Work. Train. Learn. Live.",
     description: siteDescription,
     creator: "@mikity__97",
     images: ["/og.png"],

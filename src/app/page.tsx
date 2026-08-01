@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import StructuredData from "@/components/StructuredData";
 import { getLatestPosts } from "@/lib/sanity-queries";
@@ -22,86 +21,90 @@ export default async function Home() {
     <>
       <StructuredData type="website" data={{ name: "mikitylife", url: siteUrl, description: siteDescription }} />
 
-      <section className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-6xl items-center gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_17rem] lg:py-28">
-        <div className="max-w-4xl">
-          <p className="eyebrow text-[var(--muted)]">A personal journal by Mikity</p>
-          <h1 className="mt-8 text-[clamp(3.2rem,8vw,6.8rem)] font-medium leading-[1.12] tracking-[-0.075em]">
-            諦めるには、<br />欲しいものが多すぎる。
-          </h1>
-          <p className="mt-9 max-w-xl text-sm leading-8 text-[var(--muted)] sm:text-base">
-            走る、挙げる、働く、学ぶ。<br />どれか一つに絞れない会社員の、静かな記録です。
-          </p>
-          <div className="mt-10 flex items-center gap-7 text-xs">
-            <Link href="/blog" className="border-b border-[var(--foreground)] pb-1 transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">記事を読む</Link>
-            {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">Instagram ↗</a>}
+      <section className="bg-[#1d1d19] text-[#f3f1eb]">
+        <div className="mx-auto grid min-h-[calc(82svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
+          <div>
+            <p className="eyebrow text-white/45">Mikity Life — Field Notes</p>
+            <h1 className="mt-8 max-w-4xl font-serif text-[clamp(3rem,7vw,4.9rem)] leading-[0.98] tracking-[-0.065em]">
+              Too much life<br />to <span className="italic text-[#d87852]">settle.</span>
+            </h1>
+            <p className="mt-8 max-w-lg text-sm leading-7 text-white/55">諦めるには、欲しいものが多すぎる。<br />働く、鍛える、学ぶ。そのすべての途中を記録する。</p>
+            <div className="mt-9 flex items-center gap-7 text-xs">
+              <Link href="/blog" className="border-b border-white/60 pb-1 transition-colors hover:border-[#d87852] hover:text-[#d87852]">Read the stories</Link>
+              {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-white/45 transition-colors hover:text-white">Follow the process ↗</a>}
+            </div>
           </div>
-        </div>
 
-        <div className="justify-self-start lg:justify-self-end">
-          <div className="relative h-56 w-44 overflow-hidden bg-[#e9e6df] sm:h-72 sm:w-56">
-            <Image src="/profile.png" alt="Mikity" fill priority sizes="224px" className="object-cover grayscale-[28%]" />
+          <div className="border-t border-white/20 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <p className="eyebrow text-white/35">What this is about</p>
+            <div className="mt-6 space-y-4">
+              {contentPillars.map((pillar) => (
+                <div key={pillar.title} className="flex items-baseline justify-between border-b border-white/10 pb-3">
+                  <span className="text-xs text-white/40">{pillar.number}</span>
+                  <span className="font-serif text-xl tracking-[-0.03em]">{pillar.title}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-[0.62rem] tracking-[0.14em] text-white/30">TOKYO / SINCE 2026</p>
           </div>
-          <p className="mt-3 text-[0.65rem] tracking-[0.08em] text-[var(--muted)]">MIKITY — TOKYO</p>
         </div>
       </section>
 
-      <div className="border-y border-[var(--border)]">
-        <div className="mx-auto flex max-w-6xl flex-wrap gap-x-8 gap-y-3 px-5 py-5 sm:px-8">
-          {contentPillars.map((pillar) => <span key={pillar.title} className="text-[0.68rem] tracking-[0.1em] text-[var(--muted)]">{pillar.title}</span>)}
-        </div>
-      </div>
-
-      <section className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-32">
-        <div className="grid gap-12 lg:grid-cols-[16rem_1fr]">
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+        <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
           <div>
-            <p className="eyebrow text-[var(--muted)]">Latest stories</p>
-            <h2 className="mt-4 font-serif text-4xl tracking-[-0.05em]">最近の記録。</h2>
-            <Link href="/blog" className="mt-6 inline-block text-xs text-[var(--muted)] underline decoration-[var(--border)] transition-colors hover:text-[var(--foreground)]">すべての記事</Link>
+            <p className="eyebrow text-[var(--accent)]">Latest stories</p>
+            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">Thoughts, progress<br />and the days between.</p>
           </div>
 
           {posts.length > 0 ? (
             <div className="border-t border-[var(--border)]">
-              {posts.map((post) => (
-                <Link key={post._id} href={`/blog/${post.slug.current}`} className="group grid gap-3 border-b border-[var(--border)] py-7 sm:grid-cols-[7rem_1fr_auto] sm:items-baseline">
-                  <span className="text-[0.65rem] tracking-[0.08em] text-[var(--muted)]">{post.categories?.[0]?.title || "Journal"}</span>
-                  <h3 className="text-lg font-medium leading-relaxed tracking-[-0.02em] transition-colors group-hover:text-[var(--accent)] sm:text-xl">{post.title}</h3>
-                  <time dateTime={post.publishedAt} className="text-[0.65rem] text-[var(--muted)]">{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
+              {posts.map((post, index) => (
+                <Link key={post._id} href={`/blog/${post.slug.current}`} className="group grid gap-3 border-b border-[var(--border)] py-6 sm:grid-cols-[2rem_6rem_1fr_auto] sm:items-baseline">
+                  <span className="font-serif text-xs italic text-[var(--accent)]">0{index + 1}</span>
+                  <span className="text-[0.62rem] tracking-[0.08em] text-[var(--muted)]">{post.categories?.[0]?.title || "LIFE"}</span>
+                  <h2 className="text-lg font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)]">{post.title}</h2>
+                  <time dateTime={post.publishedAt} className="text-[0.62rem] text-[var(--muted)]">{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="border-t border-[var(--border)] py-10">
-              <p className="text-lg">最初の記事を準備しています。</p>
-              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">公開した記事だけが、ここに静かに並びます。</p>
+            <div className="border-t border-[var(--border)] py-8">
+              <p className="font-serif text-2xl tracking-[-0.03em]">The first story is on its way.</p>
+              <p className="mt-3 text-sm text-[var(--muted)]">最初の記事を準備しています。</p>
             </div>
           )}
         </div>
+        <div className="mt-10 text-right">
+          <Link href="/blog" className="text-xs text-[var(--muted)] underline decoration-[var(--border)] transition-colors hover:text-[var(--foreground)]">View all stories</Link>
+        </div>
       </section>
 
-      <section className="border-y border-[var(--border)] bg-[#f0eee8]">
-        <div className="mx-auto grid max-w-6xl gap-16 px-5 py-24 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-32">
+      <section className="border-y border-[var(--border)] bg-[#e9e6df]">
+        <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:py-24">
           <div>
-            <p className="eyebrow text-[var(--muted)]">About this journal</p>
-            <h2 className="mt-5 max-w-md text-3xl font-medium leading-[1.5] tracking-[-0.045em] sm:text-4xl">完成した自分ではなく、途中にいる自分を書く。</h2>
-            <p className="mt-7 max-w-md text-sm leading-8 text-[var(--muted)]">誰かに正解を教える場所ではありません。考え、試し、うまくいかなかった日まで残しておくためのブログです。</p>
+            <p className="eyebrow text-[var(--accent)]">Four ways of looking</p>
+            <h2 className="mt-5 font-serif text-3xl leading-[1.15] tracking-[-0.045em] sm:text-4xl">Work.<br />Train.<br />Learn.<br /><span className="italic">Live.</span></h2>
           </div>
-          <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
             {contentPillars.map((pillar) => (
-              <div key={pillar.title}>
-                <p className="text-xs text-[var(--accent)]">{pillar.number}</p>
-                <h3 className="mt-3 font-serif text-2xl tracking-[-0.03em]">{pillar.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{pillar.description}</p>
+              <div key={pillar.title} className="border-t border-[var(--border)] pt-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-semibold tracking-[0.12em]">{pillar.title}</h3>
+                  <span className="font-serif text-xs italic text-[var(--accent)]">{pillar.number}</span>
+                </div>
+                <p className="mt-4 max-w-xs text-sm leading-7 text-[var(--muted)]">{pillar.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-28">
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-24">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="eyebrow text-[var(--muted)]">Follow the process</p>
-            <h2 className="mt-4 text-3xl font-medium tracking-[-0.045em] sm:text-4xl">日々の現在地は、SNSで。</h2>
+            <p className="eyebrow text-[var(--accent)]">Now, in motion</p>
+            <h2 className="mt-4 font-serif text-3xl tracking-[-0.04em]">Follow the process.</h2>
           </div>
           <div className="flex flex-wrap gap-x-7 gap-y-3">
             {socialLinks.filter((social) => social.primary).map((social) => (

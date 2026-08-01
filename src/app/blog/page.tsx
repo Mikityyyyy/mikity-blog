@@ -32,9 +32,9 @@ export default async function BlogPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
       <header className="max-w-3xl">
-        <p className="eyebrow text-[var(--muted)]">Stories</p>
-        <h1 className="mt-5 font-serif text-[clamp(4rem,10vw,7rem)] leading-none tracking-[-0.07em]">Journal.</h1>
-        <p className="mt-8 max-w-xl text-sm leading-8 text-[var(--muted)]">仕事、トレーニング、学び、暮らし。答えではなく、考えたことと現在地を残します。</p>
+        <p className="eyebrow text-[var(--accent)]">Archive / 2026</p>
+        <h1 className="mt-5 font-serif text-[clamp(2.9rem,7vw,4.5rem)] leading-none tracking-[-0.06em]">Stories &amp; Notes.</h1>
+        <p className="mt-7 max-w-xl text-sm leading-7 text-[var(--muted)]">Work, training, study and life — recorded while they are still unfolding.</p>
       </header>
 
       <div className="mt-14 flex flex-wrap gap-x-7 gap-y-3 border-y border-[var(--border)] py-4">
@@ -80,9 +80,9 @@ export default async function BlogPage() {
           </div>
         ) : (
           <div className="border-t border-[var(--border)] py-16">
-            <p className="text-2xl font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
-            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">記事を公開すると、この場所へ追加されます。</p>
-            <Link href="/" className="mt-8 inline-block text-xs underline decoration-[var(--border)]">ホームへ戻る</Link>
+            <p className="font-serif text-2xl tracking-[-0.03em]">The first story is on its way.</p>
+            <p className="mt-3 text-sm text-[var(--muted)]">公開した記事が、ここに並びます。</p>
+            <Link href="/" className="mt-8 inline-block text-xs underline decoration-[var(--border)]">Back home</Link>
           </div>
         )}
       </section>
