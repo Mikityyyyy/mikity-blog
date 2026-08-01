@@ -21,7 +21,7 @@ export default function Header() {
   }, [isOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(243,241,235,0.92)] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(247,246,242,0.92)] backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="font-serif text-xl tracking-[-0.03em]">
           mikitylife<span className="text-[var(--accent)]">.</span>

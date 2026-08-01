@@ -21,32 +21,32 @@ export default async function Home() {
     <>
       <StructuredData type="website" data={{ name: "mikitylife", url: siteUrl, description: siteDescription }} />
 
-      <section className="bg-[#1d1d19] text-[#f3f1eb]">
-        <div className="mx-auto grid min-h-[calc(82svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
+      <section className="border-b border-[var(--border)]">
+        <div className="mx-auto grid min-h-[calc(76svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
           <div>
-            <p className="eyebrow text-white/45">Mikity Life — Field Notes</p>
+            <p className="eyebrow text-[var(--accent)]">Mikity Life — Field Notes</p>
             <h1 className="mt-8 max-w-4xl text-[clamp(2.7rem,6vw,4.2rem)] font-medium leading-[1.25] tracking-[-0.065em]">
               諦めるには、<br />欲しいものが多すぎる。
             </h1>
-            <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[#d87852]">Work. Train. Learn. Live.</p>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-white/50">働く、鍛える、学ぶ。どれも諦めないための試行錯誤。</p>
+            <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[var(--accent)]">Work. Train. Learn. Live.</p>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-[var(--muted)]">働く、鍛える、学ぶ。どれも諦めないための試行錯誤。</p>
             <div className="mt-9 flex items-center gap-7 text-xs">
-              <Link href="/blog" className="border-b border-white/60 pb-1 transition-colors hover:border-[#d87852] hover:text-[#d87852]">Read the stories</Link>
-              {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-white/45 transition-colors hover:text-white">Follow the process ↗</a>}
+              <Link href="/blog" className="border-b border-[var(--foreground)] pb-1 transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Read the stories</Link>
+              {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">Follow the process ↗</a>}
             </div>
           </div>
 
-          <div className="border-t border-white/20 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <p className="eyebrow text-white/35">What this is about</p>
+          <div className="border-t border-[var(--border)] pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <p className="eyebrow text-[var(--muted)]">What this is about</p>
             <div className="mt-6 space-y-4">
               {contentPillars.map((pillar) => (
-                <div key={pillar.title} className="flex items-baseline justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs text-white/40">{pillar.number}</span>
+                <div key={pillar.title} className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
+                  <span className="text-xs text-[var(--muted)]">{pillar.number}</span>
                   <span className="font-serif text-xl tracking-[-0.03em]">{pillar.title}</span>
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-[0.62rem] tracking-[0.14em] text-white/30">TOKYO / SINCE 2026</p>
+            <p className="mt-8 text-[0.62rem] tracking-[0.14em] text-[var(--muted)]">TOKYO / SINCE 2026</p>
           </div>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="border-y border-[var(--border)] bg-[#e9e6df]">
+      <section className="border-y border-[var(--border)] bg-[#efede7]">
         <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:py-24">
           <div>
             <p className="eyebrow text-[var(--accent)]">The four pillars</p>
