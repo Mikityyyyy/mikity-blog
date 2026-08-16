@@ -1,11 +1,11 @@
 export const siteUrl = "https://mikitylife.com";
 
 export const siteDescription =
-  "走る、挙げる、働く、学ぶ。どれも諦めたくない会社員・Mikityの試行錯誤を残すブログメディア。";
+  "29歳会社員 × Hybrid Athlete。走る、挙げる、働く、学ぶ。どれも諦めたくないMikityの試行錯誤を残すブログメディア。";
 
 export const socialLinks = [
   { label: "Instagram", handle: "@mikity__97", href: "https://www.instagram.com/mikity__97/", primary: true },
-  { label: "YouTube", handle: "@mikityyyyy", href: "https://www.youtube.com/@mikityyyyy", primary: true },
+  { label: "YouTube", handle: "@mikityvlog", href: "https://www.youtube.com/@mikityvlog", primary: true },
   { label: "TikTok", handle: "@mikity__97", href: "https://www.tiktok.com/@mikity__97", primary: true },
   { label: "Threads", handle: "@mikity__97", href: "https://www.threads.com/@mikity__97", primary: true },
   { label: "X", handle: "@mikity__97", href: "https://x.com/mikity__97", primary: false },
@@ -16,7 +16,7 @@ export const contentPillars = [
   {
     number: "01",
     title: "WORK",
-    description: "会社員として、事業とマーケティングに向き合う日々。",
+    description: "IT企業で、BizDevとマーケティングに向き合う日々。",
   },
   {
     number: "02",
@@ -26,7 +26,7 @@ export const contentPillars = [
   {
     number: "03",
     title: "STUDY",
-    description: "英語とAIを、仕事の右腕にしていくための学び。",
+    description: "TOEIC 865から英語での議論へ。AIを業務の右腕に。",
   },
   {
     number: "04",

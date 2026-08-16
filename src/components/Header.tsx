@@ -21,20 +21,21 @@ export default function Header() {
   }, [isOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(247,246,242,0.92)] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(245,243,238,0.94)] backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="font-serif text-xl tracking-[-0.03em]">
-          mikitylife<span className="text-[var(--accent)]">.</span>
+        <Link href="/" className="flex items-center gap-2.5 text-lg font-black tracking-[-0.035em]">
+          <span className="h-2.5 w-2.5 bg-[var(--accent)]" aria-hidden="true" />
+          mikitylife.
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
+            <Link key={item.label} href={item.href} className="text-[0.68rem] font-semibold tracking-[0.06em] text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
               {item.label}
             </Link>
           ))}
           {instagram && (
-            <a href={instagram.href} target="_blank" rel="noreferrer" className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
+            <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[0.68rem] font-semibold tracking-[0.06em] text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
               Instagram ↗
             </a>
           )}
@@ -55,7 +56,7 @@ export default function Header() {
       {isOpen && (
         <nav className="fixed inset-x-0 top-20 flex min-h-[calc(100dvh-5rem)] flex-col bg-[var(--background)] px-6 py-12 md:hidden" aria-label="モバイルナビゲーション">
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 font-serif text-3xl tracking-[-0.04em]">
+            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 text-3xl font-black tracking-[-0.04em]">
               {item.label}
             </Link>
           ))}

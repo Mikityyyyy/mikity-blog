@@ -19,8 +19,8 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 lg:py-16">
         <div className="flex flex-col gap-9 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-serif text-2xl tracking-[-0.04em]">mikitylife<span className="text-[var(--accent)]">.</span></p>
-            <p className="mt-3 text-sm text-[var(--muted)]">Work. Train. Learn. Live.</p>
+            <p className="flex items-center gap-2.5 text-xl font-black tracking-[-0.035em]"><span className="h-2.5 w-2.5 bg-[var(--accent)]" aria-hidden="true" />mikitylife.</p>
+            <p className="mt-3 text-xs font-semibold tracking-[0.04em] text-[var(--muted)]">Work. Train. Learn. Live.</p>
           </div>
           <div className="flex items-center gap-1" aria-label="SNSリンク">
             {socialLinks.map((social) => {

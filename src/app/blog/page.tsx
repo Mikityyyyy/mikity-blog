@@ -33,7 +33,7 @@ export default async function BlogPage() {
     <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
       <header className="max-w-3xl">
         <p className="eyebrow text-[var(--accent)]">Stories / Archive</p>
-        <h1 className="mt-5 font-serif text-[clamp(2.8rem,7vw,4rem)] leading-none tracking-[-0.06em]">Stories &amp; Notes.</h1>
+        <h1 className="mt-5 text-[clamp(2.55rem,7vw,3.8rem)] font-black leading-none tracking-[-0.055em]">Stories &amp; Notes.</h1>
         <p className="mt-7 max-w-xl text-sm leading-7 text-[var(--muted)]">仕事、トレーニング、学び、暮らし。答えが出る前の考えと現在地を残します。</p>
       </header>
 
@@ -62,7 +62,7 @@ export default async function BlogPage() {
                         />
                       ) : (
                         <div className="flex h-full items-end justify-between p-6 text-[var(--muted)]">
-                          <span className="font-serif text-5xl italic opacity-25">{String(index + 1).padStart(2, "0")}</span>
+                          <span className="text-5xl font-black text-[var(--accent)] opacity-80">{String(index + 1).padStart(2, "0")}</span>
                           <span className="text-[0.62rem] tracking-[0.08em]">mikitylife</span>
                         </div>
                       )}
@@ -71,7 +71,7 @@ export default async function BlogPage() {
                       <span>{post.categories?.[0]?.title || "Journal"}</span>
                       <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
                     </div>
-                    <h2 className="mt-3 text-xl font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)] sm:text-2xl">{post.title}</h2>
+                    <h2 className="mt-3 text-xl font-bold leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)] sm:text-2xl">{post.title}</h2>
                     {post.excerpt && <p className="mt-3 line-clamp-2 text-sm leading-7 text-[var(--muted)]">{post.excerpt}</p>}
                   </Link>
                 </article>

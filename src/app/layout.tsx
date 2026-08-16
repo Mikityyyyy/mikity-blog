@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Playfair_Display } from "next/font/google";
+import { Archivo, Noto_Sans_JP, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteDescription, siteUrl } from "@/lib/site-content";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
     siteName: "mikitylife",
     locale: "ja_JP",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "MIKITY LIFE FIELD NOTES" }],
+    images: [{ url: "/og-editorial.png", width: 1734, height: 907, alt: "mikitylife — 29歳会社員 × Hybrid Athlete" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "mikitylife | Work. Train. Learn. Live.",
     description: siteDescription,
     creator: "@mikity__97",
-    images: ["/og.png"],
+    images: ["/og-editorial.png"],
   },
 };
 
@@ -58,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const gaTrackingId = process.env.NEXT_PUBLIC_GA_ID || "G-PEJLDFPW4N";
 
   return (
-    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable} ${playfair.variable}`}>
+    <html lang="ja" className={`${archivo.variable} ${notoSansJP.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
         <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} />
         <Script
