@@ -3,8 +3,8 @@
 :root {
   --background: #f5f3ee;
   --foreground: #201f1b;
-  --accent: #d7442d;
-  --accent-dark: #9f2f20;
+  --accent: #4c7785;
+  --accent-dark: #2f5964;
   --muted: #68665f;
   --border: rgba(32, 31, 27, 0.2);
   --surface: #e9e6df;
@@ -39,7 +39,7 @@ a {
 }
 
 ::selection {
-  background: #eed4ca;
+  background: #d4e1e4;
   color: var(--foreground);
 }
 

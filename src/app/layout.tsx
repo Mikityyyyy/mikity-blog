@@ -43,14 +43,14 @@ export const metadata: Metadata = {
     siteName: "mikitylife",
     locale: "ja_JP",
     type: "website",
-    images: [{ url: "/og-editorial.png", width: 1734, height: 907, alt: "mikitylife — 29歳会社員 × Hybrid Athlete" }],
+    images: [{ url: "/og-editorial-blue.png", width: 1734, height: 907, alt: "mikitylife — 29歳会社員 × Hybrid Athlete" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "mikitylife | Work. Train. Learn. Live.",
     description: siteDescription,
     creator: "@mikity__97",
-    images: ["/og-editorial.png"],
+    images: ["/og-editorial-blue.png"],
   },
 };
 
