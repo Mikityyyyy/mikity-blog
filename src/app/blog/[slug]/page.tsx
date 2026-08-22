@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       <header>
-        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+        <div className="mx-auto max-w-4xl px-6 py-16 text-center sm:px-8 lg:py-24">
           <div className="flex items-center justify-center gap-4 text-[0.66rem] text-[var(--muted)]">
             <span>{post.categories?.[0]?.title || "Journal"}</span>
             <span aria-hidden="true">/</span>
@@ -81,12 +81,12 @@ export default async function BlogPostPage({ params }: Props) {
       </header>
 
       {image && (
-        <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden bg-[#e9e6df]">
+        <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden bg-[var(--surface)]">
           <Image src={image} alt={post.mainImage?.alt || post.title} fill priority sizes="100vw" className="object-cover" />
         </div>
       )}
 
-      <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
+      <div className="mx-auto max-w-3xl px-6 py-16 sm:px-8 lg:py-24">
         {post.body?.length ? (
           <PortableText value={post.body as PortableTextValue} />
         ) : (
