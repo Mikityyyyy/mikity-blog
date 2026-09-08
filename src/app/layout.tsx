@@ -28,7 +28,7 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "mikitylife | Work. Train. Learn. Live.",
+    default: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     template: "%s | mikitylife",
   },
   description: siteDescription,
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-grow pt-16">{children}</main>
+          <main id="main-content" className="flex-grow">{children}</main>
           <Footer />
         </div>
       </body>

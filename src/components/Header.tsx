@@ -2,70 +2,42 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaInstagram, FaYoutube } from "react-icons/fa6";
 import { socialLinks } from "@/lib/site-content";
 
-const navItems = [
-  { label: "Stories", href: "/blog" },
-  { label: "About", href: "/about" },
-];
+const navItems = [{ label: "Journal", href: "/blog" }, { label: "About", href: "/about" }];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
   const instagram = socialLinks.find((social) => social.label === "Instagram");
+  const youtube = socialLinks.find((social) => social.label === "YouTube");
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") setIsOpen(false); };
+    document.addEventListener("keydown", escape);
+    return () => document.removeEventListener("keydown", escape);
+  }, []);
 
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-[rgba(245,243,238,0.92)] backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 sm:px-8">
-        <Link href="/" className="text-base font-semibold tracking-[-0.025em]">
-          mikitylife<span className="text-[var(--accent)]">.</span>
-        </Link>
-
-        <nav className="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
-          {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="text-[0.7rem] font-medium tracking-[0.04em] text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
-              {item.label}
-            </Link>
-          ))}
-          {instagram && (
-            <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[0.7rem] font-medium tracking-[0.04em] text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">
-              Instagram ↗
-            </a>
-          )}
-        </nav>
-
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
-          aria-expanded={isOpen}
-        >
-          <span className={`block h-px w-5 bg-[var(--foreground)] transition-transform ${isOpen ? "translate-y-[3.5px] rotate-45" : ""}`} />
-          <span className={`block h-px w-5 bg-[var(--foreground)] transition-transform ${isOpen ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
-        </button>
-      </div>
-
-      {isOpen && (
-        <nav className="fixed inset-x-0 top-16 flex min-h-[calc(100dvh-4rem)] flex-col bg-[var(--background)] px-6 py-12 md:hidden" aria-label="モバイルナビゲーション">
-          {navItems.map((item) => (
-            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="border-b border-[var(--border)] py-5 text-2xl font-medium tracking-[-0.03em]">
-              {item.label}
-            </Link>
-          ))}
-          {instagram && (
-            <a href={instagram.href} target="_blank" rel="noreferrer" className="mt-auto text-sm text-[var(--muted)]">
-              Instagram ↗
-            </a>
-          )}
-        </nav>
-      )}
-    </header>
-  );
+  return <header className="masthead">
+    <a href="#main-content" className="sr-only focus:not-sr-only focus:block focus:p-4">本文へ移動</a>
+    <div className="site-shell masthead-inner">
+      <Link href="/" className="wordmark" onClick={() => setIsOpen(false)}>mikitylife<span className="text-[var(--accent)]">.</span></Link>
+      <nav className="header-links" aria-label="メインナビゲーション">
+        {navItems.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}
+        <div className="header-social">
+          {instagram && <a className="icon-link" href={instagram.href} target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram size={18} /></a>}
+          {youtube && <a className="icon-link" href={youtube.href} target="_blank" rel="noreferrer" aria-label="YouTube"><FaYoutube size={20} /></a>}
+        </div>
+      </nav>
+      <button className="mobile-toggle" type="button" onClick={() => setIsOpen(!isOpen)} aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"} aria-expanded={isOpen} aria-controls="mobile-nav">
+        <span className="relative block h-4 w-5" aria-hidden="true"><span className={`absolute left-0 top-1 h-px w-5 bg-current ${isOpen ? "translate-y-1 rotate-45" : ""}`} /><span className={`absolute bottom-1 left-0 h-px w-5 bg-current ${isOpen ? "-translate-y-[3px] -rotate-45" : ""}`} /></span>
+      </button>
+    </div>
+    {isOpen && <nav id="mobile-nav" className="site-shell mobile-nav sm:hidden" aria-label="モバイルナビゲーション">
+      {navItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>{item.label}</Link>)}
+      {instagram && <a href={instagram.href} target="_blank" rel="noreferrer">Instagram ↗</a>}
+    </nav>}
+  </header>;
 }
