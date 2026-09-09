@@ -14,8 +14,8 @@ export default function ContactPage() {
   return (
     <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-4xl flex-col justify-center px-6 py-20 sm:px-8">
       <p className="eyebrow text-[var(--accent)]">Contact</p>
-      <h1 className="mt-5 font-serif text-[clamp(2.8rem,8vw,4rem)] leading-none tracking-[-0.06em]">Say hello.</h1>
-      <p className="mt-7 max-w-xl text-sm leading-7 text-[var(--muted)]">お仕事、コラボレーション、記事への感想などは、InstagramまたはXのDMからお願いします。</p>
+      <h1 className="mt-5 text-3xl font-medium leading-relaxed tracking-[-0.025em]">お問い合わせ</h1>
+      <p className="mt-6 max-w-xl text-base leading-8 text-[var(--muted)]">お仕事のご相談や記事への感想は、InstagramまたはXのDMからお願いします。</p>
 
       <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-y border-[var(--border)] py-6">
         {contacts.map((social) => (
@@ -25,7 +25,7 @@ export default function ContactPage() {
         ))}
       </div>
 
-      <Link href="/" className="mt-10 text-xs text-[var(--muted)]">← Back home</Link>
+      <Link href="/" className="mt-10 text-sm text-[var(--muted)]">← トップへ戻る</Link>
     </div>
   );
 }

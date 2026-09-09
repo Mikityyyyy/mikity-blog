@@ -1,7 +1,7 @@
 export const siteUrl = "https://mikitylife.com";
 
 export const siteDescription =
-  "29歳会社員 × Hybrid Athlete。走る、挙げる、働く、学ぶ。どれも諦めたくないMikityの試行錯誤を残すブログメディア。";
+  "仕事、身体、学び、暮らしの記録。IT企業で働くMikityが、HYROXやマラソン、英語、AIなどの実体験を綴るブログです。";
 
 export const socialLinks = [
   { label: "Instagram", handle: "@mikity__97", href: "https://www.instagram.com/mikity__97/", primary: true },
@@ -16,22 +16,26 @@ export const contentPillars = [
   {
     number: "01",
     title: "WORK",
-    description: "IT企業で、BizDevとマーケティングに向き合う日々。",
+    label: "仕事",
+    description: "BizDevとマーケティング。仕事で試したこと、考えたこと。",
   },
   {
     number: "02",
     title: "TRAIN",
-    description: "HYROX、ランニング、筋力トレーニングの現在地。",
+    label: "トレーニング",
+    description: "HYROX、マラソン、筋トレ。日々の練習と大会の記録。",
   },
   {
     number: "03",
     title: "STUDY",
-    description: "TOEIC 865から英語での議論へ。AIを業務の右腕に。",
+    label: "学び",
+    description: "英語とAI。学んだことを、仕事や日常で使ってみる。",
   },
   {
     number: "04",
     title: "LIFE",
-    description: "数字や目標には収まらない、生活と感情の記録。",
+    label: "暮らし",
+    description: "日々の選択や小さな発見。仕事と運動の合間に思うこと。",
   },
 ] as const;
 

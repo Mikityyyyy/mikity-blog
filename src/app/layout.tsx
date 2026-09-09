@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   creator: "Mikity",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "mikitylife | Work. Train. Learn. Live.",
+    title: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     description: siteDescription,
     url: siteUrl,
     siteName: "mikitylife",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "mikitylife | Work. Train. Learn. Live.",
+    title: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     description: siteDescription,
     creator: "@mikity__97",
     images: ["/og-editorial-v3.png"],
