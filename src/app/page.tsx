@@ -29,12 +29,12 @@ export default async function Home() {
         </div>
         <section className="cover" aria-labelledby="cover-title">
           <div className="cover-photo">
-            <Image src={featured ? postImage(featured)! : "/journal-cover-training.webp"} alt={featured ? featured.mainImage?.alt || featured.title : "ランニングシューズ、スポーツバッグとノートを配した、運動と学びのイメージ画像"} fill priority sizes="(max-width: 900px) 100vw, 65vw" />
+            <Image src={featured ? postImage(featured)! : "/sample-strength.webp"} alt={featured ? featured.mainImage?.alt || featured.title : "自然光の入るジムにバーベルとタオルを配した、筋力トレーニングのイメージ画像"} fill priority sizes="(max-width: 900px) 100vw, 65vw" />
           </div>
           <div className="cover-copy">
             <p className="eyebrow text-[var(--accent-dark)]">{featured ? "Featured story" : "About this journal"}</p>
-            <h2 id="cover-title">{featured ? featured.title : <><span className="cover-phrase">仕事のこと。</span><br /><span className="cover-phrase">走ること。</span><span className="cover-phrase">日々のこと。</span></>}</h2>
-            {(featured?.excerpt || !featured) && <p>{featured ? featured.excerpt : "HYROXやマラソンに取り組みながら、IT企業で働く毎日。試してわかったこと、続けて気づいたことを綴ります。"}</p>}
+            <h2 id="cover-title">{featured ? featured.title : <><span className="cover-phrase">仕事のこと。</span><br /><span className="cover-phrase">鍛えること。</span><span className="cover-phrase">日々のこと。</span></>}</h2>
+            {(featured?.excerpt || !featured) && <p>{featured ? featured.excerpt : "IT企業で働きながら、筋トレを軸に身体を動かす毎日。トレーニングも、仕事も、学びも。試してわかったことを綴ります。"}</p>}
             <Link className="text-link" href={featured ? `/blog/${featured.slug.current}` : "/about"}>{featured ? "記事を読む" : "このブログについて"}<span aria-hidden="true">→</span></Link>
           </div>
         </section>
@@ -62,7 +62,7 @@ export default async function Home() {
 
       <section className="site-shell journal-section about-strip">
         <div><p className="eyebrow text-[var(--accent-dark)]">About</p><h2 className="mt-4">Hello, I’m Mikity.</h2></div>
-        <div><p>29歳の会社員。IT企業でBizDevとマーケティングを担当しています。HYROX、マラソン、筋力トレーニングが好きで、英語とAIも勉強中です。</p><Link className="text-link" href="/about">プロフィールを読む<span aria-hidden="true">→</span></Link></div>
+        <div><p>29歳の会社員。IT企業でBizDevとマーケティングを担当しています。筋トレを中心に、HYROXやマラソンにも挑戦。英語とAIも勉強中です。</p><Link className="text-link" href="/about">プロフィールを読む<span aria-hidden="true">→</span></Link></div>
       </section>
     </>
   );

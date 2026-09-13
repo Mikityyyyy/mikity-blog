@@ -1,7 +1,7 @@
 export const siteUrl = "https://mikitylife.com";
 
 export const siteDescription =
-  "仕事、身体、学び、暮らしの記録。IT企業で働くMikityが、HYROXやマラソン、英語、AIなどの実体験を綴るブログです。";
+  "仕事、身体、学び、暮らしの記録。IT企業で働くMikityが、筋トレを中心に、HYROXやマラソン、英語、AIなどの実体験を綴るブログです。";
 
 export const socialLinks = [
   { label: "Instagram", handle: "@mikity__97", href: "https://www.instagram.com/mikity__97/", primary: true },
@@ -23,7 +23,7 @@ export const contentPillars = [
     number: "02",
     title: "TRAIN",
     label: "トレーニング",
-    description: "HYROX、マラソン、筋トレ。日々の練習と大会の記録。",
+    description: "筋トレを軸に、HYROXやマラソンにも挑戦。日々の練習と大会の記録。",
   },
   {
     number: "03",
@@ -40,7 +40,7 @@ export const contentPillars = [
 ] as const;
 
 export const currentGoals = [
+  { label: "BIG 3", current: "505 kg", target: "520 kg" },
   { label: "HYROX", current: "1:19:43", target: "SUB 75" },
   { label: "MARATHON", current: "3:51:18", target: "SUB 3.5" },
-  { label: "BIG 3", current: "505 kg", target: "520 kg" },
 ] as const;

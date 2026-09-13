@@ -6,7 +6,7 @@ import { currentGoals, siteDescription, siteUrl, socialLinks } from "@/lib/site-
 
 export const metadata: Metadata = {
   title: "About",
-  description: "IT企業で働きながら、HYROXやマラソンに取り組むMikityのプロフィール。",
+  description: "IT企業で働きながら、筋トレを中心にHYROXやマラソンにも取り組むMikityのプロフィール。",
   alternates: { canonical: "/about" },
 };
 
@@ -27,7 +27,7 @@ export default function AboutPage() {
           <p className="eyebrow text-[var(--accent)]">About / Mikity</p>
           <h1 className="mt-5 text-[clamp(1.75rem,4vw,2.5rem)] font-medium leading-[1.6] tracking-[-0.025em]">29歳会社員 ×<br />Hybrid Athlete</h1>
           <div className="mt-7 max-w-2xl space-y-5 text-base leading-8 text-[var(--muted)]">
-            <p>IT企業でBizDevとマーケティングを担当しています。仕事の合間にHYROX、マラソン、筋力トレーニングに取り組んでいます。</p>
+            <p>IT企業でBizDevとマーケティングを担当しています。仕事の合間に筋トレを続けながら、HYROXやマラソンにも挑戦しています。</p>
             <p>英語で議論できるようになること、AIを仕事で使いこなすことも目標です。運動も学びも、日々試しながら続けています。</p>
           </div>
         </div>
