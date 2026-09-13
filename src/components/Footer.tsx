@@ -15,12 +15,12 @@ const socialIcons: Record<(typeof socialLinks)[number]["label"], IconType> = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--border)]">
-      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 lg:py-16">
+    <footer className="border-t border-[var(--border)] bg-[var(--surface)]">
+      <div className="site-shell py-12 lg:py-16">
         <div className="flex flex-col gap-9 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-serif text-2xl tracking-[-0.04em]">mikitylife<span className="text-[var(--accent)]">.</span></p>
-            <p className="mt-3 text-sm text-[var(--muted)]">Work. Train. Learn. Live.</p>
+            <p className="wordmark">mikitylife<span className="text-[var(--accent)]">.</span></p>
+            <p className="mt-5 text-sm text-[var(--muted)]">仕事、身体、学び、暮らしの記録。</p>
           </div>
           <div className="flex items-center gap-1" aria-label="SNSリンク">
             {socialLinks.map((social) => {
@@ -33,7 +33,7 @@ export default function Footer() {
                   rel="noreferrer"
                   aria-label={social.label}
                   title={social.label}
-                  className="flex h-10 w-10 items-center justify-center text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--muted)] transition-colors hover:bg-[var(--background)] hover:text-[var(--accent)]"
                 >
                   <Icon size={18} aria-hidden="true" />
                   <span className="sr-only">{social.label}</span>
@@ -42,7 +42,7 @@ export default function Footer() {
             })}
           </div>
         </div>
-        <div className="mt-12 flex items-center justify-between border-t border-[var(--border)] pt-5 text-[0.68rem] text-[var(--muted)]">
+        <div className="mt-12 flex items-center justify-between border-t border-[var(--border)] pt-5 text-xs text-[var(--muted)]">
           <p>© {new Date().getFullYear()} mikitylife</p>
           <Link href="/contact" className="hover:text-[var(--foreground)]">Contact</Link>
         </div>

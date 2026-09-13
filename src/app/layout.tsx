@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Playfair_Display } from "next/font/google";
+import { Archivo, Noto_Sans_JP, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteDescription, siteUrl } from "@/lib/site-content";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -28,7 +28,7 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "mikitylife | Work. Train. Learn. Live.",
+    default: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     template: "%s | mikitylife",
   },
   description: siteDescription,
@@ -37,20 +37,20 @@ export const metadata: Metadata = {
   creator: "Mikity",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "mikitylife | Work. Train. Learn. Live.",
+    title: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     description: siteDescription,
     url: siteUrl,
     siteName: "mikitylife",
     locale: "ja_JP",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "MIKITY LIFE FIELD NOTES" }],
+    images: [{ url: "/og-editorial-v3.png", width: 1732, height: 908, alt: "mikitylife — Work. Train. Learn. Live." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "mikitylife | Work. Train. Learn. Live.",
+    title: "mikitylife | 仕事、身体、学び、暮らしの記録。",
     description: siteDescription,
     creator: "@mikity__97",
-    images: ["/og.png"],
+    images: ["/og-editorial-v3.png"],
   },
 };
 
@@ -58,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const gaTrackingId = process.env.NEXT_PUBLIC_GA_ID || "G-PEJLDFPW4N";
 
   return (
-    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable} ${playfair.variable}`}>
+    <html lang="ja" className={`${archivo.variable} ${notoSansJP.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
         <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} />
         <Script
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-grow pt-20">{children}</main>
+          <main id="main-content" className="flex-grow">{children}</main>
           <Footer />
         </div>
       </body>

@@ -1,118 +1,68 @@
+import Image from "next/image";
 import Link from "next/link";
 import StructuredData from "@/components/StructuredData";
+import StoryCard from "@/components/StoryCard";
+import SampleStories from "@/components/SampleStories";
+import { showSampleStories } from "@/lib/sample-stories";
 import { getLatestPosts } from "@/lib/sanity-queries";
 import { contentPillars, siteDescription, siteUrl, socialLinks } from "@/lib/site-content";
+import { postImage } from "@/lib/post-presentation";
 
 export const revalidate = 3600;
 
-async function loadLatestPosts() {
-  try {
-    return await getLatestPosts(4);
-  } catch {
-    return [];
-  }
-}
-
 export default async function Home() {
-  const posts = await loadLatestPosts();
+  const { posts, unavailable } = await getLatestPosts(7)
+    .then((posts) => ({ posts, unavailable: false }))
+    .catch(() => ({ posts: [], unavailable: true }));
+  const featured = posts.find((post) => postImage(post));
+  const latest = posts.filter((post) => post._id !== featured?._id).slice(0, 6);
+  const samples = showSampleStories && !unavailable && posts.length === 0;
   const instagram = socialLinks.find((social) => social.label === "Instagram");
 
   return (
     <>
       <StructuredData type="website" data={{ name: "mikitylife", url: siteUrl, description: siteDescription }} />
-
-      <section className="border-b border-[var(--border)]">
-        <div className="mx-auto grid min-h-[calc(76svh-5rem)] max-w-6xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:py-24">
-          <div>
-            <p className="eyebrow text-[var(--accent)]">Mikity Life — Field Notes</p>
-            <h1 className="mt-8 max-w-4xl text-[clamp(2.7rem,6vw,4.2rem)] font-medium leading-[1.25] tracking-[-0.065em]">
-              諦めるには、<br />欲しいものが多すぎる。
-            </h1>
-            <p className="mt-7 font-serif text-lg italic tracking-[-0.02em] text-[var(--accent)]">Work. Train. Learn. Live.</p>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-[var(--muted)]">働く、鍛える、学ぶ。どれも諦めないための試行錯誤。</p>
-            <div className="mt-9 flex items-center gap-7 text-xs">
-              <Link href="/blog" className="border-b border-[var(--foreground)] pb-1 transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Read the stories</Link>
-              {instagram && <a href={instagram.href} target="_blank" rel="noreferrer" className="text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">Follow the process ↗</a>}
-            </div>
-          </div>
-
-          <div className="border-t border-[var(--border)] pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <p className="eyebrow text-[var(--muted)]">What this is about</p>
-            <div className="mt-6 space-y-4">
-              {contentPillars.map((pillar) => (
-                <div key={pillar.title} className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
-                  <span className="text-xs text-[var(--muted)]">{pillar.number}</span>
-                  <span className="font-serif text-xl tracking-[-0.03em]">{pillar.title}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-8 text-[0.62rem] tracking-[0.14em] text-[var(--muted)]">TOKYO / SINCE 2026</p>
-          </div>
+      <div className="site-shell">
+        <div className="journal-intro">
+          <h1>仕事、身体、学び、暮らしの記録。</h1>
+          <p>PERSONAL JOURNAL</p>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
-          <div>
-            <p className="eyebrow text-[var(--accent)]">Latest stories</p>
-            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">最近の記録。</h2>
-            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">考えたこと、試したこと、<br />うまくいかなかった日のこと。</p>
+        <section className="cover" aria-labelledby="cover-title">
+          <div className="cover-photo">
+            <Image src={featured ? postImage(featured)! : "/sample-strength.webp"} alt={featured ? featured.mainImage?.alt || featured.title : "自然光の入るジムにバーベルとタオルを配した、筋力トレーニングのイメージ画像"} fill priority sizes="(max-width: 900px) 100vw, 65vw" />
           </div>
+          <div className="cover-copy">
+            <p className="eyebrow text-[var(--accent-dark)]">{featured ? "Featured story" : "About this journal"}</p>
+            <h2 id="cover-title">{featured ? featured.title : <><span className="cover-phrase">仕事のこと。</span><br /><span className="cover-phrase">鍛えること。</span><span className="cover-phrase">日々のこと。</span></>}</h2>
+            {(featured?.excerpt || !featured) && <p>{featured ? featured.excerpt : "IT企業で働きながら、筋トレを軸に身体を動かす毎日。トレーニングも、仕事も、学びも。試してわかったことを綴ります。"}</p>}
+            <Link className="text-link" href={featured ? `/blog/${featured.slug.current}` : "/about"}>{featured ? "記事を読む" : "このブログについて"}<span aria-hidden="true">→</span></Link>
+          </div>
+        </section>
 
-          {posts.length > 0 ? (
-            <div className="border-t border-[var(--border)]">
-              {posts.map((post, index) => (
-                <Link key={post._id} href={`/blog/${post.slug.current}`} className="group grid gap-3 border-b border-[var(--border)] py-6 sm:grid-cols-[2rem_6rem_1fr_auto] sm:items-baseline">
-                  <span className="font-serif text-xs italic text-[var(--accent)]">0{index + 1}</span>
-                  <span className="text-[0.62rem] tracking-[0.08em] text-[var(--muted)]">{post.categories?.[0]?.title || "LIFE"}</span>
-                  <h2 className="text-lg font-medium leading-relaxed tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)]">{post.title}</h2>
-                  <time dateTime={post.publishedAt} className="text-[0.62rem] text-[var(--muted)]">{new Intl.DateTimeFormat("ja-JP").format(new Date(post.publishedAt))}</time>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="border-t border-[var(--border)] py-8">
-              <p className="text-lg font-medium tracking-[-0.03em]">最初の記事を準備しています。</p>
+        <section className={`journal-section${latest.length === 0 && !samples ? " journal-section-empty" : ""}`} aria-labelledby="latest-title">
+          <div className="section-heading">
+            <h2 id="latest-title">Journal<span>新着記事</span></h2>
+            <Link href="/blog">記事一覧 <span aria-hidden="true">→</span></Link>
+          </div>
+          {latest.length > 0 ? <div className="story-grid">{latest.map((post) => <StoryCard key={post._id} post={post} />)}</div> : samples ? <SampleStories /> : (
+            <div className="journal-empty">
+              <p>{unavailable ? "記事を読み込めませんでした。時間をおいて、もう一度お試しください。" : featured ? "次の記事を準備しています。" : "最初の記事を準備しています。日々の記録はInstagramへ。"}</p>
+              {unavailable || featured ? <Link className="text-link" href="/blog">記事一覧へ<span aria-hidden="true">→</span></Link> : instagram && <a className="text-link" href={instagram.href} target="_blank" rel="noreferrer">Instagram<span aria-hidden="true">↗</span></a>}
             </div>
           )}
-        </div>
-        <div className="mt-10 text-right">
-          <Link href="/blog" className="text-xs text-[var(--muted)] underline decoration-[var(--border)] transition-colors hover:text-[var(--foreground)]">View all stories</Link>
+        </section>
+      </div>
+
+      <section className="topic-band">
+        <div className="site-shell journal-section">
+          <div className="section-heading"><h2>Topics<span>書いていること</span></h2></div>
+          <div className="topic-grid">{contentPillars.map((topic) => <div key={topic.title}><h3 className="text-[var(--accent-dark)]">{topic.title}<span className="text-[var(--foreground)]">{topic.label}</span></h3><p>{topic.description}</p></div>)}</div>
         </div>
       </section>
 
-      <section className="border-y border-[var(--border)] bg-[#efede7]">
-        <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:py-24">
-          <div>
-            <p className="eyebrow text-[var(--accent)]">The four pillars</p>
-            <h2 className="mt-5 max-w-xs text-3xl font-medium leading-[1.4] tracking-[-0.05em]">いま、向き合っていること。</h2>
-          </div>
-          <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
-            {contentPillars.map((pillar) => (
-              <div key={pillar.title} className="border-t border-[var(--border)] pt-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-semibold tracking-[0.12em]">{pillar.title}</h3>
-                  <span className="font-serif text-xs italic text-[var(--accent)]">{pillar.number}</span>
-                </div>
-                <p className="mt-4 max-w-xs text-sm leading-7 text-[var(--muted)]">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-24">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="eyebrow text-[var(--accent)]">Follow along</p>
-            <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">日々の現在地は、SNSで。</h2>
-          </div>
-          <div className="flex flex-wrap gap-x-7 gap-y-3">
-            {socialLinks.filter((social) => social.primary).map((social) => (
-              <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]">{social.label} ↗</a>
-            ))}
-          </div>
-        </div>
+      <section className="site-shell journal-section about-strip">
+        <div><p className="eyebrow text-[var(--accent-dark)]">About</p><h2 className="mt-4">Hello, I’m Mikity.</h2></div>
+        <div><p>29歳の会社員。IT企業でBizDevとマーケティングを担当しています。筋トレを中心に、HYROXやマラソンにも挑戦。英語とAIも勉強中です。</p><Link className="text-link" href="/about">プロフィールを読む<span aria-hidden="true">→</span></Link></div>
       </section>
     </>
   );
