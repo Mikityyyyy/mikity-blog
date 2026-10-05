@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import StructuredData from "@/components/StructuredData";
 import { getLatestPosts } from "@/lib/sanity-queries";
 import { contentPillars, siteDescription, siteUrl, socialLinks } from "@/lib/site-content";
+import { works } from "@/lib/works";
 
 export const revalidate = 3600;
 
@@ -78,6 +80,34 @@ export default async function Home() {
         </div>
         <div className="mt-10 text-right">
           <Link href="/blog" className="text-xs text-[var(--muted)] underline decoration-[var(--border)] transition-colors hover:text-[var(--foreground)]">View all stories</Link>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--border)]">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[13rem_1fr]">
+            <div>
+              <p className="eyebrow text-[var(--accent)]">Works</p>
+              <h2 className="mt-4 text-2xl font-medium tracking-[-0.04em]">作ったもの。</h2>
+              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">生活の困りごとを、<br />自分で作って解決してみる。</p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2">
+              {works.map((work) => (
+                <Link key={work.slug} href={`/works/${work.slug}`} className="group block">
+                  <div className="relative aspect-video overflow-hidden bg-[#1e1c19]">
+                    {work.video && (
+                      <Image src={work.video.poster} alt={`${work.title}の画面`} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                    )}
+                  </div>
+                  <div className="mt-4 flex items-baseline justify-between gap-4">
+                    <h3 className="font-serif text-2xl tracking-[-0.04em] transition-colors group-hover:text-[var(--accent)]">{work.title}</h3>
+                    <span className="text-[0.62rem] tracking-[0.08em] text-[var(--muted)]">{work.category.toUpperCase()} / {work.year}</span>
+                  </div>
+                  <p className="mt-2 text-sm text-[var(--muted)]">{work.tagline}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
