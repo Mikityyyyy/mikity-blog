@@ -6,6 +6,7 @@ import { socialLinks } from "@/lib/site-content";
 
 const navItems = [
   { label: "Stories", href: "/blog" },
+  { label: "Works", href: "/works" },
   { label: "About", href: "/about" },
 ];
 
