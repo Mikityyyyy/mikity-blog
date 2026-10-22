@@ -26,9 +26,11 @@ const publicCsp = [
 ].join("; ");
 
 export const onRequest = defineMiddleware(async (context, next) => {
-	// www付きのアクセスは正規ドメインへ転送する
-	if (context.url.hostname === "www.mikitylife.com") {
-		return context.redirect(`https://mikitylife.com${context.url.pathname}${context.url.search}`, 301);
+	// http・www付きのアクセスは https の正規ドメインへ転送する
+	const isWww = context.url.hostname === "www.mikitylife.com";
+	if (isWww || (context.url.protocol === "http:" && !import.meta.env.DEV)) {
+		const host = isWww ? "mikitylife.com" : context.url.host;
+		return context.redirect(`https://${host}${context.url.pathname}${context.url.search}`, 301);
 	}
 	const response = await next();
 	for (const [key, value] of Object.entries(securityHeaders)) {
