@@ -1,0 +1,144 @@
+---
+import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emdash";
+import { Image, PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+import StoryCard from "../../components/StoryCard.astro";
+import { siteName } from "../../lib/site-content";
+import { formatDate, primaryCategory, readingMinutes, withCategories } from "../../lib/posts";
+import "../../styles/prose.css";
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
+
+const { entry: post, cacheHint } = await getEmDashEntry("posts", slug);
+if (!post) return Astro.rewrite("/404");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// メイン画像のURL（OG画像用）。外部URLはsrc、アップロード画像はstorageKeyから組み立てる
+function imageUrl(img: unknown): string | undefined {
+	if (!img || typeof img !== "object") return undefined;
+	const image = img as Record<string, unknown>;
+	if (typeof image.src === "string" && image.src) return new URL(image.src, Astro.url.origin).toString();
+	const meta = image.meta as Record<string, unknown> | undefined;
+	const storageKey = typeof meta?.storageKey === "string" ? meta.storageKey : typeof image.id === "string" ? image.id : undefined;
+	return storageKey ? `${Astro.url.origin}/_emdash/api/media/file/${storageKey}` : undefined;
+}
+
+const featuredImageUrl = imageUrl(post.data.featured_image);
+const path = `/blog/${post.id}`;
+const seo = getSeoMeta(post, {
+	siteTitle: siteName,
+	siteUrl: Astro.site?.origin ?? Astro.url.origin,
+	path,
+	defaultOgImage: featuredImageUrl,
+	defaultDescription: post.data.excerpt,
+});
+
+const category = primaryCategory(post.data.terms);
+const tags = post.data.terms?.tag ?? [];
+const minutes = readingMinutes(post.data.content);
+const publishedAt = post.data.publishedAt ?? null;
+const pageUrl = new URL(path, Astro.site ?? Astro.url.origin).toString();
+
+const { entries: recent } = await getEmDashCollection("posts", {
+	status: "published",
+	orderBy: { published_at: "desc" },
+	limit: 4,
+});
+const readNext = await withCategories(recent.filter((entry) => entry.id !== post.id).slice(0, 3));
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: post.data.title,
+	description: post.data.excerpt,
+	image: featuredImageUrl,
+	author: { "@type": "Person", name: post.data.byline?.displayName ?? "Mikity" },
+	publisher: { "@type": "Person", name: "Mikity" },
+	datePublished: publishedAt?.toISOString(),
+	dateModified: post.data.updatedAt.toISOString(),
+	mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+};
+---
+
+<Base
+	title={post.data.title}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical ?? pageUrl}
+	robots={seo.robots}
+	type="article"
+	publishedTime={publishedAt?.toISOString() ?? null}
+	modifiedTime={post.data.updatedAt.toISOString()}
+	content={{ collection: "posts", id: post.data.id, slug }}
+	jsonLd={jsonLd}
+>
+	<article class="article">
+		<header class="shell article__head">
+			<p class="article__kicker">
+				{category ? <a href={`/category/${category.slug}`}>{category.label}</a> : <span>JOURNAL</span>}
+				{publishedAt && <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt)}</time>}
+			</p>
+			<h1 class="article__title" {...post.edit.title}>{post.data.title}</h1>
+			{post.data.excerpt && <p class="article__lede" {...post.edit.excerpt}>{post.data.excerpt}</p>}
+			<p class="article__byline">
+				<span>Text by {post.data.byline?.displayName ?? "Mikity"}</span>
+				{minutes > 0 && <span>{minutes} min read</span>}
+			</p>
+		</header>
+
+		{
+			post.data.featured_image && (
+				<figure class="article__hero" {...post.edit.featured_image}>
+					<Image image={post.data.featured_image} priority sizes="(min-width: 1200px) 1160px, 100vw" />
+					{post.data.featured_image.alt && <figcaption>{post.data.featured_image.alt}</figcaption>}
+				</figure>
+			)
+		}
+
+		<div class="shell">
+			<div class="prose" {...post.edit.content}>
+				{post.data.content?.length ? <PortableText value={post.data.content} /> : <p class="prose__empty">本文を準備しています。</p>}
+			</div>
+
+			<footer class="article__foot">
+				{
+					tags.length > 0 && (
+						<ul class="article__tags" aria-label="タグ">
+							{tags.map((tag) => (
+								<li>#{tag.label}</li>
+							))}
+						</ul>
+					)
+				}
+				<div class="article__actions">
+					<a href="/blog" class="text-link">← Journal</a>
+					<a
+						class="text-link"
+						href={`https://x.com/intent/post?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.data.title)}`}
+						target="_blank"
+						rel="noreferrer">Share on X ↗</a
+					>
+				</div>
+			</footer>
+		</div>
+	</article>
+
+	{
+		readNext.length > 0 && (
+			<section class="band" aria-labelledby="next-title">
+				<div class="shell section">
+					<header class="section__head">
+						<h2 id="next-title">Read next</h2>
+						<p>次に読む</p>
+					</header>
+					<div class="story-grid">
+						{readNext.map((story) => (
+							<StoryCard {...story} />
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</Base>

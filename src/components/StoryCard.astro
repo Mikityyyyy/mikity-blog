@@ -1,0 +1,31 @@
+---
+import { Image } from "emdash/ui";
+import { formatDate, type PostWithCategory } from "../lib/posts";
+
+type Props = PostWithCategory;
+
+const { post, category } = Astro.props;
+---
+
+<article class="story">
+	<a href={`/blog/${post.id}`} class="story__link">
+		<div class="story__media">
+			{
+				post.data.featured_image ? (
+					<Image image={post.data.featured_image} sizes="(min-width: 900px) 400px, (min-width: 600px) 50vw, 100vw" class="story__img" />
+				) : (
+					<div class="story__placeholder" aria-hidden="true">
+						<span>mikitylife</span>
+					</div>
+				)
+			}
+		</div>
+		<div class="story__body">
+			<p class="story__meta">
+				<span>{category?.label ?? "JOURNAL"}</span>
+				{post.data.publishedAt && <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>}
+			</p>
+			<h3 class="story__title">{post.data.title}</h3>
+		</div>
+	</a>
+</article>

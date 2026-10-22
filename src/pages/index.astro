@@ -1,0 +1,122 @@
+---
+import { getEmDashCollection } from "emdash";
+import { Image } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import StoryList from "../components/StoryList.astro";
+import { contentPillars, currentGoals, siteDescription, siteName, siteUrl } from "../lib/site-content";
+import { withCategories } from "../lib/posts";
+
+const { entries, error, cacheHint } = await getEmDashCollection("posts", {
+	status: "published",
+	orderBy: { published_at: "desc" },
+	limit: 7,
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const unavailable = Boolean(error);
+const stories = await withCategories(entries);
+const featured = stories.find((story) => story.post.data.featured_image);
+const latest = stories.filter((story) => story !== featured).slice(0, 6);
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: siteName,
+	url: siteUrl,
+	description: siteDescription,
+	publisher: { "@type": "Person", name: "Mikity" },
+};
+---
+
+<Base jsonLd={jsonLd}>
+	<section class="hero" aria-labelledby="hero-title">
+		<div class="hero__media">
+			{
+				featured ? (
+					<Image image={featured.post.data.featured_image} priority sizes="100vw" class="hero__img" />
+				) : (
+					<img
+						class="hero__img"
+						src="/sample-strength.webp"
+						alt="自然光の入るジムにバーベルとタオルを配した、筋力トレーニングのイメージ画像"
+						fetchpriority="high"
+					/>
+				)
+			}
+		</div>
+		<div class="hero__copy">
+			<p class="eyebrow">{featured ? (featured.category?.label ?? "Journal") : "Personal Journal"}</p>
+			<h1 id="hero-title">{featured ? featured.post.data.title : "仕事、身体、学び、暮らしの記録。"}</h1>
+			<p class="hero__lede">
+				{featured
+					? featured.post.data.excerpt
+					: "IT企業で働きながら、筋トレを軸に身体を動かす毎日。トレーニングも、仕事も、学びも。試してわかったことを綴ります。"}
+			</p>
+			<a class="button" href={featured ? `/blog/${featured.post.id}` : "/about"}>
+				{featured ? "記事を読む" : "このブログについて"}
+			</a>
+		</div>
+	</section>
+
+	<section class="section shell" aria-labelledby="latest-title">
+		<header class="section__head">
+			<h2 id="latest-title">Journal</h2>
+			<p>新着記事</p>
+		</header>
+		<StoryList stories={latest} unavailable={unavailable} emptyMessage={featured ? "次の記事を準備しています。" : undefined} />
+		<div class="section__more">
+			<a class="button button--ghost" href="/blog">すべての記事を見る</a>
+		</div>
+	</section>
+
+	<section class="band" aria-labelledby="topics-title">
+		<div class="section shell">
+			<header class="section__head">
+				<h2 id="topics-title">Topics</h2>
+				<p>書いていること</p>
+			</header>
+			<ul class="topics">
+				{
+					contentPillars.map((topic) => (
+						<li>
+							<a href={`/category/${topic.slug}`}>
+								<span class="topics__title">{topic.title}</span>
+								<span class="topics__label">{topic.label}</span>
+								<span class="topics__desc">{topic.description}</span>
+								<span class="topics__more">記事を見る</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="split" aria-labelledby="about-title">
+		<div class="split__media">
+			<img src="/journal-cover-training.webp" alt="トレーニングと仕事の道具を配したイメージ画像" loading="lazy" decoding="async" />
+		</div>
+		<div class="split__copy">
+			<p class="eyebrow">About</p>
+			<h2 id="about-title">Hello, I’m Mikity.</h2>
+			<p>
+				29歳の会社員。IT企業でBizDevとマーケティングを担当しています。筋トレを中心に、HYROXやマラソンにも挑戦。英語とAIも勉強中です。
+			</p>
+			<dl class="records">
+				{
+					currentGoals.map((goal) => (
+						<div>
+							<dt>{goal.label}</dt>
+							<dd class="records__value">
+								{goal.current}
+								{goal.unit && <small>{goal.unit}</small>}
+							</dd>
+							<dd class="records__target">目標 {goal.target}</dd>
+						</div>
+					))
+				}
+			</dl>
+			<a class="button button--ghost" href="/about">プロフィールを読む</a>
+		</div>
+	</section>
+</Base>

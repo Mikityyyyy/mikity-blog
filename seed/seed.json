@@ -1,0 +1,77 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "mikitylife",
+		"description": "仕事、身体、学び、暮らしの記録。",
+		"author": "Mikity"
+	},
+	"settings": {
+		"title": "mikitylife",
+		"tagline": "仕事、身体、学び、暮らしの記録。"
+	},
+	"collections": [
+		{
+			"slug": "posts",
+			"label": "記事",
+			"labelSingular": "記事",
+			"urlPattern": "/blog/{slug}",
+			"supports": ["drafts", "revisions", "preview", "scheduling", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "タイトル",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "リード文",
+					"type": "text"
+				},
+				{
+					"slug": "featured_image",
+					"label": "メイン画像",
+					"type": "image"
+				},
+				{
+					"slug": "content",
+					"label": "本文",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "category",
+			"label": "カテゴリ",
+			"labelSingular": "カテゴリ",
+			"hierarchical": false,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "work", "label": "WORK" },
+				{ "slug": "train", "label": "TRAIN" },
+				{ "slug": "study", "label": "STUDY" },
+				{ "slug": "life", "label": "LIFE" }
+			]
+		},
+		{
+			"name": "tag",
+			"label": "タグ",
+			"labelSingular": "タグ",
+			"hierarchical": false,
+			"collections": ["posts"],
+			"terms": []
+		}
+	],
+	"bylines": [
+		{
+			"id": "byline-mikity",
+			"slug": "mikity",
+			"displayName": "Mikity"
+		}
+	]
+}

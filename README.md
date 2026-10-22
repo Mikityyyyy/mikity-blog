@@ -4,36 +4,35 @@ Mikityの公式ブログメディアです。
 
 - Website: https://mikitylife.com
 - Repository: https://github.com/Mikityyyyy/mikity-blog
-- Hosting: Vercel
+- CMS: [EmDash](https://github.com/emdash-cms/emdash)（Astro製。管理画面は `/_emdash/admin`）
+- Hosting: Cloudflare Workers（D1 / R2）
 
 ## About
 
 仕事、競技、学びを同時に進める会社員の実体験と思考を記録します。
 
-記事はSanity CMSで管理し、公開済みの実データだけをサイトへ表示します。主なテーマは `WORK`、`TRAIN`、`STUDY`、`LIFE` です。
+記事はEmDashで管理し、公開済みの記事だけをサイトへ表示します。カテゴリは `WORK`、`TRAIN`、`STUDY`、`LIFE` です（slugは `work` / `train` / `study` / `life`）。
 
-トップページは、最新7件のうち画像付きの記事1件を表紙に、残りを最大6件の画像カードで表示します。画像付きの記事がない間はブログ紹介を表示し、記事0件と取得エラーは別のメッセージで案内します。
+デザインは白地・大きな写真・細身のゴシック体を基調にしたミニマルな構成です。トップページは、画像付きの最新記事を全幅のヒーローに、残りを最大6件のカードで表示します。画像付きの記事がない間はブログ紹介を表示し、記事0件と取得エラーは別のメッセージで案内します。
 
-ブログ紹介には `public/sample-strength.webp` のジム・バーベルのAI生成イメージを使用し、筋トレが活動の中心であることを伝えます。Mikity本人の所有物や実際の体験を撮影した写真ではありません。記事写真が利用できる場合はそちらを優先します。
+ブログ紹介には `public/sample-strength.webp` のジム・バーベルのAI生成イメージを使用します。Mikity本人の所有物や実際の体験を撮影した写真ではありません。記事写真がある場合はそちらを優先します。
 
-開発環境とVercel Previewでは、公開記事が0件のときだけ3本の記事サンプルを表示します。`SAMPLE` と確認用の注記を表示し、架空の公開日や記事リンクは付けません。Sanityには保存せず、Vercel Productionと通常の本番ビルドでは表示しません。CMS取得エラー時もサンプルで隠しません。
+開発サーバー（`npm run dev`）では、公開記事が0件の欄にだけ3本の記事サンプルを表示します。`SAMPLE` と確認用の注記を表示し、架空の公開日や記事リンクは付けません。EmDashには保存せず、本番ビルドでは表示しません。CMS取得エラー時もサンプルで隠しません。
 
-記事サンプルは筋トレ・仕事とAI・暮らしの順に表示します。画像は既存の内蔵ImageGen生成素材を再利用しています。`sample-strength.webp` はバーベルとタオル、`journal-cover.webp` は机・ノート・PC、`sample-running.webp` は散歩の記事に使う川沿いの道です。共通の生成指示は、自然光、青灰色と生成り、人物・文字・ロゴなし。
+記事サンプルは筋トレ・仕事とAI・暮らしの順に表示します。`sample-strength.webp` はバーベルとタオル、`journal-cover.webp` は机・ノート・PC、`sample-running.webp` は散歩の記事に使う川沿いの道です。共通の生成指示は、自然光、青灰色と生成り、人物・文字・ロゴなし。
 
 ## Tech stack
 
-- Next.js 16
-- React 19
+- EmDash 1.3（Astro 7）
+- Cloudflare Workers / D1（データベース）/ R2（画像）
 - TypeScript
-- Tailwind CSS 4
-- Sanity
-- Vercel
+- Google Analytics 4（本番ビルドのみ）
 
 ## Local development
 
 ### Requirements
 
-- Node.js 20.9以上
+- Node.js 22.22以上（Astro 7の要件）
 - npm
 
 ### Setup
@@ -42,50 +41,65 @@ Mikityの公式ブログメディアです。
 git clone https://github.com/Mikityyyyy/mikity-blog.git
 cd mikity-blog
 npm ci
-cp .env.example .env.local
+cp .env.example .env
+npx emdash secrets generate   # 出力された値を .env の EMDASH_ENCRYPTION_KEY に設定
 npm run dev
 ```
 
-Open http://localhost:3000 after the development server starts.
+Open http://localhost:4321 after the development server starts. 初回アクセス時に `seed/seed.json` の記事タイプ・カテゴリが自動で作成されます。管理画面は http://localhost:4321/_emdash/admin です。
 
-### Environment variables
-
-| Name | Required | Purpose |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | For CMS | Sanity project ID |
-| `NEXT_PUBLIC_SANITY_DATASET` | For CMS | Sanity dataset |
-| `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics 4 measurement ID |
-
-Never commit `.env.local` or production credentials.
+Never commit `.env` or production credentials.
 
 ## Commands
 
 ```bash
-npm run dev
-npm run build
-npm run lint
-npm run start
+npm run dev        # 開発サーバー
+npm run build      # 本番ビルド
+npm run typecheck  # 型チェック
+npm run deploy     # ビルドしてCloudflareへデプロイ
 ```
+
+## Deploy (Cloudflare)
+
+本番: https://mikitylife.com（www は apex へ301）。Worker名 `mikitylife`、D1 `mikitylife-db`、R2 `mikitylife-media`。管理画面はパスキーの都合で https://mikitylife.mikity-blog.workers.dev/_emdash/admin から使う。
+
+```bash
+npx wrangler login     # 初回のみ
+npm run deploy         # ビルドしてデプロイ
+```
+
+- Workerは無料プランのまま運用する（上限を超えると止まるだけで課金されない）。画像はCloudflare Imagesを使わず `imageService: "passthrough"` で配信する。
+- 請求額が1ドルを超えたらメールが届く通知（Billing Budget Alert）を設定済み。
+- **DBのマイグレーション**: 本番Workerでは `migrations.runtime: "check"` にしており、Worker内では実行しない（無料プランのCPU制限で途中停止し、ロックが残るため）。EmDashを更新して新しいマイグレーションが増えたときは、デプロイ前に `CLOUDFLARE_API_TOKEN`（D1 Edit権限）を設定して `npx emdash migrate --status` → `npx emdash migrate` を実行する。
+- 暗号化キー `EMDASH_ENCRYPTION_KEY` はWorkerのシークレットに登録済み。ローカルの `.env` とは別の値。
 
 ## Repository workflow
 
 1. Create an `agent/*` or `feature/*` branch from `main`.
 2. Make and validate changes on that branch.
 3. Open a pull request into `main`.
-4. Review the Vercel preview before merging.
-5. Merging into `main` deploys the production site automatically.
+4. Review the preview before merging.
 
 ## Project structure
 
 ```text
 src/
-├── app/          # App Router pages and metadata routes
-├── components/   # Shared UI components
-└── lib/          # Sanity, analytics, queries, and types
-public/           # Static assets
+├── pages/        # ルート（トップ、/blog、/blog/[slug]、/category/[slug]、about、contact、RSS、sitemap、robots）
+├── layouts/      # 共通レイアウト（SEO・GA・EmDashのhead/body出力）
+├── components/   # ヘッダー、フッター、記事カード
+├── lib/          # サイト文言、記事まわりのヘルパー
+├── styles/       # global.css（全体）、prose.css（記事本文）
+├── middleware.ts # セキュリティヘッダー
+├── live.config.ts
+└── worker.ts     # Cloudflare Workerの入口（予約公開のcronを含む）
+seed/seed.json    # EmDashの記事タイプ・カテゴリ定義
+public/           # 静的ファイル
 ```
 
 ## License
 
 This is a personal project. All rights reserved.
+
+## フォルダの使い分け
+
+[フォルダ案内](docs/STRUCTURE.md)を参照。旧パスの互換リンクを残し、既存参照を維持している。

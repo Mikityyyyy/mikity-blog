@@ -1,0 +1,36 @@
+---
+import StoryCard from "./StoryCard.astro";
+import SampleStories from "./SampleStories.astro";
+import { showSampleStories, socialLinks } from "../lib/site-content";
+import type { PostWithCategory } from "../lib/posts";
+
+interface Props {
+	stories: PostWithCategory[];
+	unavailable?: boolean;
+	emptyMessage?: string;
+}
+
+const { stories, unavailable = false, emptyMessage = "最初の記事を準備しています。日々の記録はInstagramへ。" } = Astro.props;
+const instagram = socialLinks.find((social) => social.label === "Instagram");
+---
+
+{
+	stories.length > 0 ? (
+		<div class="story-grid">
+			{stories.map((story) => (
+				<StoryCard {...story} />
+			))}
+		</div>
+	) : showSampleStories && !unavailable ? (
+		<SampleStories />
+	) : (
+		<div class="empty-state">
+			<p>{unavailable ? "記事を読み込めませんでした。時間をおいて、もう一度お試しください。" : emptyMessage}</p>
+			{instagram && !unavailable && (
+				<a class="button" href={instagram.href} target="_blank" rel="noreferrer">
+					Instagramを見る
+				</a>
+			)}
+		</div>
+	)
+}

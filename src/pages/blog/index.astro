@@ -1,0 +1,33 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ArchiveHeader from "../../components/ArchiveHeader.astro";
+import StoryList from "../../components/StoryList.astro";
+import { withCategories } from "../../lib/posts";
+
+const cursor = Astro.url.searchParams.get("cursor") ?? undefined;
+const { entries, error, nextCursor, cacheHint } = await getEmDashCollection("posts", {
+	status: "published",
+	orderBy: { published_at: "desc" },
+	limit: 12,
+	cursor,
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const stories = await withCategories(entries);
+---
+
+<Base title="Journal" description="仕事、トレーニング、学び、暮らし。Mikityの記事一覧。" robots={cursor ? "noindex, follow" : null}>
+	<div class="shell">
+		<ArchiveHeader title="Journal" lede="仕事、身体、学び、暮らし。その時々の記録。" />
+		<StoryList stories={stories} unavailable={Boolean(error)} emptyMessage="最初の記事を準備しています。" />
+		{
+			(cursor || nextCursor) && (
+				<nav class="pager" aria-label="ページ送り">
+					{cursor && <a href="/blog">← 最新へ</a>}
+					{nextCursor && <a href={`/blog?cursor=${encodeURIComponent(nextCursor)}`}>次のページ →</a>}
+				</nav>
+			)
+		}
+	</div>
+</Base>
