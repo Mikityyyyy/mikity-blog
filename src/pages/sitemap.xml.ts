@@ -1,11 +1,20 @@
 import type { APIRoute } from "astro";
 import { getEmDashCollection } from "emdash";
 import { contentPillars } from "../lib/site-content";
+import { works } from "../lib/works";
 
 // EmDash標準のsitemapは記事だけなので、固定ページとカテゴリも含めて自前で出す
 export const GET: APIRoute = async ({ site, url }) => {
 	const origin = site?.origin ?? url.origin;
-	const staticPaths = ["/", "/blog", "/about", "/contact", ...contentPillars.map((pillar) => `/category/${pillar.slug}`)];
+	const staticPaths = [
+		"/",
+		"/blog",
+		"/about",
+		"/contact",
+		"/works",
+		...works.map((work) => `/works/${work.slug}`),
+		...contentPillars.map((pillar) => `/category/${pillar.slug}`),
+	];
 
 	const posts = [];
 	let cursor: string | undefined;

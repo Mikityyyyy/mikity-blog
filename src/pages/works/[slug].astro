@@ -1,0 +1,92 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getWork } from "../../lib/works";
+
+const work = getWork(Astro.params.slug);
+if (!work) return Astro.rewrite("/404");
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "CreativeWork",
+	name: work.title,
+	headline: `${work.title} — ${work.tagline}`,
+	description: work.overview[0],
+	creator: { "@type": "Person", name: "Mikity" },
+	dateCreated: work.year,
+	image: new URL(work.ogImage, Astro.site ?? Astro.url.origin).toString(),
+};
+---
+
+<Base title={`${work.title} — ${work.tagline}`} description={work.overview[0]} image={work.ogImage} jsonLd={jsonLd}>
+	<article class="work">
+		<header class="shell work__head">
+			<a href="/works" class="text-link text-link--muted">← Works</a>
+			<p class="eyebrow">{work.category} / {work.year}</p>
+			<h1>{work.title}</h1>
+			<p class="work__tagline">{work.tagline}</p>
+		</header>
+
+		{
+			work.video && (
+				<div class="work__video">
+					<video
+						src={work.video.src}
+						poster={work.video.poster}
+						width={work.video.width}
+						height={work.video.height}
+						autoplay
+						muted
+						loop
+						playsinline
+						controls
+						preload="metadata"
+						aria-label={`${work.title}のデモ動画`}
+					/>
+				</div>
+			)
+		}
+
+		<div class="shell work__body">
+			<dl class="work__facts">
+				<div>
+					<dt class="eyebrow">Role</dt>
+					<dd>{work.role}</dd>
+				</div>
+				<div>
+					<dt class="eyebrow">Year</dt>
+					<dd>{work.year}</dd>
+				</div>
+				<div>
+					<dt class="eyebrow">Type</dt>
+					<dd>{work.category}</dd>
+				</div>
+			</dl>
+
+			<div class="work__main">
+				<section aria-labelledby="overview-title">
+					<h2 id="overview-title" class="eyebrow">Overview</h2>
+					<div class="work__overview">
+						{work.overview.map((paragraph) => <p>{paragraph}</p>)}
+					</div>
+				</section>
+
+				<section aria-labelledby="features-title">
+					<h2 id="features-title" class="eyebrow">Features</h2>
+					<ol class="work__features">
+						{
+							work.features.map((feature, index) => (
+								<li>
+									<span class="work__no">{String(index + 1).padStart(2, "0")}</span>
+									<h3>{feature.title}</h3>
+									<p>{feature.description}</p>
+								</li>
+							))
+						}
+					</ol>
+				</section>
+
+				<a href="/works" class="button button--ghost">Works一覧へ</a>
+			</div>
+		</div>
+	</article>
+</Base>

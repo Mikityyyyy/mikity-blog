@@ -4,6 +4,7 @@ import { contentPillars, socialLinks } from "../lib/site-content";
 const navItems = [
 	{ label: "Journal", href: "/blog" },
 	...contentPillars.map((pillar) => ({ label: pillar.title.charAt(0) + pillar.title.slice(1).toLowerCase(), href: `/category/${pillar.slug}` })),
+	{ label: "Works", href: "/works" },
 	{ label: "About", href: "/about" },
 ];
 
