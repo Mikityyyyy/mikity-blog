@@ -1004,3 +1004,134 @@ a.story__link:hover .story__title {
 		grid-column: 1 / -1;
 	}
 }
+
+/* ---------- Works ---------- */
+.work-card__media {
+	aspect-ratio: 16 / 10;
+}
+
+.work__head {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 18px;
+	padding-block: clamp(56px, 8vw, 96px) clamp(36px, 5vw, 56px);
+	text-align: center;
+}
+
+.work__head .text-link {
+	margin-bottom: 12px;
+}
+
+.work__head h1 {
+	font-family: var(--latin);
+	font-size: clamp(44px, 7vw, 76px);
+	font-weight: 300;
+	letter-spacing: 0.06em;
+	line-height: 1.1;
+}
+
+.work__tagline {
+	font-size: clamp(15px, 1.8vw, 18px);
+	letter-spacing: 0.1em;
+	color: var(--text-2);
+}
+
+.work__video {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-inline: var(--gutter);
+}
+
+.work__video video {
+	display: block;
+	width: 100%;
+	height: auto;
+	background: var(--bg-soft);
+}
+
+.work__body {
+	display: grid;
+	grid-template-columns: 200px minmax(0, 1fr);
+	gap: clamp(36px, 6vw, 96px);
+	padding-block: clamp(64px, 9vw, 112px);
+}
+
+.work__facts {
+	display: grid;
+	gap: 22px;
+	align-content: start;
+	margin: 0;
+	padding-top: 20px;
+	border-top: 1px solid var(--line);
+}
+
+.work__facts dd {
+	margin: 4px 0 0;
+	font-size: 14px;
+}
+
+.work__main {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: clamp(48px, 6vw, 72px);
+	max-width: 720px;
+}
+
+.work__overview {
+	display: grid;
+	gap: 16px;
+	margin-top: 18px;
+	font-size: 15px;
+	line-height: 2.2;
+	color: var(--text-2);
+}
+
+.work__features {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 32px 40px;
+	margin: 18px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.work__features li {
+	padding-top: 18px;
+	border-top: 1px solid var(--line);
+}
+
+.work__no {
+	font-family: var(--latin);
+	font-size: 12px;
+	letter-spacing: 0.14em;
+	color: var(--accent);
+}
+
+.work__features h3 {
+	margin-top: 8px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.work__features p {
+	margin-top: 10px;
+	font-size: 13.5px;
+	line-height: 2;
+	color: var(--text-2);
+}
+
+@media (max-width: 760px) {
+	.work__body {
+		grid-template-columns: 1fr;
+	}
+
+	.work__facts {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.work__features {
+		grid-template-columns: 1fr;
+	}
+}

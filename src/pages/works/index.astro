@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import { works } from "../../lib/works";
+---
+
+<Base title="Works" description="Mikityがつくったもの。仕事や暮らしの中で、必要だと思ったものを形にしています。">
+	<div class="shell">
+		<header class="archive-head">
+			<h1>Works</h1>
+			<p class="archive-head__lede">つくったもの。仕事や暮らしの中で、必要だと思ったものを形にしています。</p>
+		</header>
+		<div class="story-grid works-grid">
+			{
+				works.map((work) => (
+					<article class="story">
+						<a href={`/works/${work.slug}`} class="story__link">
+							<div class="story__media work-card__media">
+								<img class="story__img" src={work.video?.poster ?? work.ogImage} alt={`${work.title}の画面`} loading="lazy" decoding="async" />
+							</div>
+							<div class="story__body">
+								<p class="story__meta">
+									<span>{work.category}</span>
+									<span>{work.year}</span>
+								</p>
+								<h3 class="story__title">
+									{work.title} — {work.tagline}
+								</h3>
+							</div>
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</Base>
