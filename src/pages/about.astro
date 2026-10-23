@@ -1,0 +1,65 @@
+---
+import Base from "../layouts/Base.astro";
+import { currentGoals, siteDescription, siteUrl, socialLinks } from "../lib/site-content";
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "Mikity",
+	url: siteUrl,
+	description: siteDescription,
+	sameAs: socialLinks.map((social) => social.href),
+};
+---
+
+<Base title="About" description="IT企業で働きながら、筋トレを中心にHYROXやマラソンにも取り組むMikityのプロフィール。" jsonLd={jsonLd}>
+	<div class="shell">
+		<header class="about-hero">
+			<figure class="about-hero__photo">
+				<img src="/profile.png" alt="Mikity" width="320" height="320" fetchpriority="high" />
+				<figcaption>Mikity / Tokyo</figcaption>
+			</figure>
+			<div class="about-hero__copy">
+				<p class="eyebrow">About / Mikity</p>
+				<h1>29歳会社員 × Hybrid Athlete</h1>
+				<p>IT企業でBizDevとマーケティングを担当しています。仕事の合間に筋トレを続けながら、HYROXやマラソンにも挑戦しています。</p>
+				<p>英語で議論できるようになること、AIを仕事で使いこなすことも目標です。運動も学びも、日々試しながら続けています。</p>
+			</div>
+		</header>
+
+		<section class="section" aria-labelledby="goals-title">
+			<header class="section__head">
+				<h2 id="goals-title">Training goals</h2>
+				<p>記録と目標</p>
+			</header>
+			<dl class="records about-page-records">
+				{
+					currentGoals.map((goal) => (
+						<div>
+							<dt>{goal.label}</dt>
+							<dd class="records__value">
+								{goal.current}
+								{goal.unit && <small>{goal.unit}</small>}
+							</dd>
+							<dd class="records__target">目標 {goal.target}</dd>
+						</div>
+					))
+				}
+			</dl>
+		</section>
+
+		<section class="section essay" aria-labelledby="why-title">
+			<p class="eyebrow">Why I write</p>
+			<div>
+				<h2 id="why-title">このブログについて</h2>
+				<p>
+					練習や大会の記録、仕事での気づき、学んだこと。実際に試した経験を、あとから読み返せる形に残すためのブログです。うまくいかなかったことも含めて書いていきます。
+				</p>
+				<div class="essay__links">
+					<a href="/blog" class="text-link">記事一覧へ <span aria-hidden="true">→</span></a>
+					<a href="/contact" class="text-link text-link--muted">お問い合わせ</a>
+				</div>
+			</div>
+		</section>
+	</div>
+</Base>

@@ -1,0 +1,26 @@
+---
+import { sampleStories } from "../lib/site-content";
+---
+
+<p class="sample-notice">開発環境だけで表示する、レイアウト確認用の記事サンプルです。タイトル・画像は仮の内容です。</p>
+<div class="story-grid">
+	{
+		sampleStories.map((story) => (
+			<article class="story">
+				<div class="story__link">
+					<div class="story__media">
+						<img class="story__img" src={story.image} alt={story.alt} loading="lazy" decoding="async" />
+						<span class="sample-label">SAMPLE</span>
+					</div>
+					<div class="story__body">
+						<p class="story__meta">
+							<span>{story.category}</span>
+							<span>記事イメージ</span>
+						</p>
+						<h3 class="story__title">{story.title}</h3>
+					</div>
+				</div>
+			</article>
+		))
+	}
+</div>

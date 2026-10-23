@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { socialLinks } from "../lib/site-content";
+
+const contacts = socialLinks.filter((social) => ["Instagram", "X"].includes(social.label));
+---
+
+<Base title="Contact" description="Mikityへのお問い合わせはこちらから。">
+	<div class="shell contact">
+		<p class="eyebrow">Contact</p>
+		<h1>お問い合わせ</h1>
+		<p class="contact__lede">お仕事のご相談や記事への感想は、InstagramまたはXのDMからお願いします。</p>
+		<ul class="contact__list">
+			{
+				contacts.map((social) => (
+					<li>
+						<a href={social.href} target="_blank" rel="noreferrer">
+							<span class="contact__name">{social.label}</span>
+							<span class="contact__handle">{social.handle}</span>
+							<span aria-hidden="true">↗</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<a href="/" class="text-link text-link--muted">← トップへ戻る</a>
+	</div>
+</Base>

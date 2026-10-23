@@ -40,3 +40,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# astro / emdash
+/dist
+/.astro
+.emdash/migrations.json
+.wrangler
+.dev.vars
+.dev.vars.*
+data.db
+data.db-*
+uploads
+
+# 作業用の一時ファイル
+/work

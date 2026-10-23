@@ -1,0 +1,32 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "mikitylife",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": ["nodejs_compat"],
+	// 管理画面はパスキー登録時のworkers.devで使うため、workers.devも有効のままにする
+	"workers_dev": true,
+	"routes": [
+		{ "pattern": "mikitylife.com", "custom_domain": true },
+		{ "pattern": "www.mikitylife.com", "custom_domain": true },
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "mikitylife-db",
+			"database_id": "800926fe-d559-4e7f-9775-468d8be1a3a8",
+		},
+	],
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "mikitylife-media",
+		},
+	],
+	// Sandboxed plugins require Worker Loader, available on Workers paid plans. Uncomment to enable:
+	// "worker_loaders": [{ "binding": "LOADER" }],
+	// Scheduled publishing and maintenance
+	"triggers": {
+		"crons": ["* * * * *"],
+	},
+}

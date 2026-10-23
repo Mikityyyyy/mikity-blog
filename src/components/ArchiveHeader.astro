@@ -1,0 +1,27 @@
+---
+import { contentPillars } from "../lib/site-content";
+
+interface Props {
+	title: string;
+	lede: string;
+	/** 選択中のカテゴリslug。一覧全体ならundefined */
+	active?: string;
+}
+
+const { title, lede, active } = Astro.props;
+---
+
+<header class="archive-head">
+	<h1>{title}</h1>
+	<p class="archive-head__lede">{lede}</p>
+	<nav class="chips" aria-label="カテゴリ">
+		<a href="/blog" aria-current={active ? undefined : "page"}>All</a>
+		{
+			contentPillars.map((pillar) => (
+				<a href={`/category/${pillar.slug}`} aria-current={active === pillar.slug ? "page" : undefined}>
+					{pillar.title}
+				</a>
+			))
+		}
+	</nav>
+</header>

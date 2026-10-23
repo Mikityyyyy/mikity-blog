@@ -1,0 +1,44 @@
+---
+import { contentPillars, socialLinks } from "../lib/site-content";
+
+const navItems = [
+	{ label: "Journal", href: "/blog" },
+	...contentPillars.map((pillar) => ({ label: pillar.title.charAt(0) + pillar.title.slice(1).toLowerCase(), href: `/category/${pillar.slug}` })),
+	{ label: "About", href: "/about" },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+function current(href: string) {
+	if (path === href) return "page";
+	if (path.startsWith(`${href}/`)) return "true";
+	return undefined;
+}
+
+const instagram = socialLinks.find((social) => social.label === "Instagram");
+---
+
+<header class="site-header">
+	<div class="site-header__inner">
+		<a href="/" class="wordmark" aria-label="mikitylife トップへ">mikitylife</a>
+		<nav class="site-nav" aria-label="メインナビゲーション">
+			<ul>
+				{
+					navItems.map((item) => (
+						<li>
+							<a href={item.href} aria-current={current(item.href)}>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		{
+			instagram && (
+				<a class="site-header__social" href={instagram.href} target="_blank" rel="noreferrer">
+					Instagram
+				</a>
+			)
+		}
+	</div>
+</header>
