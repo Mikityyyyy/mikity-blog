@@ -60,6 +60,16 @@ const jsonLd = {
 					<dt class="eyebrow">Type</dt>
 					<dd>{work.category}</dd>
 				</div>
+				{
+					work.updatedAt && (
+						<div>
+							<dt class="eyebrow">Updated</dt>
+							<dd>
+								<time datetime={work.updatedAt.replaceAll(".", "-")}>{work.updatedAt}</time>
+							</dd>
+						</div>
+					)
+				}
 			</dl>
 
 			<div class="work__main">
@@ -84,6 +94,22 @@ const jsonLd = {
 						}
 					</ol>
 				</section>
+
+				{
+					work.changelog && work.changelog.length > 0 && (
+						<section aria-labelledby="updates-title" style="width: 100%">
+							<h2 id="updates-title" class="eyebrow">Updates</h2>
+							<ol class="work__changelog">
+								{work.changelog.map((entry) => (
+									<li>
+										<time datetime={entry.date.replaceAll(".", "-")}>{entry.date}</time>
+										<p>{entry.text}</p>
+									</li>
+								))}
+							</ol>
+						</section>
+					)
+				}
 
 				<a href="/works" class="button button--ghost">Works一覧へ</a>
 			</div>
