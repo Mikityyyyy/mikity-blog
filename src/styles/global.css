@@ -1122,13 +1122,54 @@ a.story__link:hover .story__title {
 	color: var(--text-2);
 }
 
+/* 更新履歴：日付と内容の2列。日付は英数字の書体でそろえる */
+.work__changelog {
+	display: grid;
+	margin: 18px 0 0;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+}
+
+.work__changelog li {
+	display: grid;
+	grid-template-columns: 96px minmax(0, 1fr);
+	gap: 16px;
+	padding-block: 14px;
+	border-top: 1px solid var(--line);
+}
+
+.work__changelog li:last-child {
+	border-bottom: 1px solid var(--line);
+}
+
+.work__changelog time {
+	font-family: var(--latin);
+	font-size: 13px;
+	letter-spacing: 0.06em;
+	color: var(--accent);
+	font-variant-numeric: tabular-nums;
+	padding-top: 2px;
+}
+
+.work__changelog p {
+	font-size: 13.5px;
+	line-height: 1.9;
+	color: var(--text-2);
+}
+
 @media (max-width: 760px) {
 	.work__body {
 		grid-template-columns: 1fr;
 	}
 
 	.work__facts {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.work__changelog li {
+		grid-template-columns: 1fr;
+		gap: 2px;
 	}
 
 	.work__features {
