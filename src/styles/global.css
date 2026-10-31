@@ -488,7 +488,7 @@ a.story__link:hover .story__title {
 /* ---------- Topics ---------- */
 .topics {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: clamp(16px, 2vw, 24px);
 	margin: 0;
 	padding: 0;
@@ -539,13 +539,7 @@ a.story__link:hover .story__title {
 	border-bottom: 1px solid currentColor;
 }
 
-@media (max-width: 960px) {
-	.topics {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-}
-
-@media (max-width: 520px) {
+@media (max-width: 760px) {
 	.topics {
 		grid-template-columns: 1fr;
 	}
@@ -953,7 +947,7 @@ a.story__link:hover .story__title {
 
 .site-footer__grid {
 	display: grid;
-	grid-template-columns: 1.6fr repeat(3, 1fr);
+	grid-template-columns: 1.6fr repeat(2, 1fr);
 	gap: 36px;
 	padding-bottom: 56px;
 }

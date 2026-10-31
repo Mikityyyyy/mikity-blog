@@ -52,9 +52,8 @@
 			"hierarchical": false,
 			"collections": ["posts"],
 			"terms": [
-				{ "slug": "work", "label": "WORK" },
 				{ "slug": "train", "label": "TRAIN" },
-				{ "slug": "study", "label": "STUDY" },
+				{ "slug": "career", "label": "CAREER" },
 				{ "slug": "life", "label": "LIFE" }
 			]
 		},
