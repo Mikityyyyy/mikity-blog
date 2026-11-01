@@ -20,27 +20,20 @@ export const socialLinks = [
 export const contentPillars = [
   {
     number: "01",
-    slug: "work",
-    title: "WORK",
-    label: "仕事",
-    description: "BizDevとマーケティング。仕事で試したこと、考えたこと。",
-  },
-  {
-    number: "02",
     slug: "train",
     title: "TRAIN",
     label: "トレーニング",
     description: "筋トレを軸に、HYROXやマラソンにも挑戦。日々の練習と大会の記録。",
   },
   {
-    number: "03",
-    slug: "study",
-    title: "STUDY",
-    label: "学び",
-    description: "英語とAI。学んだことを、仕事や日常で使ってみる。",
+    number: "02",
+    slug: "career",
+    title: "CAREER",
+    label: "仕事と学び",
+    description: "BizDevとマーケティング、AI、英語。仕事で試したことと、学んで使ってみたこと。",
   },
   {
-    number: "04",
+    number: "03",
     slug: "life",
     title: "LIFE",
     label: "暮らし",
@@ -68,7 +61,7 @@ export const sampleStories = [
   },
   {
     id: "work",
-    category: "WORK",
+    category: "CAREER",
     title: "仕事でAIを使う前に、整理しておきたいこと。",
     excerpt: "任せたい作業と、自分で考えること。身近な業務から見直す。",
     image: "/journal-cover.webp",

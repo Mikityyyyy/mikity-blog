@@ -1,5 +1,5 @@
 ---
-import { contentPillars, siteTagline, socialLinks } from "../lib/site-content";
+import { siteTagline, socialLinks } from "../lib/site-content";
 
 const year = new Date().getFullYear();
 ---
@@ -10,13 +10,6 @@ const year = new Date().getFullYear();
 			<a href="/" class="wordmark">mikitylife</a>
 			<p>{siteTagline}</p>
 		</div>
-		<nav aria-labelledby="footer-sections">
-			<h2 id="footer-sections" class="eyebrow">Journal</h2>
-			<ul>
-				<li><a href="/blog">すべての記事</a></li>
-				{contentPillars.map((pillar) => <li><a href={`/category/${pillar.slug}`}>{pillar.title}</a></li>)}
-			</ul>
-		</nav>
 		<nav aria-labelledby="footer-follow">
 			<h2 id="footer-follow" class="eyebrow">Follow</h2>
 			<ul>
@@ -34,6 +27,7 @@ const year = new Date().getFullYear();
 		<nav aria-labelledby="footer-site">
 			<h2 id="footer-site" class="eyebrow">Info</h2>
 			<ul>
+				<li><a href="/blog">Journal</a></li>
 				<li><a href="/works">Works</a></li>
 				<li><a href="/about">About</a></li>
 				<li><a href="/contact">Contact</a></li>
