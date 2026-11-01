@@ -32,6 +32,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		const host = isWww ? "mikitylife.com" : context.url.host;
 		return context.redirect(`https://${host}${context.url.pathname}${context.url.search}`, 301);
 	}
+	// 末尾スラッシュ付きURLは正規のURLへ転送する（EmDashとAstroの内部パスは対象外）
+	const { pathname, origin, search } = context.url;
+	if (pathname.length > 1 && pathname.endsWith("/") && !pathname.startsWith("/_")) {
+		return context.redirect(`${origin}${pathname.replace(/\/+$/, "")}${search}`, 301);
+	}
 	const response = await next();
 	for (const [key, value] of Object.entries(securityHeaders)) {
 		if (!response.headers.has(key)) response.headers.set(key, value);
