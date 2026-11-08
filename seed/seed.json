@@ -52,7 +52,7 @@
 			"hierarchical": false,
 			"collections": ["posts"],
 			"terms": [
-				{ "slug": "train", "label": "TRAIN" },
+				{ "slug": "train", "label": "TRAINING" },
 				{ "slug": "career", "label": "CAREER" },
 				{ "slug": "life", "label": "LIFE" }
 			]

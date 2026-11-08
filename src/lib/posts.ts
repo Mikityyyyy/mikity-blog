@@ -1,8 +1,15 @@
 import { getTermsForEntries, type ContentEntry, type InferCollectionData, type PortableTextBlock } from "emdash";
+import { contentPillars } from "./site-content";
 
 export type PostEntry = ContentEntry<InferCollectionData<"posts">>;
 export type Category = { slug: string; label: string };
 export type PostWithCategory = { post: PostEntry; category?: Category };
+
+function normalizeCategory(term: { slug: string; label: string } | undefined): Category | undefined {
+  if (!term) return undefined;
+  const pillar = contentPillars.find((item) => item.slug === term.slug);
+  return { slug: term.slug, label: pillar?.title ?? term.label };
+}
 
 // 一覧取得ではタクソノミーが付かないので、カテゴリを1回のクエリでまとめて付ける
 export async function withCategories(posts: PostEntry[]): Promise<PostWithCategory[]> {
@@ -10,7 +17,7 @@ export async function withCategories(posts: PostEntry[]): Promise<PostWithCatego
   const terms = await getTermsForEntries("posts", posts.map((post) => post.data.id), "category");
   return posts.map((post) => {
     const term = terms.get(post.data.id)?.[0];
-    return { post, category: term ? { slug: term.slug, label: term.label } : undefined };
+    return { post, category: normalizeCategory(term) };
   });
 }
 
@@ -32,7 +39,7 @@ export function readingMinutes(blocks: PortableTextBlock[] | undefined): number 
 }
 
 export function primaryCategory(terms: Record<string, { slug: string; label: string }[]> | undefined) {
-  return terms?.category?.[0];
+  return normalizeCategory(terms?.category?.[0]);
 }
 
 export function issueLabel(date = new Date()): string {

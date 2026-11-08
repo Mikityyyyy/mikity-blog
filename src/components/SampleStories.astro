@@ -1,5 +1,10 @@
 ---
 import { sampleStories } from "../lib/site-content";
+interface Props {
+	headingLevel?: "h2" | "h3";
+}
+
+const { headingLevel: Heading = "h3" } = Astro.props;
 ---
 
 <p class="sample-notice">開発環境だけで表示する、レイアウト確認用の記事サンプルです。タイトル・画像は仮の内容です。</p>
@@ -17,7 +22,7 @@ import { sampleStories } from "../lib/site-content";
 							<span>{story.category}</span>
 							<span>記事イメージ</span>
 						</p>
-						<h3 class="story__title">{story.title}</h3>
+						<Heading class="story__title">{story.title}</Heading>
 					</div>
 				</div>
 			</article>

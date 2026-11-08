@@ -20,6 +20,7 @@ export default defineConfig({
 		// WORKとSTUDYはCAREERに統合した
 		"/category/work": { status: 301, destination: "/category/career" },
 		"/category/study": { status: 301, destination: "/category/career" },
+		"/category/training": { status: 301, destination: "/category/train" },
 	},
 	integrations: [
 		react(),

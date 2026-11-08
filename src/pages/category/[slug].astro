@@ -26,7 +26,7 @@ const path = `/category/${pillar.slug}`;
 <Base title={`${pillar.title} — ${pillar.label}`} description={pillar.description} robots={cursor ? "noindex, follow" : null}>
 	<div class="shell">
 		<ArchiveHeader title={pillar.title} lede={`${pillar.label}。${pillar.description}`} active={pillar.slug} />
-		<StoryList stories={stories} unavailable={Boolean(error)} emptyMessage={`${pillar.label}の記事を準備しています。`} />
+		<StoryList stories={stories} unavailable={Boolean(error)} emptyMessage={`${pillar.label}の記事を準備しています。`} headingLevel="h2" />
 		{
 			(cursor || nextCursor) && (
 				<nav class="pager" aria-label="ページ送り">

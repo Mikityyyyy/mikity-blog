@@ -2,9 +2,11 @@
 import { Image } from "emdash/ui";
 import { formatDate, type PostWithCategory } from "../lib/posts";
 
-type Props = PostWithCategory;
+type Props = PostWithCategory & {
+	headingLevel?: "h2" | "h3";
+};
 
-const { post, category } = Astro.props;
+const { post, category, headingLevel: Heading = "h3" } = Astro.props;
 ---
 
 <article class="story">
@@ -25,7 +27,7 @@ const { post, category } = Astro.props;
 				<span>{category?.label ?? "JOURNAL"}</span>
 				{post.data.publishedAt && <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>}
 			</p>
-			<h3 class="story__title">{post.data.title}</h3>
+			<Heading class="story__title">{post.data.title}</Heading>
 		</div>
 	</a>
 </article>

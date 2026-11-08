@@ -15,20 +15,21 @@ if (!post) return Astro.rewrite("/404");
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // メイン画像のURL（OG画像用）。外部URLはsrc、アップロード画像はstorageKeyから組み立てる
+const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
 function imageUrl(img: unknown): string | undefined {
 	if (!img || typeof img !== "object") return undefined;
 	const image = img as Record<string, unknown>;
-	if (typeof image.src === "string" && image.src) return new URL(image.src, Astro.url.origin).toString();
+	if (typeof image.src === "string" && image.src) return new URL(image.src, siteOrigin).toString();
 	const meta = image.meta as Record<string, unknown> | undefined;
 	const storageKey = typeof meta?.storageKey === "string" ? meta.storageKey : typeof image.id === "string" ? image.id : undefined;
-	return storageKey ? `${Astro.url.origin}/_emdash/api/media/file/${storageKey}` : undefined;
+	return storageKey ? `${siteOrigin}/_emdash/api/media/file/${storageKey}` : undefined;
 }
 
 const featuredImageUrl = imageUrl(post.data.featured_image);
 const path = `/blog/${post.id}`;
 const seo = getSeoMeta(post, {
 	siteTitle: siteName,
-	siteUrl: Astro.site?.origin ?? Astro.url.origin,
+	siteUrl: siteOrigin,
 	path,
 	defaultOgImage: featuredImageUrl,
 	defaultDescription: post.data.excerpt,
@@ -38,7 +39,8 @@ const category = primaryCategory(post.data.terms);
 const tags = post.data.terms?.tag ?? [];
 const minutes = readingMinutes(post.data.content);
 const publishedAt = post.data.publishedAt ?? null;
-const pageUrl = new URL(path, Astro.site ?? Astro.url.origin).toString();
+const authorName = post.data.byline?.displayName ?? "Mikity";
+const pageUrl = new URL(path, siteOrigin).toString();
 
 const { entries: recent } = await getEmDashCollection("posts", {
 	status: "published",
@@ -46,19 +48,6 @@ const { entries: recent } = await getEmDashCollection("posts", {
 	limit: 4,
 });
 const readNext = await withCategories(recent.filter((entry) => entry.id !== post.id).slice(0, 3));
-
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "Article",
-	headline: post.data.title,
-	description: post.data.excerpt,
-	image: featuredImageUrl,
-	author: { "@type": "Person", name: post.data.byline?.displayName ?? "Mikity" },
-	publisher: { "@type": "Person", name: "Mikity" },
-	datePublished: publishedAt?.toISOString(),
-	dateModified: post.data.updatedAt.toISOString(),
-	mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
-};
 ---
 
 <Base
@@ -70,8 +59,8 @@ const jsonLd = {
 	type="article"
 	publishedTime={publishedAt?.toISOString() ?? null}
 	modifiedTime={post.data.updatedAt.toISOString()}
+	author={authorName}
 	content={{ collection: "posts", id: post.data.id, slug }}
-	jsonLd={jsonLd}
 >
 	<article class="article">
 		<header class="shell article__head">
