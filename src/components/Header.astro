@@ -2,7 +2,7 @@
 import { socialLinks } from "../lib/site-content";
 
 const navItems = [
-	{ label: "Journal", href: "/blog" },
+	{ label: "Blog", href: "/blog" },
 	{ label: "Works", href: "/works" },
 	{ label: "About", href: "/about" },
 ];
@@ -11,7 +11,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 function current(href: string) {
 	if (path === href) return "page";
 	if (path.startsWith(`${href}/`)) return "true";
-	// カテゴリはJournalの絞り込みなので、Journalを選択中にする
+	// カテゴリはBlogの絞り込みなので、Blogを選択中にする
 	if (href === "/blog" && path.startsWith("/category/")) return "true";
 	return undefined;
 }
