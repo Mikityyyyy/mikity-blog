@@ -46,6 +46,14 @@ const jsonLd = {
 			)
 		}
 
+		{
+			!work.video && work.image && (
+				<div class="work__video">
+					<img src={work.image.src} alt={work.image.alt} width={work.image.width} height={work.image.height} decoding="async" />
+				</div>
+			)
+		}
+
 		<div class="shell work__body">
 			<dl class="work__facts">
 				<div>
@@ -111,7 +119,10 @@ const jsonLd = {
 					)
 				}
 
-				<a href="/works" class="button button--ghost">Works一覧へ</a>
+				<div class="work__actions">
+					{work.story && <a href={work.story.href} class="button">{work.story.title}</a>}
+					<a href="/works" class="button button--ghost">Works一覧へ</a>
+				</div>
 			</div>
 		</div>
 	</article>

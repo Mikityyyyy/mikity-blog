@@ -15,7 +15,7 @@ import { works } from "../../lib/works";
 					<article class="story">
 						<a href={`/works/${work.slug}`} class="story__link">
 							<div class="story__media work-card__media">
-								<img class="story__img" src={work.video?.poster ?? work.ogImage} alt={`${work.title}の画面`} loading="lazy" decoding="async" />
+								<img class="story__img" src={work.video?.poster ?? work.image?.src ?? work.ogImage} alt={`${work.title}の画面`} loading="lazy" decoding="async" />
 							</div>
 							<div class="story__body">
 								<p class="story__meta">

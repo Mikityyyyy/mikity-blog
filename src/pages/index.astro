@@ -94,7 +94,7 @@ const latest = stories.slice(0, 6);
 								<div class="story__media work-card__media">
 									<img
 										class="story__img"
-										src={work.video?.poster ?? work.ogImage}
+										src={work.video?.poster ?? work.image?.src ?? work.ogImage}
 										alt={`${work.title}の画面`}
 										loading="lazy"
 										decoding="async"
