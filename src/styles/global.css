@@ -437,10 +437,6 @@ a.story__link:hover .story__title {
 	.story-grid {
 		grid-template-columns: 1fr;
 	}
-
-	.story__media {
-		aspect-ratio: 4 / 3;
-	}
 }
 
 .sample-notice {
