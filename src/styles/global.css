@@ -1044,7 +1044,14 @@ a.story__link:hover .story__title {
 	padding-inline: var(--gutter);
 }
 
-.work__video video {
+.work__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.work__video video,
+.work__video img {
 	display: block;
 	width: 100%;
 	height: auto;
