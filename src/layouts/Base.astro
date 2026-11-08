@@ -16,6 +16,7 @@ interface Props {
 	type?: "website" | "article";
 	publishedTime?: string | null;
 	modifiedTime?: string | null;
+	author?: string | null;
 	/** 記事ページではEmDashのSEO設定とプラグインの出力を適用する */
 	content?: { collection: string; id: string; slug?: string | null };
 	jsonLd?: Record<string, unknown>;
@@ -30,13 +31,17 @@ const {
 	type = "website",
 	publishedTime,
 	modifiedTime,
+	author = "Mikity",
 	content,
 	jsonLd,
 } = Astro.props;
 
+const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
 const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | ${siteTagline}`;
-const ogImage = new URL(image || defaultOgImage, Astro.url.origin).toString();
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const ogImage = new URL(image || defaultOgImage, siteOrigin).toString();
+const isErrorOrNoindex = Astro.response.status >= 400 || robots === "noindex";
+const canonicalUrl =
+	canonical === null || isErrorOrNoindex ? null : (canonical ?? new URL(Astro.url.pathname, siteOrigin).toString());
 
 const pageCtx = createPublicPageContext({
 	Astro,
@@ -49,8 +54,9 @@ const pageCtx = createPublicPageContext({
 	image: ogImage,
 	content,
 	seo: { ogImage, robots },
-	articleMeta: { publishedTime, modifiedTime, author: "Mikity" },
+	articleMeta: { publishedTime, modifiedTime, author },
 	siteName,
+	siteUrl: siteOrigin,
 });
 
 const serializedJsonLd = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : null;
@@ -67,7 +73,6 @@ const enableAnalytics = import.meta.env.PROD;
 		<Font cssVariable="--font-latin" preload />
 		<title>{fullTitle}</title>
 		<EmDashHead page={pageCtx} />
-		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:creator" content="@mikity__97" />
 		<meta property="og:locale" content="ja_JP" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />

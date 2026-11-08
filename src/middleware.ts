@@ -26,25 +26,32 @@ const publicCsp = [
 ].join("; ");
 
 export const onRequest = defineMiddleware(async (context, next) => {
-	// http・www付きのアクセスは https の正規ドメインへ転送する
+	// http・www付きのアクセスと末尾スラッシュ付きURLは、1回の転送で正規URLへ揃える（EmDashとAstroの内部パスは対象外）
 	const isWww = context.url.hostname === "www.mikitylife.com";
-	if (isWww || (context.url.protocol === "http:" && !import.meta.env.DEV)) {
+	const isHttp = context.url.protocol === "http:" && !import.meta.env.DEV;
+	const { pathname, search } = context.url;
+	const hasTrailingSlash = pathname.length > 1 && pathname.endsWith("/") && !pathname.startsWith("/_");
+	if (isWww || isHttp || hasTrailingSlash) {
 		const host = isWww ? "mikitylife.com" : context.url.host;
-		return context.redirect(`https://${host}${context.url.pathname}${context.url.search}`, 301);
-	}
-	// 末尾スラッシュ付きURLは正規のURLへ転送する（EmDashとAstroの内部パスは対象外）
-	const { pathname, origin, search } = context.url;
-	if (pathname.length > 1 && pathname.endsWith("/") && !pathname.startsWith("/_")) {
-		return context.redirect(`${origin}${pathname.replace(/\/+$/, "")}${search}`, 301);
+		const normalizedPath = hasTrailingSlash ? pathname.replace(/\/+$/, "") : pathname;
+		return context.redirect(`https://${host}${normalizedPath}${search}`, 301);
 	}
 	const response = await next();
 	for (const [key, value] of Object.entries(securityHeaders)) {
 		if (!response.headers.has(key)) response.headers.set(key, value);
 	}
+	// 管理画面用の workers.dev ドメインが検索結果に載らないようにする
+	if (context.url.hostname.endsWith(".workers.dev") && !response.headers.has("X-Robots-Tag")) {
+		response.headers.set("X-Robots-Tag", "noindex, nofollow");
+	}
 	const isAdmin = context.url.pathname.startsWith("/_emdash");
 	const isHtml = response.headers.get("Content-Type")?.includes("text/html");
-	if (!isAdmin && isHtml && !import.meta.env.DEV && !response.headers.has("Content-Security-Policy")) {
-		response.headers.set("Content-Security-Policy", publicCsp);
+	if (!isAdmin && !import.meta.env.DEV) {
+		// EmDashのミドルウェアは order: "pre" で外側にあり、この後で Server-Timing を付け直すため、ここで消しても本番には残る（中身は処理時間のみ）。EmDash側の順番が変わったときに効くよう残しておく。
+		response.headers.delete("Server-Timing");
+		if (isHtml && !response.headers.has("Content-Security-Policy")) {
+			response.headers.set("Content-Security-Policy", publicCsp);
+		}
 	}
 	return response;
 });

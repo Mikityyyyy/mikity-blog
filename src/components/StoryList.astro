@@ -8,9 +8,10 @@ interface Props {
 	stories: PostWithCategory[];
 	unavailable?: boolean;
 	emptyMessage?: string;
+	headingLevel?: "h2" | "h3";
 }
 
-const { stories, unavailable = false, emptyMessage = "最初の記事を準備しています。日々の記録はInstagramへ。" } = Astro.props;
+const { stories, unavailable = false, emptyMessage = "最初の記事を準備しています。日々の記録はInstagramへ。", headingLevel = "h3" } = Astro.props;
 const instagram = socialLinks.find((social) => social.label === "Instagram");
 ---
 
@@ -18,11 +19,11 @@ const instagram = socialLinks.find((social) => social.label === "Instagram");
 	stories.length > 0 ? (
 		<div class="story-grid">
 			{stories.map((story) => (
-				<StoryCard {...story} />
+				<StoryCard {...story} headingLevel={headingLevel} />
 			))}
 		</div>
 	) : showSampleStories && !unavailable ? (
-		<SampleStories />
+		<SampleStories headingLevel={headingLevel} />
 	) : (
 		<div class="empty-state">
 			<p>{unavailable ? "記事を読み込めませんでした。時間をおいて、もう一度お試しください。" : emptyMessage}</p>
