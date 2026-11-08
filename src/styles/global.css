@@ -374,7 +374,8 @@ main:focus {
 .story__media {
 	position: relative;
 	overflow: hidden;
-	aspect-ratio: 4 / 5;
+	/* 記事のメイン画像（noteの見出しと同じ 1280×670）を切らずに見せる */
+	aspect-ratio: 1280 / 670;
 	background: var(--bg-soft);
 }
 

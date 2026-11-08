@@ -24,7 +24,7 @@ const { post, category, headingLevel: Heading = "h3" } = Astro.props;
 		</div>
 		<div class="story__body">
 			<p class="story__meta">
-				<span>{category?.label ?? "JOURNAL"}</span>
+				<span>{category?.label ?? "BLOG"}</span>
 				{post.data.publishedAt && <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>}
 			</p>
 			<Heading class="story__title">{post.data.title}</Heading>

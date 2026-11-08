@@ -65,7 +65,7 @@ const readNext = await withCategories(recent.filter((entry) => entry.id !== post
 	<article class="article">
 		<header class="shell article__head">
 			<p class="article__kicker">
-				{category ? <a href={`/category/${category.slug}`}>{category.label}</a> : <span>JOURNAL</span>}
+				{category ? <a href={`/category/${category.slug}`}>{category.label}</a> : <span>BLOG</span>}
 				{publishedAt && <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt)}</time>}
 			</p>
 			<h1 class="article__title" {...post.edit.title}>{post.data.title}</h1>
@@ -101,7 +101,7 @@ const readNext = await withCategories(recent.filter((entry) => entry.id !== post
 					)
 				}
 				<div class="article__actions">
-					<a href="/blog" class="text-link">← Journal</a>
+					<a href="/blog" class="text-link">← Blog</a>
 					<a
 						class="text-link"
 						href={`https://x.com/intent/post?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.data.title)}`}
