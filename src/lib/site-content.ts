@@ -43,8 +43,10 @@ export const contentPillars = [
 
 export const currentGoals = [
   { label: "BIG 3", current: "505", unit: "kg", target: "520 KG" },
-  { label: "HYROX", current: "1:14:50", unit: "", target: "SUB 73" },
-  { label: "MARATHON", current: "3:51:58", unit: "", target: "SUB 3.5" },
+  // HYROXの記録はOpenの自己ベスト（2026/11 Seoul）、目標は2027/1のOsaka Pro
+  { label: "HYROX", current: "1:09:53", unit: "", target: "PRO SUB 85" },
+  // 目標は2026/12の湘南国際マラソン
+  { label: "MARATHON", current: "3:51:58", unit: "", target: "3:40–3:45" },
 ] as const;
 
 // レイアウト確認用の記事サンプル。EmDashには保存せず、開発サーバーでのみ表示する。
